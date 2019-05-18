@@ -1,0 +1,779 @@
+@charset "UTF-8";
+/*------------------------------------------------------------------------------
+
+        Theme Name: Firely
+        Description: Firely Parallax, HTML5, CSS3, responsive comming soon template
+        Author: Memories Dust
+        Version: 1.1
+        License: GNU General Public License version 3.0
+        License URI: http://www.gnu.org/licenses/gpl-3.0.html
+
+--------------------------------------------------------------------------------
+
+        0.	CSS Reset & Clearfix
+        1.	Setup
+        2.	Header
+        3.	Content
+        4.	Timer
+        5.	Modal
+        6.	Newsletter
+        7.	Social Icons
+        8.	Preload
+        9.	Background Image & Parallax
+        10.	Responsive
+
+/*----------------------------------------------------------------------------*/
+/*	0.	CSS Reset & Clearfix - http://meyerweb.com/eric/tools/css/reset/
+/*----------------------------------------------------------------------------*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td { margin: 0; padding: 0; border: 0; outline: 0; font-size: 100%; vertical-align: baseline; background: transparent; } body { line-height: 1; } ol, ul { list-style: none; } blockquote, q { quotes: none; } blockquote:before, blockquote:after, q:before, q:after { content: ''; content: none; } :focus { outline: 0; } ins { text-decoration: none; } del { text-decoration: line-through; } table { border-collapse: collapse; border-spacing: 0; }
+
+.clearfix:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; } .clearfix { display: inline-block; } /* Hide from IE Mac \*/ .clearfix { display: block; } /* End hide from IE Mac */ .none { display: none; } /* End Clearfix */
+
+/*----------------------------------------------------------------------------*/
+/*	1.	 Basic 
+/*----------------------------------------------------------------------------*/
+
+body {
+    background: #fff;
+    color: #fff;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+a { 
+    color: #fff;
+    text-decoration: none;
+    -webkit-transition: all .2s linear;
+    -moz-transition: all .2s linear;
+    -o-transition: all .2s linear;
+    -ms-transition: all .2s linear;
+    transition: all .2s linear;
+}
+
+a:hover { 
+    color: #ff4136;
+}
+
+.container{
+    text-align: center;
+    margin: 0% 5%;
+}
+
+/*----------------------------------------------------------------------------*/
+/*	2.	Header
+/*----------------------------------------------------------------------------*/
+
+#header{
+    text-align: center;
+    margin-top: 80px;
+    margin-bottom:40px;
+}
+
+#logo {
+    background: url("../images/logo.png") no-repeat center;
+    text-indent: -9999px; 
+    height: 100px;                        
+    width: auto;
+    white-space: nowrap; 
+}
+#logo a {
+    color: #fff;
+    font-size: 16px;
+    line-height: 1;
+    outline: none;
+}
+
+/*----------------------------------------------------------------------------*/
+/*	3.	Content
+/*----------------------------------------------------------------------------*/
+
+h1,
+p {
+    padding: 0;
+}
+
+h1 {
+    font-size: 42px;
+    font-weight: 100;
+    color: #fff;
+    line-height: 1.5;
+    margin-bottom: 40px;
+}
+
+p {
+    font-size: 16px;
+    color: #fff;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+h2, h3, h4, h5, h6 {
+	font-weight:normal;
+}
+
+strong, b {
+	font-weight:normal;
+}
+
+input, textarea, select {
+	font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.placeholder {
+	color:#86888c;
+}
+
+/*----------------------------------------------------------------------------*/
+/*	4.	Timer
+/*----------------------------------------------------------------------------*/
+
+#clock{
+    text-align: center;
+    margin: auto;
+    display: inline-block;
+    margin-bottom: 40px;
+}
+
+.clock-section{
+	margin-right:2px;
+    float: left;
+    padding: 20px 30px;
+	background:rgba(0,0,0,0.6);
+	border-radius:10px;
+}
+
+.clock-section span{
+    font-size: 60px;
+    font-weight: 100;
+    color: #fff;
+    line-height: 1.5;
+}
+
+#clock div:last-of-type{
+    margin-right:0;
+}
+
+#clock p{
+    margin-bottom: 0px;
+}
+
+/*----------------------------------------------------------------------------*/
+/*	5.	Modal 
+/*----------------------------------------------------------------------------*/
+
+#modal-open i,
+#modal-close i {
+	-webkit-border-bottom-right-radius: 50px;
+	-webkit-border-bottom-left-radius: 50px;
+	-moz-border-radius-bottomright: 50px;
+	-moz-border-radius-bottomleft: 50px;
+	border-bottom-right-radius: 50px;
+	border-bottom-left-radius: 50px;
+	position:absolute;
+	top:0;
+	left:50%;
+	margin:-5px 0 40px -27px;
+    text-align: center;
+    -webkit-transition: all .2s linear;
+    -moz-transition: all .2s linear;
+    -o-transition: all .2s linear;
+    -ms-transition: all .2s linear;
+    transition: all .2s linear;
+    font-size: 14px;
+    padding: 14px 0;
+	width:54px;
+}
+
+#modal-open i{
+    background: #fff;
+    color: #262624;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+#modal-open i:hover{
+    background: #262624;
+    color: #fff;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+	cursor:pointer;
+	margin-top:0px;
+}
+
+#modal-close i{
+    background: #fff;
+    color: #262624;
+}
+
+#modal-close i:hover{
+    color: #fff;
+    background: #ff4136;
+	margin-top:0px;
+}
+
+/* #modal-window {
+	position: absolute;
+	top:0;
+	right:0;
+    left: 0;
+} */
+
+#modal {
+    left: 0;
+    min-height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 997;
+    background: #222530;
+    display: none;
+}
+
+#modal .container {
+    padding-top: 62px;
+    text-align: center;
+    width:800px;
+    margin: 0 auto;
+}
+
+#modal .container .one{
+    float: left;
+    text-align: center;
+    width: 100%;
+}
+
+#modal .container .one-half{
+    float: left;
+    text-align: left;
+    width: 47%;
+    margin: 0 1.5%;
+}
+
+#modal .container .one-third{
+    float: left;
+    text-align: left;
+    width: 30.3%;
+    margin: 0 1.5%;
+}
+
+#modal .container .one-third:first-child{
+    margin: 0 1.5%;
+}
+
+#modal .widget-contact {
+	text-align:center;
+}
+
+#modal .big-icon {
+	font-size:3em;
+}
+
+#modal .container h2{
+    font-size: 28px;
+    font-weight: 100;
+    color: #fff;
+    text-transform: capitalize;
+    line-height: 1.5;
+    margin-bottom: 40px;
+}
+
+#modal .container h3{
+    width: 100%;
+    font-size: 14px;
+    color: #fff;
+    text-transform: uppercase;
+    line-height: 1.11111;
+    margin-bottom:20px;
+    letter-spacing: 0px;
+}
+
+#modal .container p{
+    color: #828C99;
+    margin-bottom:40px;
+    letter-spacing: 0px;
+}
+
+#modal .container ul{
+    margin-bottom:40px;
+    letter-spacing: 0px;
+}
+
+#modal .container ul li{
+    color: #f3f3f3;
+}
+
+#modal .container ul li i{
+    margin-right:8px; 
+    min-width: 16px;
+}
+
+#modal #contact-form {
+	text-align: center!important;
+	width: 100%;
+	margin: 35px auto;
+}
+
+#modal #contact-form input[type="text"],
+#modal #contact-form input[type="email"],
+#modal #contact-form input[type="date"],
+#modal #contact-form textarea {
+	font-size: 15px;
+	height: 40px;
+	line-height: 20px;
+	width: 100%;
+	padding: 14px 18px;
+	background: #272E3C;
+	color: #87898f;
+	margin-bottom: 20px;
+	border: 0;
+	-webkit-appearance: none;
+	border-radius: 2px;
+	display:block;
+	overflow:auto;
+	-webkit-transition: all .2s linear;
+    -moz-transition: all .2s linear;
+    -o-transition: all .2s linear;
+    -ms-transition: all .2s linear;
+    transition: all .2s linear;
+}
+
+#modal #contact-form input[type="text"]:focus,
+#modal #contact-form input[type="email"]:focus,
+#modal #contact-form input[type="date"]:focus,
+#modal #contact-form textarea:focus {
+	background-color: #3d4350;
+}
+
+#modal #contact-form textarea {
+	padding-top: 10px;
+	height: 160px;
+	resize: none;
+}
+
+#modal #contact-form button,
+#modal #contact-form input[type="submit"],
+#modal #contact-form input[type="button"] {
+	width:100%;
+	color: #fff;
+	font-size: 12px;
+	background: #3d4350;
+	border: 0;
+	text-transform: uppercase;
+	padding: 14px 18px;
+	letter-spacing: 0;
+	line-height: 14px;
+	cursor: pointer;
+	text-align: center;
+	-webkit-appearance: none;
+	border-radius: 2px;
+	-webkit-transition: all .2s linear;
+    -moz-transition: all .2s linear;
+    -o-transition: all .2s linear;
+    -ms-transition: all .2s linear;
+    transition: all .2s linear;
+}
+
+#modal #contact-form button:hover,
+#modal #contact-form input[type="submit"]:hover,
+#modal #contact-form input[type="button"]:hover {
+	background:#fff;
+	color:#555;
+}
+
+#modal #contact-form-message {
+	display:none;
+	padding: 10px;
+	margin: 10px 0;
+	background: #1D2029;
+	border-left: 3px solid #f0f0f0;
+}
+
+/*----------------------------------------------------------------------------*/
+/*	6.	Newsletter
+/*----------------------------------------------------------------------------*/
+
+.newsletter { 
+    text-align: center;
+    display: block; 
+    margin-bottom: 60px;  
+}
+
+.newsletter fieldset{ 
+    margin: 0px auto;
+    width: 500px;
+}
+
+.newsletter input,
+.newsletter textarea,
+.newsletter select { 
+    /* float: left; */
+    height: 54px;
+    width: 360px;
+    padding: 0px 20px;
+    background: #222;
+	background:rgba(0,0,0,0.55);
+    border: none;
+    color: #939898;
+    -webkit-border-top-left-radius: 2px;
+    -moz-border-radius-topleft: 2px;
+    border-top-left-radius: 2px;
+    -webkit-border-bottom-left-radius: 2px;
+    -moz-border-radius-bottomleft: 2px;
+    border-bottom-left-radius: 2px;
+    -webkit-transition: all .2s linear;
+    -moz-transition: all .2s linear;
+    -o-transition: all .2s linear;
+    -ms-transition: all .2s linear;
+    transition: all .2s linear;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.newsletter input:hover,
+.newsletter textarea:hover,
+.newsletter select:hover {
+	background: #2a2a2a;
+	background:rgba(0,0,0,0.7);
+	color:#f5f5f5;
+}
+.newsletter input:focus,
+.newsletter textarea:focus,
+.newsletter select:focus { 
+    background: #f7f6f6;
+	color: #939898;
+}
+
+.newsletter input.submit { 
+    float: right;
+    width: 140px;
+    cursor: pointer; 
+    border: none;
+    background:#262624;
+	background:rgba(0,0,0,0.6);
+    color:#fff; 
+    -webkit-border-top-left-radius: 0px;
+    -moz-border-radius-topleft: 0px;
+    border-top-left-radius: 0px;
+    -webkit-border-bottom-left-radius: 0px;
+    -moz-border-radius-bottomleft: 0px;
+    border-bottom-left-radius: 0px;
+    -webkit-border-bottom-right-radius: 2px;
+    -moz-border-radius-bottomright: 2px;
+    border-bottom-right-radius: 2px;
+    -webkit-border-top-right-radius: 2px;
+    -moz-border-radius-topright: 2px;
+    border-top-right-radius: 2px;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.newsletter input.submit:hover { 
+    background:#686e6e;
+    background:rgba(0,0,0,0.85);
+}
+
+.newsletter input[type="submit"][disabled] { 
+    background:#939898;
+    color:#fff;
+}
+
+.message{ 
+    position: absolute;
+    width: 500px;
+    left:50%;
+    margin-left: -250px;
+    text-align: center;
+    z-index: 995;
+}
+
+.error-message { 
+    margin-top: 16px;
+    color:#fff;
+    font-size: 16px;
+}
+
+.success-message{
+    margin-top: 16px;
+    color:#fff;
+    font-size: 16px;
+}
+
+/*----------------------------------------------------------------------------*/
+/*	7.	Social Icons
+/*----------------------------------------------------------------------------*/
+
+.social ul {
+	padding-left:0;
+}
+
+.social ul li{
+    display: inline-block;
+}
+
+.social li{
+	background:rgba(0,0,0,0.5);
+    border-radius: 10px;
+    -webkit-transition: all .2s linear;
+    -moz-transition: all .2s linear;
+    -o-transition: all .2s linear;
+    -ms-transition: all .2s linear;
+    transition: all .2s linear;
+}
+
+.social li:hover {
+	background:rgba(0,0,0,0.7);
+}
+
+.social i{
+    font-size: 14px;
+    padding: 18px 20px;
+    color: #fff;
+}
+
+/*----------------------------------------------------------------------------*/
+/*	8.	Preload
+/*----------------------------------------------------------------------------*/
+
+#preload {
+    background: #fff;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    position: fixed;	
+    z-index: 998;
+}
+
+#preload-content {
+    text-align: center;
+    height: 100px;
+    width: 100px;
+    left: 50%;
+    margin-left: -50px;
+    margin-top: -50px;
+    position: absolute;
+    top: 50%;
+    z-index: 999;
+}
+
+.preload-text {
+    margin-top:20px;
+    color: #262624;
+    font-size: 16px;
+    text-align: center;
+}
+
+/*----------------------------------------------------------------------------*/
+/*	9.	Background Image
+/*----------------------------------------------------------------------------*/
+
+.body-bg {
+    /*background: rgba(15,15,15,0.85);*/
+    background: url('../images/in-the-depths.jpg') center;
+	background-size:cover;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: -1;
+}
+
+.parallax-part {
+	background-size:cover !important;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: -1;
+}
+
+/* Spring Abstract */
+.parallax-bg {
+    background: url('../images/spring-abstract/bg.png') center;
+}
+.parallax-layer1 {
+    background: url('../images/spring-abstract/layer1.png') center;
+	z-index:1;
+}
+.parallax-layer2 {
+    background: url('../images/spring-abstract/layer2.png') center;
+	z-index:2;
+}
+.parallax-layer3 {
+    background: url('../images/spring-abstract/layer3.png') center;
+	z-index:3;
+}
+
+/* In the Depths */
+.parallax-bg {
+    background: url('../images/in-the-depths/low-res/bg.png') center;
+}
+.parallax-layer1 {
+    background: url('../images/in-the-depths/low-res/layer1.png') center;
+	z-index:1;
+}
+.parallax-layer2 {
+    background: url('../images/in-the-depths/low-res/layer2.png') center;
+	z-index:2;
+}
+.parallax-layer3 {
+    background: url('../images/in-the-depths/low-res/layer3.png') center;
+	z-index:3;
+}
+
+
+.scene,
+.layer {
+  display: block;
+  height: 110%;
+  width: 110%;
+  padding: 0;
+  margin: 0;
+}
+
+.scene {
+  min-height: 460px;
+  position: fixed;
+  overflow: hidden;
+  top:-50px;
+  bottom:50px;
+  right:50px;
+  left:-50px;
+  z-index:-1;
+}
+
+.layer {
+  position: absolute;
+}
+.layer div {
+  -webkit-transform: translate3d(0,0,0);
+  -moz-transform: translate3d(0,0,0);
+  transform: translate3d(0,0,0);
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+
+/*----------------------------------------------------------------------------*/
+/*	10.	Responsive
+/*----------------------------------------------------------------------------*/
+
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+
+    h1{
+        font-size: 34px;
+    }
+
+    .clock-section{
+        padding: 20px 40px;
+    }
+
+    .clock-section span{
+        font-size: 34px;
+    }
+
+    #clock p{
+        font-size: 14px;
+    }
+
+
+    .newsletter fieldset{ 
+        width: 380px;
+    }
+
+    .newsletter input, textarea, select { 
+        width: 280px;
+    }
+
+    .newsletter input.submit { 
+        width: 100px;
+    }
+
+    #modal .container {
+        width: 95%;
+		margin: auto 2.5%;
+    }
+
+}
+
+@media only screen and (max-width: 480px) {
+    h1{
+        font-size: 28px;
+        margin-bottom: 40px;
+    }
+
+    #clock{
+        margin-bottom: 40px;
+    }
+
+    .clock-section{
+        padding: 20px 13px;
+    }
+
+    .clock-section span{
+        font-size: 28px;
+    }
+
+    #clock p{
+        font-size: 12px;
+    }
+
+    .newsletter fieldset{ 
+        width: 285px;
+    }
+
+    .newsletter input, textarea, select { 
+        width: 190px;
+    }
+
+    .newsletter input.submit { 
+        width: 95px;
+    }
+
+    #modal .container {
+        width: 95%;
+		margin: auto 2.5%;
+    }
+
+    #modal .container .one-half{
+        width: 100%;
+    }
+	
+	#modal .container .one-third{
+        width: 100%;
+		margin:8px auto 10px;
+    }
+
+    #message{ 
+        width: 400px;
+        margin-left: -200px;
+    }
+
+    .error-message { 
+        margin-top: 18px;
+        font-size: 12px;
+    }
+
+    .success-message{
+        margin-top: 18px;
+        font-size: 12px;
+    }
+
+	.scene,
+	.layer {
+	  height: 120%;
+	  width: 120%;
+	}
+
+}
+

@@ -1,0 +1,260 @@
+@charset "UTF-8";
+/*----------------------------------------------------------------------------*/
+/*	1.	Modal_custom 
+/*----------------------------------------------------------------------------*/
+ 
+.modal_custom_custom-open i,
+.modal_custom_custom-close i {
+	-webkit-border-bottom-right-radius: 50px;
+	-webkit-border-bottom-left-radius: 50px;
+	-moz-border-radius-bottomright: 50px;
+	-moz-border-radius-bottomleft: 50px;
+	border-bottom-right-radius: 50px;
+	border-bottom-left-radius: 50px;
+	position:absolute;
+	top:0;
+	left:50%;
+	margin:-5px 0 40px -27px;
+    text-align: center;
+    -webkit-transition: all .2s linear;
+    -moz-transition: all .2s linear;
+    -o-transition: all .2s linear;
+    -ms-transition: all .2s linear;
+    transition: all .2s linear;
+    font-size: 14px;
+    padding: 14px 0;
+	width:54px;
+}
+
+.modal_custom_custom-open i{
+    background: #fff;
+    color: #262624;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.modal_custom_custom-open i:hover{
+    background: #262624;
+    color: #fff;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+	cursor:pointer;
+	margin-top:0px;
+}
+
+.modal_custom_custom-close i{
+    background: #fff;
+    color: #262624;
+}
+
+.modal_custom_custom-close i:hover{
+    color: #fff;
+    background: #ff4136;
+	margin-top:0px;
+}
+
+.modal_custom-window {
+	position: absolute;
+	top:0;
+	right:0;
+    left: 0;
+}
+
+.modal_custom {
+    left: 0;
+    min-height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 997;
+    background: #F2AE46;
+    display: none;
+}
+
+.modal_custom .container {
+    padding-top: 62px;
+    text-align: center;
+    width:800px;
+    margin: 0 auto;
+}
+
+.modal_custom .container .one{
+    float: left;
+    text-align: center;
+    width: 100%;
+}
+
+.modal_custom .container .one-half{
+    float: left;
+    text-align: left;
+    width: 47%;
+    margin: 0 1.5%;
+}
+
+.modal_custom .container .one-third{
+    float: left;
+    text-align: left;
+    width: 30.3%;
+    margin: 0 1.5%;
+}
+
+.modal_custom .container .one-third:first-child{
+    margin: 0 1.5%;
+}
+
+.modal_custom .widget-contact {
+	text-align:center;
+}
+
+.modal_custom .big-icon {
+	font-size:3em;
+}
+
+.modal_custom .container h2{
+    font-size: 28px;
+    font-weight: 100;
+    color: #fff;
+    text-transform: capitalize;
+    line-height: 1.5;
+    margin-bottom: 40px;
+}
+
+.modal_custom .container h3{
+    width: 100%;
+    font-size: 14px;
+    color: #fff;
+    text-transform: uppercase;
+    line-height: 1.11111;
+    margin-bottom:20px;
+    letter-spacing: 0px;
+}
+
+.modal_custom .container p{
+    color: #828C99;
+    margin-bottom:40px;
+    letter-spacing: 0px;
+}
+
+.modal_custom .container ul{
+    margin-bottom:40px;
+    letter-spacing: 0px;
+}
+
+.modal_custom .container ul li{
+    color: #f3f3f3;
+}
+
+.modal_custom .container ul li i{
+    margin-right:8px; 
+    min-width: 16px;
+}
+
+.modal_custom .contact-form {
+	text-align: center!important;
+	width: 100%;
+	margin: 35px auto;
+}
+
+.modal_custom .contact-form input[type="text"],
+.modal_custom .contact-form input[type="email"],
+.modal_custom .contact-form input[type="date"],
+.modal_custom .contact-form textarea {
+	font-size: 15px;
+	height: 40px;
+	line-height: 20px;
+	width: 100%;
+	padding: 14px 18px;
+	background: #272E3C;
+	color: #87898f;
+	margin-bottom: 20px;
+	border: 0;
+	-webkit-appearance: none;
+	border-radius: 2px;
+	display:block;
+	overflow:auto;
+	-webkit-transition: all .2s linear;
+    -moz-transition: all .2s linear;
+    -o-transition: all .2s linear;
+    -ms-transition: all .2s linear;
+    transition: all .2s linear;
+}
+
+.modal_custom .contact-form input[type="text"]:focus,
+.modal_custom .contact-form input[type="email"]:focus,
+.modal_custom .contact-form input[type="date"]:focus,
+.modal_custom .contact-form textarea:focus {
+	background-color: #3d4350;
+}
+
+.modal_custom .contact-form textarea {
+	padding-top: 10px;
+	height: 160px;
+	resize: none;
+}
+
+.modal_custom .contact-form button,
+.modal_custom .contact-form input[type="submit"],
+.modal_custom .contact-form input[type="button"] {
+	width:100%;
+	color: #fff;
+	font-size: 12px;
+	background: #3d4350;
+	border: 0;
+	text-transform: uppercase;
+	padding: 14px 18px;
+	letter-spacing: 0;
+	line-height: 14px;
+	cursor: pointer;
+	text-align: center;
+	-webkit-appearance: none;
+	border-radius: 2px;
+	-webkit-transition: all .2s linear;
+    -moz-transition: all .2s linear;
+    -o-transition: all .2s linear;
+    -ms-transition: all .2s linear;
+    transition: all .2s linear;
+}
+
+.modal_custom .contact-form button:hover,
+.modal_custom .contact-form input[type="submit"]:hover,
+.modal_custom .contact-form input[type="button"]:hover {
+	background:#fff;
+	color:#555;
+}
+
+.modal_custom .contact-form-message {
+	display:none;
+	padding: 10px;
+	margin: 10px 0;
+	background: #1D2029;
+	border-left: 3px solid #f0f0f0;
+}
+
+/*----------------------------------------------------------------------------*/
+/*	10.	Responsive
+/*----------------------------------------------------------------------------*/
+
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+
+    .modal_custom .container {
+        width: 95%;
+		margin: auto 2.5%;
+    }
+
+}
+
+@media only screen and (max-width: 480px) {
+
+    .modal_custom .container {
+        width: 95%;
+		margin: auto 2.5%;
+    }
+
+    .modal_custom .container .one-half{
+        width: 100%;
+    }
+	
+	.modal_custom .container .one-third{
+        width: 100%;
+		margin:8px auto 10px;
+    }
+
+}

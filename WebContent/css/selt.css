@@ -1,0 +1,113 @@
+@charset "UTF-8";
+hr {
+	border: 1px solid #fff;
+    margin-bottom: 20px;
+}
+.black_button {
+	border: 0 solid transparent;
+	padding: 15px 10%;
+    background: black;
+    color: #F2AE46;
+}
+
+.general_social_icons {
+	background: #FFCC66;
+	height: 69px;
+	width: 100%;
+}
+
+.general_social_icons ul {
+	text-align: center;
+}
+
+.nav-item {
+	margin-right: 0.5rem;
+	border-radius: 0px;
+	width: 20%;
+	height: 100%;
+}
+
+.nav-item img {
+	height: 50px;
+	width : auto;	
+}
+
+.nav-item p {
+	margin-bottom: 0px;
+	font-size : 12px;
+}
+
+.flipster__item img {
+	width : 50%;
+}
+
+.label {
+	margin-left:-18px;
+	width: 200px;
+    height: auto;
+    background: #000000a1;
+    border-radius: 0px 10px 10px 0px;
+}
+.label label {
+	font-size: 24px;
+}
+
+.section {
+	border-radius: 20px;
+	background: #ffffffbb;
+    position: relative;
+    margin: 0 auto;
+    max-width: 800px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+ 
+.row {
+	border-bottom:1px solid #E9E9E9;
+	padding-top:10px;
+	text-align: left;
+}
+.row .list {
+	display: inline-block;
+	width: 100%
+}
+.row .list li:nth-child(1) {
+	float : left;
+	text-align: center;
+	width: 40%
+}
+.row .list li:nth-child(2) {
+	float : left;
+	width: 60%;
+	position: relative;
+    top: 37px;
+}
+.one {
+	    margin-bottom: 40px;
+}
+.one .newsletter {
+	padding: 10px 0px;
+    margin-bottom: 0px;
+}
+.info {
+	height: 420px;
+}
+ .info li {
+ 	float: left;
+}
+.tab {
+	height: 44px;
+}
+.tab li {
+	float : left;
+	width: 33.3%;
+	height: 44px;
+}
+.tab li button {
+	width: 100%;
+}
+@media only screen and (min-width: 767px) {
+	.general_social_icons {
+		display: none;
+	}
+}
