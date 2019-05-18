@@ -7,7 +7,7 @@
 <meta name="description"content="Firely is a one page comming soon template using Parallax, HTML5, CSS3 and PHP">
 <meta name="author" content="Memories Dust">
 <meta name="viewport"content="width=device-width, initial-scale=1, maximum-scale=1">
-<%@ include file = "topCss.jsp" %>
+<%@ include file = "index_topCss.jsp" %>
 </head>
 <body>
 	<div id="modal-window">
@@ -122,6 +122,6 @@
 			<div class="body-bg"></div>
 		</li>
 	</ul>
-	<%@ include file="bottomJs.jsp" %>
+	<%@ include file="index_bottomJs.jsp" %>
 </body>
 </html>

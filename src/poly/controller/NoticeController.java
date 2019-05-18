@@ -60,19 +60,6 @@ public class NoticeController {
 		return "/home";
 	}
 	
-	@RequestMapping(value="beer")
-	public String beer(HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session) throws Exception{
-		
-		System.out.println("beer");
-		return "/beer";
-	}
-	
-	@RequestMapping(value="beer_detail")
-	public String beer_detail(HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session) throws Exception{
-		
-		System.out.println("beer_detail");
-		return "/beer_detail";
-	}
 	/**
 	 * 게시판 리스트 보여주기
 	 * */

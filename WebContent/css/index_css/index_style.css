@@ -576,7 +576,7 @@ input, textarea, select {
     background: url('../images/in-the-depths.jpg') center;
 	background-size:cover;
     height: 100%;
-    left: 0;
+    left: -6%;
     position: absolute;
     top: 0;
     width: 100%;

@@ -27,7 +27,7 @@ $(window).load(function() {
 /*----------------------------------------------------------------------------*/
 /*	3.	Clock Setup
 /*----------------------------------------------------------------------------*/
-    $('#clock').countdown('2019/06/17', function(event) {
+    $('#clock').countdown('2019/06/12', function(event) {
         $(this).html(event.strftime(''
                 + '<div class="clock-section"><span>%D</span> <p>days</p></div> '
                 + '<div class="clock-section"><span>%H</span> <p>hours</p></div> '
