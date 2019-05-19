@@ -46,169 +46,157 @@
         </div>
       </section>
       <!-- main -->
-      <div class="main">
-      	<!-- Notice -->
-        <section class="module" id="services">
+      <div class="main">      
+		<section class="module" id="Notice">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-6 col-sm-offset-3">
+						<h2 class="module-title font-alt">Notice</h2>
+						<!-- <div class="module-subtitle font-serif">A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.</div> -->
+					</div>
+				</div>
+				<div class="row multi-columns-row">
+	              <div class="col-sm-6">
+	                <div class="menu">
+	                  <div class="row">
+	                    <div class="col-sm-8">
+	                      <h4 class="menu-title font-alt">Wild Mushroom Bucatini with Kale</h4>
+	                      <div class="menu-detail font-serif">Mushroom / Veggie / White Sources</div>
+	                    </div>
+	                    <div class="col-sm-4 menu-price-detail">
+	                      <h4 class="menu-price font-alt">$10.5</h4>
+	                    </div>
+	                  </div>
+	                </div>
+	                <div class="menu">
+	                  <div class="row">
+	                    <div class="col-sm-8">
+	                      <h4 class="menu-title font-alt">Lemon and Garlic Green Beans</h4>
+	                      <div class="menu-detail font-serif">Lemon / Garlic / Beans</div>
+	                    </div>
+	                    <div class="col-sm-4 menu-price-detail">
+	                      <h4 class="menu-price font-alt">$14.5</h4>
+	                    </div>
+	                  </div>
+	                </div>
+	              </div>
+	              <div class="col-sm-6">
+	                <div class="menu">
+	                  <div class="row">
+	                    <div class="col-sm-8">
+	                      <h4 class="menu-title font-alt">Wild Mushroom Bucatini with Kale</h4>
+	                      <div class="menu-detail font-serif">Mushroom / Veggie / White Sources</div>
+	                    </div>
+	                    <div class="col-sm-4 menu-price-detail">
+	                      <h4 class="menu-price font-alt">$10.5</h4>
+	                    </div>
+	                  </div>
+	                </div>
+	                <div class="menu">
+	                  <div class="row">
+	                    <div class="col-sm-8">
+	                      <h4 class="menu-title font-alt">Lemon and Garlic Green Beans</h4>
+	                      <div class="menu-detail font-serif">Lemon / Garlic / Beans</div>
+	                    </div>
+	                    <div class="col-sm-4 menu-price-detail">
+	                      <h4 class="menu-price font-alt">$14.5</h4>
+	                    </div>
+	                  </div>
+	                </div>
+	              </div>
+            </div>
+				<!-- style css 입력 -->
+				<div class="pagination font-alt" style="width: 100%; text-align: center;">
+					<a href="#"><i class="fa fa-angle-left"></i></a>
+					<a class="active" href="#">1</a>
+					<a href="#">2</a>
+					<a href="#">3</a>
+					<a href="#">4</a>
+					<a href="#">
+					<i class="fa fa-angle-right"></i></a>
+				</div>
+			</div>
+		</section>
+		<hr class="divider-w">
+        <!-- Encryption -->
+        <section id="Encryption" class="module bg-dark-30 parallax-bg restaurant-menu-bg" data-background="assets/images/restaurant/meat_fish_bg.jpg" style="background-image: url(&quot;assets/images/restaurant/meat_fish_bg.jpg&quot;);">
           <div class="container">
             <div class="row">
-              <div class="col-sm-6 col-sm-offset-3">
-                <h2 class="module-title font-alt">Our Services</h2>
-                <div class="module-subtitle font-serif">A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.</div>
+              <div class="col-sm-2 col-sm-offset-5">
+                <div class="alt-module-subtitle"><span class="holder-w"></span>
+                  <h5 class="font-serif">암호화</h5><span class="holder-w"></span>
+                </div>
               </div>
             </div>
-            
-            <div class="row multi-columns-row">
-              <div class="col-md-3 col-sm-6 col-xs-12">
-                <div class="features-item">
-                  <div class="features-icon"><span class="icon-lightbulb"></span></div>
-                  <h3 class="features-title font-alt">Ideas and concepts</h3>
-                  <p>Careful attention to detail and clean, well structured code ensures a smooth user experience for all your visitors.</p>
-                </div>
-              </div>
-              <div class="col-md-3 col-sm-6 col-xs-12">
-                <div class="features-item">
-                  <div class="features-icon"><span class="icon-bike"></span></div>
-                  <h3 class="features-title font-alt">Optimised for speed</h3>
-                  <p>Careful attention to detail and clean, well structured code ensures a smooth user experience for all your visitors.</p>
-                </div>
-              </div>
-              <div class="col-md-3 col-sm-6 col-xs-12">
-                <div class="features-item">
-                  <div class="features-icon"><span class="icon-tools"></span></div>
-                  <h3 class="features-title font-alt">Designs &amp; interfaces</h3>
-                  <p>Careful attention to detail and clean, well structured code ensures a smooth user experience for all your visitors.</p>
-                </div>
-              </div>
-              <div class="col-md-3 col-sm-6 col-xs-12">
-                <div class="features-item">
-                  <div class="features-icon"><span class="icon-gears"></span></div>
-                  <h3 class="features-title font-alt">Highly customizable</h3>
-                  <p>Careful attention to detail and clean, well structured code ensures a smooth user experience for all your visitors.</p>
-                </div>
-              </div>
-              <div class="col-md-3 col-sm-6 col-xs-12">
-                <div class="features-item">
-                  <div class="features-icon"><span class="icon-tools-2"></span></div>
-                  <h3 class="features-title font-alt">Coding &amp; development</h3>
-                  <p>Careful attention to detail and clean, well structured code ensures a smooth user experience for all your visitors.</p>
-                </div>
-              </div>
-              <div class="col-md-3 col-sm-6 col-xs-12">
-                <div class="features-item">
-                  <div class="features-icon"><span class="icon-genius"></span></div>
-                  <h3 class="features-title font-alt">Features &amp; plugins</h3>
-                  <p>Careful attention to detail and clean, well structured code ensures a smooth user experience for all your visitors.</p>
-                </div>
-              </div>
-              <div class="col-md-3 col-sm-6 col-xs-12">
-                <div class="features-item">
-                  <div class="features-icon"><span class="icon-mobile"></span></div>
-                  <h3 class="features-title font-alt">Responsive design</h3>
-                  <p>Careful attention to detail and clean, well structured code ensures a smooth user experience for all your visitors.</p>
-                </div>
-              </div>
-              <div class="col-md-3 col-sm-6 col-xs-12">
-                <div class="features-item">
-                  <div class="features-icon"><span class="icon-lifesaver"></span></div>
-                  <h3 class="features-title font-alt">Dedicated support</h3>
-                  <p>Careful attention to detail and clean, well structured code ensures a smooth user experience for all your visitors.</p>
-                </div>
+            <div class="row">
+              <div class="col-sm-8 col-sm-offset-2">
+                <h2 class="module-title font-alt mb-0">Encryption</h2>
               </div>
             </div>
           </div>
         </section>
-		<hr class="divider-w">
-        <!-- Encryption -->
-		<section class="module bg-dark-60" data-background="assets/images/section-3.jpg" style="background-image: url(&quot;assets/images/section-3.jpg&quot;);">
+		<section class="module" data-background="assets/images/section-3.jpg" style="background-image: url(&quot;assets/images/section-3.jpg&quot;);">
           <div class="container">
-            <div class="row">
-              <div class="col-sm-6 col-sm-offset-3">
-                <h2 class="module-title font-alt">Scoreboard</h2>
-                <div class="module-subtitle font-serif"></div>
-              </div>
-            </div>
             <div class="row multi-columns-row">
               <div class="col-sm-6 col-md-3 col-lg-3">
                 <div class="count-item mb-sm-40">
                   <div class="count-icon"><span class="icon-wallet"></span></div>
                   <h3 class="count-to font-alt" data-countto="6543">6543</h3>
                   <h5 class="count-title font-serif">Dollars raised for charity</h5>
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-3 col-lg-3">
-                <div class="count-item mb-sm-40">
-                  <div class="count-icon"><span class="icon-wine"></span></div>
-                  <h3 class="count-to font-alt" data-countto="8">8</h3>
-                  <h5 class="count-title font-serif">Cups of wine consumed</h5>
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-3 col-lg-3">
-                <div class="count-item mb-sm-40">
-                  <div class="count-icon"><span class="icon-camera"></span></div>
-                  <h3 class="count-to font-alt" data-countto="184">184</h3>
-                  <h5 class="count-title font-serif">Photographs taken</h5>
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-3 col-lg-3">
-                <div class="count-item mb-sm-40">
-                  <div class="count-icon"><span class="icon-map-pin"></span></div>
-                  <h3 class="count-to font-alt" data-countto="32">32</h3>
-                  <h5 class="count-title font-serif">Locations covered</h5>
                 </div>
               </div>
             </div>
           </div>
         </section>
         <!-- Decryption -->
-        <section class="module bg-dark-60" data-background="assets/images/section-3.jpg" style="background-image: url(&quot;assets/images/section-3.jpg&quot;);">
+        <section id="Decryption" class="module bg-dark-30 parallax-bg restaurant-menu-bg" data-background="assets/images/restaurant/meat_fish_bg.jpg" style="background-image: url(&quot;assets/images/restaurant/meat_fish_bg.jpg&quot;);">
           <div class="container">
             <div class="row">
-              <div class="col-sm-6 col-sm-offset-3">
-                <h2 class="module-title font-alt">Scoreboard</h2>
-                <div class="module-subtitle font-serif"></div>
+              <div class="col-sm-2 col-sm-offset-5">
+                <div class="alt-module-subtitle"><span class="holder-w"></span>
+                  <h5 class="font-serif">복호화</h5><span class="holder-w"></span>
+                </div>
               </div>
             </div>
+            <div class="row">
+              <div class="col-sm-8 col-sm-offset-2">
+                <h2 class="module-title font-alt mb-0">Decryption</h2>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="module" data-background="assets/images/section-3.jpg" style="background-image: url(&quot;assets/images/section-3.jpg&quot;);">
+          <div class="container">
             <div class="row multi-columns-row">
               <div class="col-sm-6 col-md-3 col-lg-3">
                 <div class="count-item mb-sm-40">
                   <div class="count-icon"><span class="icon-wallet"></span></div>
                   <h3 class="count-to font-alt" data-countto="6543">6543</h3>
                   <h5 class="count-title font-serif">Dollars raised for charity</h5>
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-3 col-lg-3">
-                <div class="count-item mb-sm-40">
-                  <div class="count-icon"><span class="icon-wine"></span></div>
-                  <h3 class="count-to font-alt" data-countto="8">8</h3>
-                  <h5 class="count-title font-serif">Cups of wine consumed</h5>
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-3 col-lg-3">
-                <div class="count-item mb-sm-40">
-                  <div class="count-icon"><span class="icon-camera"></span></div>
-                  <h3 class="count-to font-alt" data-countto="184">184</h3>
-                  <h5 class="count-title font-serif">Photographs taken</h5>
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-3 col-lg-3">
-                <div class="count-item mb-sm-40">
-                  <div class="count-icon"><span class="icon-map-pin"></span></div>
-                  <h3 class="count-to font-alt" data-countto="32">32</h3>
-                  <h5 class="count-title font-serif">Locations covered</h5>
                 </div>
               </div>
             </div>
           </div>
         </section>
         <!-- Drive -->
-        <section class="module bg-dark-60" data-background="assets/images/section-3.jpg" style="background-image: url(&quot;assets/images/section-3.jpg&quot;);">
+        <section id="Drive" class="module bg-dark-30 parallax-bg restaurant-menu-bg" data-background="assets/images/restaurant/meat_fish_bg.jpg" style="background-image: url(&quot;assets/images/restaurant/meat_fish_bg.jpg&quot;);">
           <div class="container">
             <div class="row">
-              <div class="col-sm-6 col-sm-offset-3">
-                <h2 class="module-title font-alt">Scoreboard</h2>
-                <div class="module-subtitle font-serif"></div>
+              <div class="col-sm-2 col-sm-offset-5">
+                <div class="alt-module-subtitle"><span class="holder-w"></span>
+                  <h5 class="font-serif">드라이브</h5><span class="holder-w"></span>
+                </div>
               </div>
             </div>
+            <div class="row">
+              <div class="col-sm-8 col-sm-offset-2">
+                <h2 class="module-title font-alt mb-0">Drive</h2>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="module" data-background="assets/images/section-3.jpg" style="background-image: url(&quot;assets/images/section-3.jpg&quot;);">
+          <div class="container">
             <div class="row multi-columns-row">
               <div class="col-sm-6 col-md-3 col-lg-3">
                 <div class="count-item mb-sm-40">
@@ -217,86 +205,20 @@
                   <h5 class="count-title font-serif">Dollars raised for charity</h5>
                 </div>
               </div>
-              <div class="col-sm-6 col-md-3 col-lg-3">
-                <div class="count-item mb-sm-40">
-                  <div class="count-icon"><span class="icon-wine"></span></div>
-                  <h3 class="count-to font-alt" data-countto="8">8</h3>
-                  <h5 class="count-title font-serif">Cups of wine consumed</h5>
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-3 col-lg-3">
-                <div class="count-item mb-sm-40">
-                  <div class="count-icon"><span class="icon-camera"></span></div>
-                  <h3 class="count-to font-alt" data-countto="184">184</h3>
-                  <h5 class="count-title font-serif">Photographs taken</h5>
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-3 col-lg-3">
-                <div class="count-item mb-sm-40">
-                  <div class="count-icon"><span class="icon-map-pin"></span></div>
-                  <h3 class="count-to font-alt" data-countto="32">32</h3>
-                  <h5 class="count-title font-serif">Locations covered</h5>
-                </div>
-              </div>
             </div>
           </div>
         </section>
-        <hr class="divider-d">
+        <hr class="divider-w">
         <!-- footer -->
         <div class="module-small bg-dark">
           <div class="container">
             <div class="row">
               <div class="col-sm-3">
                 <div class="widget">
-                  <h5 class="widget-title font-alt">About Titan</h5>
-                  <p>The languages only differ in their grammar, their pronunciation and their most common words.</p>
-                  <p>Phone: +1 234 567 89 10</p>Fax: +1 234 567 89 10
-                  <p>Email:<a href="#">somecompany@example.com</a></p>
-                </div>
-              </div>
-              <div class="col-sm-3">
-                <div class="widget">
-                  <h5 class="widget-title font-alt">Recent Comments</h5>
-                  <ul class="icon-list">
-                    <li>Maria on <a href="#">Designer Desk Essentials</a></li>
-                    <li>John on <a href="#">Realistic Business Card Mockup</a></li>
-                    <li>Andy on <a href="#">Eco bag Mockup</a></li>
-                    <li>Jack on <a href="#">Bottle Mockup</a></li>
-                    <li>Mark on <a href="#">Our trip to the Alps</a></li>
-                  </ul>
-                </div>
-              </div>
-              <div class="col-sm-3">
-                <div class="widget">
-                  <h5 class="widget-title font-alt">Blog Categories</h5>
-                  <ul class="icon-list">
-                    <li><a href="#">Photography - 7</a></li>
-                    <li><a href="#">Web Design - 3</a></li>
-                    <li><a href="#">Illustration - 12</a></li>
-                    <li><a href="#">Marketing - 1</a></li>
-                    <li><a href="#">Wordpress - 16</a></li>
-                  </ul>
-                </div>
-              </div>
-              <div class="col-sm-3">
-                <div class="widget">
-                  <h5 class="widget-title font-alt">Popular Posts</h5>
-                  <ul class="widget-posts">
-                    <li class="clearfix">
-                      <div class="widget-posts-image"><a href="#"><img src="assets/images/rp-1.jpg" alt="Post Thumbnail"></a></div>
-                      <div class="widget-posts-body">
-                        <div class="widget-posts-title"><a href="#">Designer Desk Essentials</a></div>
-                        <div class="widget-posts-meta">23 january</div>
-                      </div>
-                    </li>
-                    <li class="clearfix">
-                      <div class="widget-posts-image"><a href="#"><img src="assets/images/rp-2.jpg" alt="Post Thumbnail"></a></div>
-                      <div class="widget-posts-body">
-                        <div class="widget-posts-title"><a href="#">Realistic Business Card Mockup</a></div>
-                        <div class="widget-posts-meta">15 February</div>
-                      </div>
-                    </li>
-                  </ul>
+                  <h5 class="widget-title font-alt">About</h5>
+                  <p>2019년 개인프로젝트 실습, 나만의 암호화/복호화 서비</p>
+                  <p>Phone: 010-7225-3398</p>
+                  <p>Email:<a href="#">gihum@naver.com</a></p>
                 </div>
               </div>
             </div>
@@ -306,7 +228,7 @@
           <div class="container">
             <div class="row">
               <div class="col-sm-6">
-                <p class="copyright font-alt">&copy; 2017&nbsp;<a href="index.html">TitaN</a>, All Rights Reserved</p>
+                <p class="copyright font-alt">&copy; 2019&nbsp;<a href="home.do">gihum</a>, All Rights Reserved</p>
               </div>
               <div class="col-sm-6">
                 <div class="footer-social-links"><a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-dribbble"></i></a><a href="#"><i class="fa fa-skype"></i></a>
