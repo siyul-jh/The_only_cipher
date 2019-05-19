@@ -23,7 +23,13 @@
       <nav class="navbar navbar-custom navbar-transparent navbar-fixed-top one-page" role="navigation">
         <div class="container">
           <div class="navbar-header">
-            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#custom-collapse"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="index.html">Titan</a>
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#custom-collapse">
+	            <span class="sr-only">Toggle navigation</span>
+	            <span class="icon-bar"></span>
+	            <span class="icon-bar"></span>
+	            <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html">The Only Cipher</a>
           </div>
           <div class="collapse navbar-collapse" id="custom-collapse">
             <ul class="nav navbar-nav navbar-right">
@@ -41,7 +47,8 @@
         <div class="titan-caption">
           <div class="caption-content">
             <div class="font-alt mb-30 titan-title-size-1">Hello &amp; welcome</div>
-            <div class="font-alt mb-40 titan-title-size-4">We are Titan</div><a class="section-scroll btn btn-border-w btn-round" href="#">Learn More</a>
+            <div class="font-alt mb-40 titan-title-size-4">The Only Cipher</div>
+            <!-- <a class="section-scroll btn btn-border-w btn-round" href="#">Learn More</a> -->
           </div>
         </div>
       </section>
