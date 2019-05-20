@@ -8,4 +8,4 @@
 <link rel="stylesheet" href="/css/index_css/index_style.css" />
 <link rel="stylesheet" href="/css/index_css/selt.css" />
 <link rel="stylesheet" href="/css/index_css/jquery.flipster.min.css" />
-<script type="text/javascript" src="/js/modernizr.custom.js"></script>
+<script type="text/javascript" src="/js/index_js/modernizr.custom.js"></script>

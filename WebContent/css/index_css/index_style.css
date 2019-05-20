@@ -73,8 +73,8 @@ a:hover {
 }
 
 #logo {
-    background: url("../images/logo.png") no-repeat center;
-    text-indent: -9999px; 
+    background: url("/images/logo.png") no-repeat center;
+    text-indent: -9999px;
     height: 100px;                        
     width: auto;
     white-space: nowrap; 
