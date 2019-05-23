@@ -573,7 +573,7 @@ input, textarea, select {
 
 .body-bg {
     /*background: rgba(15,15,15,0.85);*/
-    background: url('../images/in-the-depths.jpg') center;
+    background: url('images/in-the-depths.jpg') center;
 	background-size:cover;
     height: 100%;
     left: -6%;

@@ -89,7 +89,6 @@
 					$(this).css('border', '2px dotted #0B85A1');
 				    e.preventDefault();
 				    var files = e.originalEvent.dataTransfer.files;
-					console.table(files);
 				    handleFileUpload(files,objDragAndDrop);
 				});
 				
@@ -120,18 +119,14 @@
 				 
 				   }
 				}
-				
 				var rowCount=0;
 				function createStatusbar(obj){
 						
-				    rowCount++;
-				    var row="odd";
-				    if(rowCount %2 ==0) row ="even";
-				    this.statusbar = $("<div class='statusbar "+row+"'></div>");
+				    this.statusbar = $("<div class='statusbar'></div>");
 				    this.filename = $("<div class='filename'></div>").appendTo(this.statusbar);
 				    this.size = $("<div class='filesize'></div>").appendTo(this.statusbar);
 				    this.progressBar = $("<div class='progressBar'><div></div></div>").appendTo(this.statusbar);
-				    this.abort = $("<div class='abort'>중지</div>").appendTo(this.statusbar);
+				    this.abort = $("<div class='abort'>삭제</div>").appendTo(this.statusbar);
 				    
 				    obj.after(this.statusbar);
 				 
@@ -204,9 +199,16 @@
 				}
 			});
 		</script>
+  		<script type="text/javascript">
+ 			$(document).on( "click", ".filename", function(){
+				var FileName = $(this).text();
+				location.href="filedown.do?FileName=" + FileName;
+			})
+		</script>
 	</head>
-	
+
 	<body>
 		<div id="fileUpload" class="dragAndDropDiv">Drag & Drop Files Here</div>
+		<button id="download">Download Files Click</button>
 	</body>
 </html>

@@ -46,7 +46,7 @@ public class NoticeController {
 		return "/index";
 	}
 	
-	@RequestMapping(value="Soucre/error")
+	@RequestMapping(value="/Soucre/error")
 	public String error(HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session) throws Exception{
 		
 		System.out.println("error");
