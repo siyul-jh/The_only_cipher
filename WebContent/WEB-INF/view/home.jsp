@@ -11,8 +11,13 @@
 <!--     <link rel="manifest" href="/manifest.json"> -->
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="theme-color" content="#ffffff">
-
     <%@ include file="Source/home_topCss.jsp" %>
+	<script type="text/javascript">
+		$(document).on( "click", ".filename", function(){
+			var FileName = $(this).text();
+			location.href="filedown.do?FileName=" + FileName;
+		})
+	</script>
   </head>
   <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
     <main>
@@ -145,11 +150,11 @@
 		<section class="module" data-background="assets/images/section-3.jpg" style="background-image: url(&quot;assets/images/section-3.jpg&quot;);">
           <div class="container">
             <div class="row multi-columns-row">
-              <div class="col-sm-6 col-md-3 col-lg-3">
+              <div class="col-sm-3 col-md-12 col-lg-12">
                 <div class="count-item mb-sm-40">
-                  <div class="count-icon"><span class="icon-wallet"></span></div>
-                  <h3 class="count-to font-alt" data-countto="6543">6543</h3>
-                  <h5 class="count-title font-serif">Dollars raised for charity</h5>
+					<div class="row">
+						<div id="fileUpload" class="dragAndDropDiv">Drag & Drop Files Here</div>
+					</div>
                 </div>
               </div>
             </div>
@@ -175,11 +180,11 @@
         <section class="module" data-background="assets/images/section-3.jpg" style="background-image: url(&quot;assets/images/section-3.jpg&quot;);">
           <div class="container">
             <div class="row multi-columns-row">
-              <div class="col-sm-6 col-md-3 col-lg-3">
+              <div class="col-sm-3 col-md-12 col-lg-12">
                 <div class="count-item mb-sm-40">
-                  <div class="count-icon"><span class="icon-wallet"></span></div>
-                  <h3 class="count-to font-alt" data-countto="6543">6543</h3>
-                  <h5 class="count-title font-serif">Dollars raised for charity</h5>
+					<div class="row">
+						<div id="fileUpload" class="dragAndDropDiv">Drag & Drop Files Here</div>
+					</div>
                 </div>
               </div>
             </div>

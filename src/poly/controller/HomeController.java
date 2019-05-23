@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.util.Iterator;
 import java.util.Map;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -84,8 +85,17 @@ public class HomeController {
     		response.setHeader("Content-Transfer-Encoding", "binary");
     		
     		FileInputStream fis = new FileInputStream(file); //파일 읽어오기
-            
+    		ServletOutputStream sout = response.getOutputStream();
+    		
+    		byte[] buf = new byte[1024];
+            int size = -1;
+
+            while ((size = fis.read(buf, 0, buf.length)) != -1) {
+                sout.write(buf, 0, size);
+            }
+
 			fis.close();
+			sout.close();
         } 
         catch (Exception e) {
             e.printStackTrace();
