@@ -573,7 +573,7 @@ input, textarea, select {
 
 .body-bg {
     /*background: rgba(15,15,15,0.85);*/
-    background: url('images/in-the-depths.jpg') center;
+    background: url('/images/in-the-depths.jpg') center;
 	background-size:cover;
     height: 100%;
     left: -6%;
@@ -595,35 +595,35 @@ input, textarea, select {
 
 /* Spring Abstract */
 .parallax-bg {
-    background: url('../images/spring-abstract/bg.png') center;
+    background: url('/images/bg.png') center;
 }
 .parallax-layer1 {
-    background: url('../images/spring-abstract/layer1.png') center;
+    background: url('/images/layer1.png') center;
 	z-index:1;
 }
 .parallax-layer2 {
-    background: url('../images/spring-abstract/layer2.png') center;
+    background: url('/images/layer2.png') center;
 	z-index:2;
 }
 .parallax-layer3 {
-    background: url('../images/spring-abstract/layer3.png') center;
+    background: url('/images/layer3.png') center;
 	z-index:3;
 }
 
 /* In the Depths */
 .parallax-bg {
-    background: url('../images/in-the-depths/low-res/bg.png') center;
+    background: url('/images/low-res/bg.png') center;
 }
 .parallax-layer1 {
-    background: url('../images/in-the-depths/low-res/layer1.png') center;
+    background: url('/images/layer1.png') center;
 	z-index:1;
 }
 .parallax-layer2 {
-    background: url('../images/in-the-depths/low-res/layer2.png') center;
+    background: url('/images/layer2.png') center;
 	z-index:2;
 }
 .parallax-layer3 {
-    background: url('../images/in-the-depths/low-res/layer3.png') center;
+    background: url('/images/layer3.png') center;
 	z-index:3;
 }
 

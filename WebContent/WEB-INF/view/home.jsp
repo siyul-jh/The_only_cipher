@@ -15,7 +15,7 @@
 	<script type="text/javascript">
 		$(document).on( "click", ".filename", function(){
 			var FileName = $(this).text();
-			location.href="filedown.do?FileName=" + FileName;
+			location.href="filedownload.do?FileName=" + FileName;
 		})
 	</script>
   </head>

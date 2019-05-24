@@ -21,6 +21,7 @@
 <link href="/css/home_css/fileupload_download.css" rel="stylesheet">
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.js"></script>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <<script type="text/javascript">
 <!-- JS 파일로 만들기//-->
 
@@ -117,7 +118,7 @@
 		
 		function sendFileToServer(formData,status)
 		{
-			var uploadURL = "/fileUpload/post.do"; //Upload URL
+			var uploadURL = "/fileUpload.do"; //Upload URL
 		    var extraData ={}; //Extra Data.
 		    var jqXHR=$.ajax({
 		            xhr: function() {

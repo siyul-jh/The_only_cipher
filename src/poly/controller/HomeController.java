@@ -29,7 +29,7 @@ public class HomeController {
 	return "/fileUpload";
 	}
 	
-    @RequestMapping(value = "fileUpload/post") //ajax에서 호출하는 부분\
+    @RequestMapping(value = "fileUpload") //ajax에서 호출하는 부분\
     //  파일 업로드
     @ResponseBody
     public String upload(HttpServletRequest request, MultipartHttpServletRequest multipartRequest) { //Multipart로 받는다.
@@ -68,7 +68,7 @@ public class HomeController {
     }
     // 파일 다운로드
     
-    @RequestMapping(value = "filedown") //ajax에서 호출하는 부분\
+    @RequestMapping(value = "filedownload") //ajax에서 호출하는 부분\
 	public String downloadFile(@RequestParam("FileName") String FileName, Map<String, Object> map, HttpServletResponse response) throws Exception{
 		System.out.println("downloadFile");
 		String path = "D:\\The only cipher\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\The only cipher\\Temp"; //경로 지정해주기

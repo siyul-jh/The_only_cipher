@@ -12,7 +12,6 @@
 <script src="/js/home_js/smoothscroll.js"></script>
 <script src="/js/home_js/jquery.magnific-popup.js"></script>
 <script src="/js/home_js/jquery.simple-text-rotator.min.js"></script>
-<script async="" defer="" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDK2Axt8xiFYMBMDwwG1XzBQvEbYpzCvFU"></script>
 <script src="/js/home_js/plugins.js"></script>
 <script src="/js/home_js/main.js"></script>
 
