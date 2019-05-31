@@ -1,3 +1,4 @@
+<%@ page import="poly.util.CmmUtil" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <html>
@@ -8,6 +9,9 @@
 <meta name="author" content="Memories Dust">
 <meta name="viewport"content="width=device-width, initial-scale=1, maximum-scale=1">
 <%@ include file = "Source/index_topCss.jsp" %>
+<% 
+	String user_id = CmmUtil.nvl((String) session.getAttribute("user_id"));
+%>
 </head>
 <body>
 	<div id="modal-window">
@@ -41,8 +45,12 @@
 				</form>  -->
 			</div>
 			<div>
+			<%if(user_id == "") { %>
 				<div><p><a id="modal_sign_in" class="black_button" href="#">Sign in <i class="fa fa-sign-in-alt"></i></a></p></div>
 				<div><p><strong>The Only Cipher</strong> 회원이 아니신가요? <a id="modal_sign_up" href="#">Sign up </a></p></div>
+				<%} else { %>
+				<div><p><a class="black_button" href="/home.do">홈페이지<i class="fa fa-sign-in-alt"></i></a></p></div>
+				<%}%>
 			</div>
 		</div>
 	</div>

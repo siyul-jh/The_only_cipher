@@ -1,304 +1,252 @@
-// SmoothScroll v0.9.9
-// Licensed under the terms of the MIT license.
+(function($) {
+var version = '1.5.2',
+    optionOverrides = {},
+    defaults = {
+      exclude: [],
+      excludeWithin:[],
+      offset: 0,
 
-// People involved
-// - Balazs Galambosi: maintainer (CHANGELOG.txt)
-// - Patrick Brunner (patrickb1991@gmail.com)
-// - Michael Herf: ssc_pulse Algorithm
+      // one of 'top' or 'left'
+      direction: 'top',
 
-function ssc_init() {
-    if (!document.body) return;
-    var e = document.body;
-    var t = document.documentElement;
-    var n = window.innerHeight;
-    var r = e.scrollHeight;
-    ssc_root = document.compatMode.indexOf("CSS") >= 0 ? t : e;
-    ssc_activeElement = e;
-    ssc_initdone = true;
-    if (top != self) {
-        ssc_frame = true
-    } else if (r > n && (e.offsetHeight <= n || t.offsetHeight <= n)) {
-        ssc_root.style.height = "auto";
-        if (ssc_root.offsetHeight <= n) {
-            var i = document.createElement("div");
-            i.style.clear = "both";
-            e.appendChild(i)
-        }
-    }
-    if (!ssc_fixedback) {
-        e.style.backgroundAttachment = "scroll";
-        t.style.backgroundAttachment = "scroll"
-    }
-    if (ssc_keyboardsupport) {
-        ssc_addEvent("keydown", ssc_keydown)
-    }
-}
+      // jQuery set of elements you wish to scroll (for $.smoothScroll).
+      //  if null (default), $('html, body').firstScrollable() is used.
+      scrollElement: null,
 
-function ssc_scrollArray(e, t, n, r) {
-    r || (r = 1e3);
-    ssc_directionCheck(t, n);
-    ssc_que.push({
-        x: t,
-        y: n,
-        lastX: t < 0 ? .99 : -.99,
-        lastY: n < 0 ? .99 : -.99,
-        start: +(new Date)
-    });
-    if (ssc_pending) {
-        return
-    }
-    var i = function () {
-        var s = +(new Date);
-        var o = 0;
-        var u = 0;
-        for (var a = 0; a < ssc_que.length; a++) {
-            var f = ssc_que[a];
-            var l = s - f.start;
-            var c = l >= ssc_animtime;
-            var h = c ? 1 : l / ssc_animtime;
-            if (ssc_pulseAlgorithm) {
-                h = ssc_pulse(h)
-            }
-            var p = f.x * h - f.lastX >> 0;
-            var d = f.y * h - f.lastY >> 0;
-            o += p;
-            u += d;
-            f.lastX += p;
-            f.lastY += d;
-            if (c) {
-                ssc_que.splice(a, 1);
-                a--
-            }
-        }
-        if (t) {
-            var v = e.scrollLeft;
-            e.scrollLeft += o;
-            if (o && e.scrollLeft === v) {
-                t = 0
-            }
-        }
-        if (n) {
-            var m = e.scrollTop;
-            e.scrollTop += u;
-            if (u && e.scrollTop === m) {
-                n = 0
-            }
-        }
-        if (!t && !n) {
-            ssc_que = []
-        }
-        if (ssc_que.length) {
-            setTimeout(i, r / ssc_framerate + 1)
+      // only use if you want to override default behavior
+      scrollTarget: null,
+
+      // fn(opts) function to be called before scrolling occurs.
+      // `this` is the element(s) being scrolled
+      beforeScroll: function() {},
+
+      // fn(opts) function to be called after scrolling occurs.
+      // `this` is the triggering element
+      afterScroll: function() {},
+      easing: 'swing',
+      speed: 400,
+
+      // coefficient for "auto" speed
+      autoCoefficient: 2,
+
+      // $.fn.smoothScroll only: whether to prevent the default click action
+      preventDefault: true
+    },
+
+    getScrollable = function(opts) {
+      var scrollable = [],
+          scrolled = false,
+          dir = opts.dir && opts.dir === 'left' ? 'scrollLeft' : 'scrollTop';
+
+      this.each(function() {
+
+        if (this === document || this === window) { return; }
+        var el = $(this);
+        if ( el[dir]() > 0 ) {
+          scrollable.push(this);
         } else {
-            ssc_pending = false
+          // if scroll(Top|Left) === 0, nudge the element 1px and see if it moves
+          el[dir](1);
+          scrolled = el[dir]() > 0;
+          if ( scrolled ) {
+            scrollable.push(this);
+          }
+          // then put it back, of course
+          el[dir](0);
         }
+      });
+
+      // If no scrollable elements, fall back to <body>,
+      // if it's in the jQuery collection
+      // (doing this because Safari sets scrollTop async,
+      // so can't set it to 1 and immediately get the value.)
+      if (!scrollable.length) {
+        this.each(function() {
+          if (this.nodeName === 'BODY') {
+            scrollable = [this];
+          }
+        });
+      }
+
+      // Use the first scrollable element if we're calling firstScrollable()
+      if ( opts.el === 'first' && scrollable.length > 1 ) {
+        scrollable = [ scrollable[0] ];
+      }
+
+      return scrollable;
     };
-    setTimeout(i, 0);
-    ssc_pending = true
-}
 
-function ssc_wheel(e) {
-    if (!ssc_initdone) {
-        ssc_init()
-    }
-    var t = e.target;
-    var n = ssc_overflowingAncestor(t);
-    if (!n || e.defaultPrevented || ssc_isNodeName(ssc_activeElement, "embed") || ssc_isNodeName(t, "embed") && /\.pdf/i.test(t.src)) {
-        return true
-    }
-    var r = e.wheelDeltaX || 0;
-    var i = e.wheelDeltaY || 0;
-    if (!r && !i) {
-        i = e.wheelDelta || 0
-    }
-    if (Math.abs(r) > 1.2) {
-        r *= ssc_stepsize / 120
-    }
-    if (Math.abs(i) > 1.2) {
-        i *= ssc_stepsize / 120
-    }
-    ssc_scrollArray(n, -r, -i);
-    e.preventDefault()
-}
+$.fn.extend({
+  scrollable: function(dir) {
+    var scrl = getScrollable.call(this, {dir: dir});
+    return this.pushStack(scrl);
+  },
+  firstScrollable: function(dir) {
+    var scrl = getScrollable.call(this, {el: 'first', dir: dir});
+    return this.pushStack(scrl);
+  },
 
-function ssc_keydown(e) {
-    var t = e.target;
-    var n = e.ctrlKey || e.altKey || e.metaKey;
-    if (/input|textarea|embed/i.test(t.nodeName) || t.isContentEditable || e.defaultPrevented || n) {
-        return true
-    }
-    if (ssc_isNodeName(t, "button") && e.keyCode === ssc_key.spacebar) {
-        return true
-    }
-    var r, i = 0,
-        s = 0;
-    var o = ssc_overflowingAncestor(ssc_activeElement);
-    var u = o.clientHeight;
-    if (o == document.body) {
-        u = window.innerHeight
-    }
-    switch (e.keyCode) {
-    case ssc_key.up:
-        s = -ssc_arrowscroll;
-        break;
-    case ssc_key.down:
-        s = ssc_arrowscroll;
-        break;
-    case ssc_key.spacebar:
-        r = e.shiftKey ? 1 : -1;
-        s = -r * u * .9;
-        break;
-    case ssc_key.pageup:
-        s = -u * .9;
-        break;
-    case ssc_key.pagedown:
-        s = u * .9;
-        break;
-    case ssc_key.home:
-        s = -o.scrollTop;
-        break;
-    case ssc_key.end:
-        var a = o.scrollHeight - o.scrollTop - u;
-        s = a > 0 ? a + 10 : 0;
-        break;
-    case ssc_key.left:
-        i = -ssc_arrowscroll;
-        break;
-    case ssc_key.right:
-        i = ssc_arrowscroll;
-        break;
-    default:
-        return true
-    }
-    ssc_scrollArray(o, i, s);
-    e.preventDefault()
-}
+  smoothScroll: function(options, extra) {
+    options = options || {};
 
-function ssc_mousedown(e) {
-    ssc_activeElement = e.target
-}
+    if ( options === 'options' ) {
+      if ( !extra ) {
+        return this.first().data('ssOpts');
+      }
+      return this.each(function() {
+        var $this = $(this),
+            opts = $.extend($this.data('ssOpts') || {}, extra);
 
-function ssc_setCache(e, t) {
-    for (var n = e.length; n--;) ssc_cache[ssc_uniqueID(e[n])] = t;
-    return t
-}
+        $(this).data('ssOpts', opts);
+      });
+    }
 
-function ssc_overflowingAncestor(e) {
-    var t = [];
-    var n = ssc_root.scrollHeight;
-    do {
-        var r = ssc_cache[ssc_uniqueID(e)];
-        if (r) {
-            return ssc_setCache(t, r)
+    var opts = $.extend({}, $.fn.smoothScroll.defaults, options),
+        locationPath = $.smoothScroll.filterPath(location.pathname);
+
+    this
+    .unbind('click.smoothscroll')
+    .bind('click.smoothscroll', function(event) {
+      var link = this,
+          $link = $(this),
+          thisOpts = $.extend({}, opts, $link.data('ssOpts') || {}),
+          exclude = opts.exclude,
+          excludeWithin = thisOpts.excludeWithin,
+          elCounter = 0, ewlCounter = 0,
+          include = true,
+          clickOpts = {},
+          hostMatch = ((location.hostname === link.hostname) || !link.hostname),
+          pathMatch = thisOpts.scrollTarget || ( $.smoothScroll.filterPath(link.pathname) === locationPath ),
+          thisHash = escapeSelector(link.hash);
+
+      if ( !thisOpts.scrollTarget && (!hostMatch || !pathMatch || !thisHash) ) {
+        include = false;
+      } else {
+        while (include && elCounter < exclude.length) {
+          if ($link.is(escapeSelector(exclude[elCounter++]))) {
+            include = false;
+          }
         }
-        t.push(e);
-        if (n === e.scrollHeight) {
-            if (!ssc_frame || ssc_root.clientHeight + 10 < n) {
-                return ssc_setCache(t, document.body)
-            }
-        } else if (e.clientHeight + 10 < e.scrollHeight) {
-            overflow = getComputedStyle(e, "").getPropertyValue("overflow");
-            if (overflow === "scroll" || overflow === "auto") {
-                return ssc_setCache(t, e)
-            }
+        while ( include && ewlCounter < excludeWithin.length ) {
+          if ($link.closest(excludeWithin[ewlCounter++]).length) {
+            include = false;
+          }
         }
-    } while (e = e.parentNode)
-}
+      }
 
-function ssc_addEvent(e, t, n) {
-    window.addEventListener(e, t, n || false)
-}
+      if ( include ) {
 
-function ssc_removeEvent(e, t, n) {
-    window.removeEventListener(e, t, n || false)
-}
+        if ( thisOpts.preventDefault ) {
+          event.preventDefault();
+        }
 
-function ssc_isNodeName(e, t) {
-    return e.nodeName.toLowerCase() === t.toLowerCase()
-}
+        $.extend( clickOpts, thisOpts, {
+          scrollTarget: thisOpts.scrollTarget || thisHash,
+          link: link
+        });
 
-function ssc_directionCheck(e, t) {
-    e = e > 0 ? 1 : -1;
-    t = t > 0 ? 1 : -1;
-    if (ssc_direction.x !== e || ssc_direction.y !== t) {
-        ssc_direction.x = e;
-        ssc_direction.y = t;
-        ssc_que = []
+        $.smoothScroll( clickOpts );
+      }
+    });
+
+    return this;
+  }
+});
+
+$.smoothScroll = function(options, px) {
+  if ( options === 'options' && typeof px === 'object' ) {
+    return $.extend(optionOverrides, px);
+  }
+  var opts, $scroller, scrollTargetOffset, speed, delta,
+      scrollerOffset = 0,
+      offPos = 'offset',
+      scrollDir = 'scrollTop',
+      aniProps = {},
+      aniOpts = {};
+
+  if (typeof options === 'number') {
+    opts = $.extend({link: null}, $.fn.smoothScroll.defaults, optionOverrides);
+    scrollTargetOffset = options;
+  } else {
+    opts = $.extend({link: null}, $.fn.smoothScroll.defaults, options || {}, optionOverrides);
+    if (opts.scrollElement) {
+      offPos = 'position';
+      if (opts.scrollElement.css('position') === 'static') {
+        opts.scrollElement.css('position', 'relative');
+      }
     }
-}
+  }
 
-function ssc_pulse_(e) {
-    var t, n, r;
-    e = e * ssc_pulseScale;
-    if (e < 1) {
-        t = e - (1 - Math.exp(-e))
-    } else {
-        n = Math.exp(-1);
-        e -= 1;
-        r = 1 - Math.exp(-e);
-        t = n + r * (1 - n)
+  scrollDir = opts.direction === 'left' ? 'scrollLeft' : scrollDir;
+
+  if ( opts.scrollElement ) {
+    $scroller = opts.scrollElement;
+    if ( !(/^(?:HTML|BODY)$/).test($scroller[0].nodeName) ) {
+      scrollerOffset = $scroller[scrollDir]();
     }
-    return t * ssc_pulseNormalize
-}
+  } else {
+    $scroller = $('html, body').firstScrollable(opts.direction);
+  }
 
-function ssc_pulse(e) {
-    if (e >= 1) return 1;
-    if (e <= 0) return 0;
-    if (ssc_pulseNormalize == 1) {
-        ssc_pulseNormalize /= ssc_pulse_(1)
+  // beforeScroll callback function must fire before calculating offset
+  opts.beforeScroll.call($scroller, opts);
+
+  scrollTargetOffset = (typeof options === 'number') ? options :
+                        px ||
+                        ( $(opts.scrollTarget)[offPos]() &&
+                        $(opts.scrollTarget)[offPos]()[opts.direction] ) ||
+                        0;
+
+  aniProps[scrollDir] = scrollTargetOffset + scrollerOffset + opts.offset;
+  speed = opts.speed;
+
+  // automatically calculate the speed of the scroll based on distance / coefficient
+  if (speed === 'auto') {
+
+    // $scroller.scrollTop() is position before scroll, aniProps[scrollDir] is position after
+    // When delta is greater, speed will be greater.
+    delta = aniProps[scrollDir] - $scroller.scrollTop();
+    if(delta < 0) {
+      delta *= -1;
     }
-    return ssc_pulse_(e)
-}
 
-var ssc_framerate = 150;
-var ssc_animtime = 500;
-var ssc_stepsize = 150;
-var ssc_pulseAlgorithm = true;
-var ssc_pulseScale = 6;
-var ssc_pulseNormalize = 1;
-var ssc_keyboardsupport = true;
-var ssc_arrowscroll = 50;
-var ssc_frame = false;
-var ssc_direction = {
-    x: 0,
-    y: 0
+    // Divide the delta by the coefficient
+    speed = delta / opts.autoCoefficient;
+  }
+
+  aniOpts = {
+    duration: speed,
+    easing: opts.easing,
+    complete: function() {
+      opts.afterScroll.call(opts.link, opts);
+    }
+  };
+
+  if (opts.step) {
+    aniOpts.step = opts.step;
+  }
+
+  if ($scroller.length) {
+    $scroller.stop().animate(aniProps, aniOpts);
+  } else {
+    opts.afterScroll.call(opts.link, opts);
+  }
 };
 
-var ssc_initdone = false;
-var ssc_fixedback = true;
-var ssc_root = document.documentElement;
-var ssc_activeElement;
-var ssc_key = {
-    left: 37,
-    up: 38,
-    right: 39,
-    down: 40,
-    spacebar: 32,
-    pageup: 33,
-    pagedown: 34,
-    end: 35,
-    home: 36
+$.smoothScroll.version = version;
+$.smoothScroll.filterPath = function(string) {
+  string = string || '';
+  return string
+    .replace(/^\//,'')
+    .replace(/(?:index|default).[a-zA-Z]{3,4}$/,'')
+    .replace(/\/$/,'');
 };
 
-var ssc_que = [];
-var ssc_pending = false;
-var ssc_cache = {};
+// default options
+$.fn.smoothScroll.defaults = defaults;
 
-setInterval(function () {
-    ssc_cache = {}
-}, 10 * 1e3);
-
-var ssc_uniqueID = function () {
-    var e = 0;
-    return function (t) {
-        return t.ssc_uniqueID || (t.ssc_uniqueID = e++)
-    }
-}();
-
-var ischrome = /chrome/.test(navigator.userAgent.toLowerCase());
-
-if (ischrome) {
-    ssc_addEvent("mousedown", ssc_mousedown);
-    ssc_addEvent("mousewheel", ssc_wheel);
-    ssc_addEvent("load", ssc_init)
+function escapeSelector (str) {
+  return str.replace(/(:|\.)/g,'\\$1');
 }
+
+})(jQuery);

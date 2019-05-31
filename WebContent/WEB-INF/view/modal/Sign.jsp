@@ -7,12 +7,12 @@
 					<h2>Sign in</h2>
 					<a id="modal-close_sign_up" class="modal_custom_custom-close" href="#"><i class="fa fa-home"></i></a>
 				</div>
-			 <form method="post" action="javascript:void(0)"name="newsletterform" id="newsletterform">
+			 <form method="post" action="/action/Sign_in.do"name="newsletterform" id="newsletterform">
 				<div class="one">
 					<div class="newsletter">
 						<h3>E-mail</h3>
 						<fieldset>
-							<input name="email" type="text" id="email"placeholder="Please enter your email" />
+							<input name="user_id" type="text" id="email"placeholder="Please enter your email" />
 						</fieldset>
 					</div>
 				</div>
@@ -20,7 +20,7 @@
 					<div class="newsletter">
 						<h3>Password</h3>
 						<fieldset>
-							<input name="password" type="password" id="password"placeholder="Please enter your Password" />
+							<input name="user_pw" type="password" id="password"placeholder="Please enter your Password" />
 						</fieldset>
 					</div>
 				</div>
@@ -47,12 +47,12 @@
 				<h2>Sign up</h2>
 				<a id="modal-close_sign_up" class="modal_custom_custom-close" href="#"><i class="fa fa-home"></i></a>
 			</div>
-			<form method="post" action="javascript:void(0)"name="newsletterform" id="newsletterform">
+			<form method="post" action="/action/Sign_up.do" name="newsletterform" id="newsletterform">
 				<div class="one">
 					<div class="newsletter">
 						<h3>E-mail</h3>
 						<fieldset>
-							<input name="email" type="text" id="email"placeholder="Please enter your email" />
+							<input name="user_id" type="text" id="email"placeholder="Please enter your email" />
 						</fieldset>
 					</div>
 				</div>
@@ -60,7 +60,7 @@
 					<div class="newsletter">
 						<h3>Password</h3>
 						<fieldset>
-							<input name="password" type="password" id="password"placeholder="Please enter your Password" />
+							<input name="user_pw" type="password" id="password"placeholder="Please enter your Password" />
 						</fieldset>
 					</div>
 				</div>
@@ -68,7 +68,7 @@
 					<div class="newsletter">
 						<h3>Phone Number</h3>
 						<fieldset>
-							<input name="tel" type="tel" id="tel"placeholder="Please enter your Phone Number" />
+							<input name="user_phone" type="tel" id="tel"placeholder="Please enter your Phone Number" />
 						</fieldset>
 					</div>
 				</div>
@@ -76,7 +76,7 @@
 					<div class="newsletter">
 						<h3>Year / May / Date</h3>
 						<fieldset>
-							<input name="date" type="date" id="date"placeholder="Please enter your Date" />
+							<input name="user_date" type="date" id="date"placeholder="Please enter your Date" />
 						</fieldset>
 					</div>
 				</div>

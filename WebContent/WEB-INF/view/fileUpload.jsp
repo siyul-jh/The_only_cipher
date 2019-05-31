@@ -2,20 +2,49 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" %>
 <html>
-	<head>
-		<title>Test</title>
-		<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.js"></script>
-		<%@ include file="Source/home_topCss.jsp" %>
-		<script type="text/javascript" src="/js/home_js/fileUpload_Download.js"></script>
-  		<script type="text/javascript">
- 			$(document).on( "click", ".filename", function(){
-				var FileName = $(this).text();
-				location.href="filedown.do?FileName=" + FileName;
-			})
-		</script>
-	</head>
-
-	<body>
-		<div id="fileUpload" class="dragAndDropDiv">Drag & Drop Files Here</div>
-	</body>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>에디터</title>
+ 
+<script src="https://code.jquery.com/jquery-latest.js"></script>
+<script type="text/javascript" src="/editor/js/HuskyEZCreator.js" charset="utf-8"></script>
+ 
+</head>
+<script type="text/javascript">
+    $(function(){
+        //전역변수
+        var obj = [];              
+        //스마트에디터 프레임생성
+        nhn.husky.EZCreator.createInIFrame({
+            oAppRef: obj,
+            elPlaceHolder: "editor",
+            sSkinURI: "/editor/SmartEditor2Skin.html",
+            htParams : {
+                // 툴바 사용 여부
+                bUseToolbar : true,            
+                // 입력창 크기 조절바 사용 여부
+                bUseVerticalResizer : true,    
+                // 모드 탭(Editor | HTML | TEXT) 사용 여부
+                bUseModeChanger : true,
+            }
+        });
+        //전송버튼
+        $("#insertBoard").click(function(){
+            //id가 smarteditor인 textarea에 에디터에서 대입
+            obj.getById["editor"].exec("UPDATE_CONTENTS_FIELD", []);
+            //폼 submit
+            $("#insertBoardFrm").submit();
+        });
+    });
+</script>
+<body>
+ 
+    <form action="/insertBoard.do" method="post" id="insertBoardFrm" enctype="multipart/form-data">
+    	<input type="text" id="title" name="title">
+    	<input type="radio" name="yn" value="y"><input type="radio" name="yn" value="n">
+        <textarea name="editor" id="editor" style="width: 700px; height: 400px;"></textarea>
+        <input type="button" id="insertBoard" value="등록" />
+    </form>
+ 
+</body>
 </html>

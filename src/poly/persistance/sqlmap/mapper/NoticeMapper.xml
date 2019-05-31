@@ -2,5 +2,66 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- JAVA와 연결할 Mapper 파일 설정 -->
 <mapper namespace="poly.persistance.mapper.NoticeMapper">
-
+	<!-- 공지사항 등록 -->
+ 	<insert id="insertNoticeDTO" parameterType="NoticeDTO" useGeneratedKeys="true">
+		INSERT
+		INTO notice(
+		title,
+		notice_yn,
+		contents,
+		user_id,
+		read_cnt,
+		reg_id,
+		reg_dt,
+		chg_id,
+		chg_dt
+		)
+		VALUES (
+		#{title},
+		#{notice_yn},
+		#{contents},
+		#{user_id},
+		0,
+		#{user_id},
+		now(),
+		#{user_id},
+		now()
+		)
+	</insert>
+	<!-- 공지사항 리스트 -->
+	<select id="getNoticeList" resultType="NoticeDTO">
+		(SELECT notice_seq,
+			title,
+			notice_yn,
+			user_id,
+			read_cnt,
+			reg_id,
+			chg_dt
+			FROM
+			notice
+			WHERE notice_yn = 'y'
+			ORDER BY
+			notice_seq DESC
+			limit 2
+		)
+		UNION
+		(SELECT notice_seq,
+			title,
+			notice_yn,
+			user_id,
+			read_cnt,
+			reg_id,
+			chg_dt
+			FROM
+			notice
+			WHERE notice_yn = 'n'
+			ORDER BY
+			notice_seq DESC
+			limit #{pagenum},#{contentnum}
+		)
+	</select>
+	<!-- 공지사항 페이징 카운트 -->
+	<select id="getNoticeListTotalCount" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM notice
+	</select>
 </mapper>

@@ -1242,7 +1242,7 @@ General Styles - Owlcarousel
   background-color: rgba(10, 10, 10, 0.9);
   border: 0;
   border-radius: 0;
-  z-index: 1000;
+  z-index: 997;
   font-family: "Roboto Condensed", sans-serif;
   text-transform: uppercase;
   letter-spacing: 3px;

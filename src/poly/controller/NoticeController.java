@@ -1,21 +1,20 @@
 package poly.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import poly.dto.NoticeDTO;
+import poly.dto.PagingDTO;
 import poly.service.INoticeService;
 import poly.util.CmmUtil;
 
@@ -25,69 +24,179 @@ import poly.util.CmmUtil;
  * */
 @Controller
 public class NoticeController {
-	private Logger log = Logger.getLogger(this.getClass());
-	
-	/*
-	 * 비즈니스 로직(중요 로직을 수행하기 위해 사용되는 서비스를 메모리에 적재(싱글톤패턴 적용됨)
-	 * */
+
 	@Resource(name = "NoticeService")
 	private INoticeService noticeService;
-	
-	/*
-	 * 함수명 위의 value="notice/NoticeList" => /notice/NoticeList.do로 호출되는 url은 무조건 이 함수가 실행된다.
-	 * method=RequestMethod.GET => 폼 전송방법을 지정하는 것으로 get방식은 GET, post방식은 POST이다.
-	 * method => 기입안하면 GET, POST 모두 가능하나, 가급적 적어주는 것이 좋다.
-	 * */
-	
-	@RequestMapping(value="index")
-	public String index(HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session) throws Exception{
-		
-		System.out.println("index");
-		return "/index";
-	}
-	
-	@RequestMapping(value="/Soucre/error")
-	public String error(HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session) throws Exception{
-		
-		System.out.println("error");
-		return "Source/error";
-	}
-	
-	@RequestMapping(value="home")
-	public String home(HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session) throws Exception{
-		
-		System.out.println("home");
-		return "/home";
-	}
-	
-	/**
-	 * 게시판 리스트 보여주기
-	 * */
-	/*@RequestMapping(value="notice/NoticeList", method=RequestMethod.GET)
-	public String NoticeList(HttpServletRequest request, HttpServletResponse response, 
-			ModelMap model) throws Exception {
-		
-		//로그 찍기(추후 찍은 로그를 통해 이 함수에 접근했는지 파악하기 용이하다.)
-		log.info(this.getClass().getName() + ".NoticeList start!");
-		
-		//공지사항 리스트 가져오기
-		List<NoticeDTO> rList = noticeService.getNoticeList();
-		
-		if (rList==null){
-			rList = new ArrayList<NoticeDTO>();
+
+	// 게시글 리스트
+		@RequestMapping(value = "/home/NoticeList", method=RequestMethod.POST)
+		public @ResponseBody HashMap<String, Object>NoticeList(HttpServletRequest request, Model model) throws Exception {
+			System.out.println("NoticeList");
+			PagingDTO paging = new PagingDTO();
+			int pagenum = 0;
+			int contentnum = 4;
+			if (CmmUtil.nvl(request.getParameter("pagenum")).equals("") || Integer.parseInt(request.getParameter("pagenum")) == 0 || Integer.parseInt(request.getParameter("pagenum")) == 1)  {
+				pagenum = 1;
+			} else {
+				pagenum =Integer.parseInt(request.getParameter("pagenum"));
+			}
+			System.out.println("pagenum : " + pagenum);
 			
+			int totalCount = noticeService.getNoticeListTotalCount();
+			paging.setTotalcount(totalCount);//전체 게시글 지정
+			
+			paging.setPagenum(pagenum-1);// 현재페이지를 페이지 객체에 지정한다 -1 해야 쿼리에서 사용가능
+			
+			paging.setContentnum(contentnum);// 현재페이지를 페이지 객체에 지정한다 -1 해야 쿼리에서 사용가능
+			
+			paging.setCurrentblock(pagenum);//현재 페이지 블록이 몇번인지 현재 페이지 번호를 통해서 지정함
+			
+			paging.setLastblock(paging.getTotalcount());//마지막 블록 번호를 전체 게시글 수를 통해 정함
+			
+			paging.setStartPage(paging.getCurrentblock());//시작페이지를 페이지 블록번호로 정함
+			
+			paging.setEndPage(paging.getLastblock(), paging.getCurrentblock());//마지막 페이지를 마지막 페이지 블록과 현재 페이지 블록번호로 정함
+			
+			paging.prevnext(pagenum); //현재 페이지 번호로 화살표를 나타낼지 정함
+			
+			//List<NoticeDTO> rList = noticeService.getNoticeList();
+			
+			List<NoticeDTO> rList = new ArrayList<>(); 
+			int i = paging.getPagenum()*4;
+			int j = paging.getContentnum();
+			HashMap<String, Integer> hMap = new HashMap<>();
+			HashMap<String, Object> sMap = new HashMap<>();
+			hMap.put("pagenum",i);
+			hMap.put("contentnum", j);
+			
+			System.out.println("Controller");
+			System.out.println("---------------------------------------------------");
+			System.out.println("i pagenum : " + i);
+			System.out.println("j contentnum : " + j);
+			System.out.println("전체 게시물 개수 getTotalcount : " + paging.getTotalcount());
+			System.out.println("현재 페이지 번호 getPagenum : " + paging.getPagenum());
+			System.out.println("현재페이지블록 getCurrentblock : " + paging.getCurrentblock());
+			System.out.println("마지막페이지블록 getLastblock : " + paging.getLastblock());
+			System.out.println("현재페이지블록의 시작 페이지 getStartPage : " + paging.getStartPage());
+			System.out.println("현재페이지블록의 마지막 페이지 getEndPage : " + paging.getEndPage());
+			System.out.println("이전 isPrev : " + paging.isPrev());
+			System.out.println("다음 isNext : " + paging.isNext());
+			System.out.println("---------------------------------------------------");
+			
+			rList = noticeService.getNoticeList(hMap);
+			// 페이징 정보 전달.
+			if (rList == null) {
+				rList = new ArrayList<NoticeDTO>();
+			}
+			sMap.put("rList", rList);
+			sMap.put("paging", paging);
+
+			rList = null;
+			paging=null;
+			return sMap;
 		}
+	
+	// 게시글 상세정보
+	@RequestMapping(value = "/home/NoticeDetail")
+	public String NoticeDetail(HttpServletRequest request, Model model) throws Exception {
+		String Notice_seq = request.getParameter("Notice_seq");
+		NoticeDTO nDTO = noticeService.getNoticeDetail(Notice_seq);
+		model.addAttribute("nDTO", nDTO);
+		return "/home/NoticeDetail";
+	}
+
+	// 게시글 삭제
+	@RequestMapping(value = "/home/NoticeDetaildel", method = RequestMethod.GET)
+	public String NoticeDetaildel(HttpServletRequest request, Model model) throws Exception {
+
+		String Notice_seq = request.getParameter("Notice_seq");
+		int result = noticeService.deleteNoticeDTO(Notice_seq);
+
+		String msg = "";
+		String url = "";
+
+		if (result != 0) {
+			msg = "게시글삭제에 성공하였습니다.";
+			url = "/main.do";
+		} else {
+			msg = "게시글삭제에 실패하였습니다.";
+			url = "/main.do";
+		}
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+
+		return "/Source/alert";
+	}
+
+	// 게시글 작성
+	@RequestMapping(value = "/NoticeAdd.do", method = RequestMethod.POST)
+	public String insertBoard(String editor,HttpServletRequest request, Model model) throws Exception {
 		
-		//조회된 리스트 결과값 넣어주기
-		model.addAttribute("rList", rList);
-		
-		//변수 초기화(메모리 효율화 시키기 위해 사용함)
-		rList = null;
-		
-		//로그 찍기(추후 찍은 로그를 통해 이 함수 호출이 끝났는지 파악하기 용이하다.)
-		log.info(this.getClass().getName() + ".NoticeList end!");
-		
-		//함수 처리가 끝나고 보여줄 JSP 파일명(/WEB-INF/view/notice/NoticeList.jsp) 
-		return "/notice/NoticeList";
-	}*/
+		String title = request.getParameter("title");
+		String yn = request.getParameter("yn");
+		String contents = request.getParameter("contents");
+		String user_id = "gihum@naver.com";
+		System.out.println("title : " + title);
+		System.out.println("yn : " + yn);
+		System.out.println("contents : " + contents);
+
+		NoticeDTO nDTO = new NoticeDTO();
+		nDTO.setTitle(title);
+		nDTO.setNotice_yn(yn);
+		nDTO.setContents(contents);
+		nDTO.setUser_id(user_id);
+
+		int result = noticeService.insertNoticeDTO(nDTO);
+
+		String msg = "";
+		String url = "";
+
+		if (result != 0) {
+			msg = "게시글을 작성하였습니다.";
+			url = "/home.do";
+		} else {
+			msg = "게시글을 작성하지 못하였습니다.";
+			url = "/home.do";
+		}
+
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+
+		//return "redirect:/fileUpload.do";
+		return "/Source/alert";
+	}
+
+	// 게시글 수정화면
+	@RequestMapping(value = "notice/NoticeUpdateView", method = RequestMethod.GET)
+	public String NoticeUpdateView(HttpServletRequest request, Model model) throws Exception {
+		String Notice_seq = request.getParameter("Notice_seq");
+		NoticeDTO nDTO = noticeService.getNoticeDetail(Notice_seq);
+		model.addAttribute("nDTO", nDTO);
+		return "/notice/NoticeUpdateView";
+	}
+
+	// 게시글 수정
+	@RequestMapping(value = "notice/NoticeUpdateProc", method = RequestMethod.POST)
+	public String NoticeUpdateProc(HttpServletRequest request, Model model) throws Exception {
+		String Notice_seq = request.getParameter("Notice_seq");
+		String title = request.getParameter("title");
+		String contents = request.getParameter("contents");
+
+		NoticeDTO nDTO = new NoticeDTO();
+		nDTO.setNotice_seq(Notice_seq);
+		nDTO.setTitle(title);
+		nDTO.setContents(contents);
+
+		int result = noticeService.updateNotice(nDTO);
+
+		if (result != 0) {
+			return "redirect:/main.do";
+		} else {
+		}
+		String msg = "수정 실패";
+		String url = "notice/NoticeUpdateView.do?Notice_seq=" + Notice_seq;
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		return "/alert";
+	}
 }

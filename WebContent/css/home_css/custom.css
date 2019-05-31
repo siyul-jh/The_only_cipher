@@ -1,0 +1,449 @@
+@charset "UTF-8";
+/*----------------------------------------------------------------------------*/
+/*	1.	Modal_custom 
+/*----------------------------------------------------------------------------*/
+ 
+.modal_custom_custom-open i,
+.modal_custom_custom-close i {
+	-webkit-border-bottom-right-radius: 50px;
+	-webkit-border-bottom-left-radius: 50px;
+	-moz-border-radius-bottomright: 50px;
+	-moz-border-radius-bottomleft: 50px;
+	border-bottom-right-radius: 50px;
+	border-bottom-left-radius: 50px;
+	position:absolute;
+	top:0;
+	left:50%;
+	margin:-5px 0 40px -27px;
+    text-align: center;
+    -webkit-transition: all .2s linear;
+    -moz-transition: all .2s linear;
+    -o-transition: all .2s linear;
+    -ms-transition: all .2s linear;
+    transition: all .2s linear;
+    font-size: 14px;
+    padding: 14px 0;
+	width:54px;
+}
+
+.modal_custom_custom-open i{
+    background: #fff;
+    color: #262624;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.modal_custom_custom-open i:hover{
+    background: #262624;
+    color: #fff;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+	cursor:pointer;
+	margin-top:0px;
+}
+
+.modal_custom_custom-close i{
+    background: #fff;
+    color: #262624;
+}
+
+.modal_custom_custom-close i:hover{
+    color: #fff;
+    background: #ff4136;
+	margin-top:0px;
+}
+
+.modal_custom-window {
+	position: absolute;
+	top:0;
+	right:0;
+    left: 0;
+}
+
+.modal_custom {
+    left: 0;
+    min-height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 1000;
+    background: #1a6d77;
+    display: none;
+}
+
+.modal_custom .container {
+    padding-top: 62px;
+    text-align: center;
+    width:800px;
+    margin: 0 auto;
+}
+
+.modal_custom .container .one{
+    float: left;
+    text-align: center;
+    width: 100%;
+}
+
+.modal_custom .container .one-half{
+    float: left;
+    text-align: left;
+    width: 47%;
+    margin: 0 1.5%;
+}
+
+.modal_custom .container .one-third{
+    float: left;
+    text-align: left;
+    width: 30.3%;
+    margin: 0 1.5%;
+}
+
+.modal_custom .container .one-third:first-child{
+    margin: 0 1.5%;
+}
+
+.modal_custom .widget-contact {
+	text-align:center;
+}
+
+.modal_custom .big-icon {
+	font-size:3em;
+}
+
+.modal_custom .container h2{
+    font-size: 28px;
+    font-weight: 100;
+    color: #fff;
+    text-transform: capitalize;
+    line-height: 1.5;
+    margin-bottom: 40px;
+}
+
+.modal_custom .container h3{
+    width: 100%;
+    font-size: 14px;
+    color: #fff;
+    text-transform: uppercase;
+    line-height: 1.11111;
+    margin-bottom:20px;
+    letter-spacing: 0px;
+}
+
+.modal_custom .container p{
+    color: #828C99;
+    margin-bottom:40px;
+    letter-spacing: 0px;
+}
+
+.modal_custom .container ul{
+    margin-bottom:40px;
+    letter-spacing: 0px;
+}
+
+.modal_custom .container ul li{
+    color: #f3f3f3;
+}
+
+.modal_custom .container ul li i{
+    margin-right:8px; 
+    min-width: 16px;
+}
+
+.modal_custom .contact-form {
+	text-align: center!important;
+	width: 100%;
+	margin: 35px auto;
+}
+
+.modal_custom .contact-form input[type="text"],
+.modal_custom .contact-form input[type="email"],
+.modal_custom .contact-form input[type="date"],
+.modal_custom .contact-form textarea {
+	font-size: 15px;
+	height: 40px;
+	line-height: 20px;
+	width: 100%;
+	padding: 14px 18px;
+	background: #272E3C;
+	color: #87898f;
+	margin-bottom: 20px;
+	border: 0;
+	-webkit-appearance: none;
+	border-radius: 2px;
+	display:block;
+	overflow:auto;
+	-webkit-transition: all .2s linear;
+    -moz-transition: all .2s linear;
+    -o-transition: all .2s linear;
+    -ms-transition: all .2s linear;
+    transition: all .2s linear;
+}
+
+.modal_custom .contact-form input[type="text"]:focus,
+.modal_custom .contact-form input[type="email"]:focus,
+.modal_custom .contact-form input[type="date"]:focus,
+.modal_custom .contact-form textarea:focus {
+	background-color: #3d4350;
+}
+
+.modal_custom .contact-form textarea {
+	padding-top: 10px;
+	height: 160px;
+	resize: none;
+}
+
+.modal_custom .contact-form button,
+.modal_custom .contact-form input[type="submit"],
+.modal_custom .contact-form input[type="button"] {
+	width:100%;
+	color: #fff;
+	font-size: 12px;
+	background: #3d4350;
+	border: 0;
+	text-transform: uppercase;
+	padding: 14px 18px;
+	letter-spacing: 0;
+	line-height: 14px;
+	cursor: pointer;
+	text-align: center;
+	-webkit-appearance: none;
+	border-radius: 2px;
+	-webkit-transition: all .2s linear;
+    -moz-transition: all .2s linear;
+    -o-transition: all .2s linear;
+    -ms-transition: all .2s linear;
+    transition: all .2s linear;
+}
+
+.modal_custom .contact-form button:hover,
+.modal_custom .contact-form input[type="submit"]:hover,
+.modal_custom .contact-form input[type="button"]:hover {
+	background:#fff;
+	color:#555;
+}
+
+.modal_custom .contact-form-message {
+	display:none;
+	padding: 10px;
+	margin: 10px 0;
+	background: #1D2029;
+	border-left: 3px solid #f0f0f0;
+}
+/*----------------------------------------------------------------------------*/
+/*	2.	Newsletter
+/*----------------------------------------------------------------------------*/
+
+.newsletter { 
+    text-align: center;
+    display: block; 
+    margin-bottom: 60px;  
+}
+.newsletter .contents {
+	width: 100%
+}
+
+.newsletter fieldset{ 
+    margin: 0px auto;
+    width: 500px;
+}
+
+
+.newsletter input,
+.newsletter textarea,
+.newsletter select { 
+    /* float: left; */
+    height: 54px;
+    width: 360px;
+    padding: 10px 20px;
+    background: #222;
+	background:rgba(0,0,0,0.55);
+    border: none;
+    color: #939898;
+    -webkit-border-top-left-radius: 2px;
+    -moz-border-radius-topleft: 2px;
+    border-top-left-radius: 2px;
+    -webkit-border-bottom-left-radius: 2px;
+    -moz-border-radius-bottomleft: 2px;
+    border-bottom-left-radius: 2px;
+    -webkit-transition: all .2s linear;
+    -moz-transition: all .2s linear;
+    -o-transition: all .2s linear;
+    -ms-transition: all .2s linear;
+    transition: all .2s linear;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
+}
+.contents textarea {
+	width: 100%;
+	height: 300px;
+}
+
+.newsletter input:hover,
+.newsletter textarea:hover,
+.newsletter select:hover {
+	background: #2a2a2a;
+	background:rgba(0,0,0,0.7);
+	color:#f5f5f5;
+}
+.newsletter input:focus,
+.newsletter textarea:focus,
+.newsletter select:focus { 
+    background: #f7f6f6;
+	color: #939898;
+}
+
+.newsletter input.submit { 
+    float: right;
+    width: 140px;
+    cursor: pointer; 
+    border: none;
+    background:#262624;
+	background:rgba(0,0,0,0.6);
+    color:#fff; 
+    -webkit-border-top-left-radius: 0px;
+    -moz-border-radius-topleft: 0px;
+    border-top-left-radius: 0px;
+    -webkit-border-bottom-left-radius: 0px;
+    -moz-border-radius-bottomleft: 0px;
+    border-bottom-left-radius: 0px;
+    -webkit-border-bottom-right-radius: 2px;
+    -moz-border-radius-bottomright: 2px;
+    border-bottom-right-radius: 2px;
+    -webkit-border-top-right-radius: 2px;
+    -moz-border-radius-topright: 2px;
+    border-top-right-radius: 2px;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.newsletter input.submit:hover { 
+    background:#686e6e;
+    background:rgba(0,0,0,0.85);
+}
+
+.newsletter input[type="submit"][disabled] { 
+    background:#939898;
+    color:#fff;
+}
+
+.newsletter input[type="radio"] {
+	display: none;
+}
+.newsletter input[type="radio"] + label {
+	padding: 0px 15px 0px 15px;
+	color : #fff;
+	font-weight: 400;
+	font-size: 14px;
+}
+.newsletter input[type="radio"] + label span {
+	display: inline-block; 
+	width: 18px; 
+	height: 18px; 
+	margin: -2px 10px 0 0; 
+	vertical-align: middle; 
+	cursor: pointer; 
+	-moz-border-radius: 50%; 
+	border-radius: 50%; 
+	border: 3px solid #ffffff;
+}
+.newsletter input[type="radio"] + label span { 
+	background-color: #fff;
+}
+.newsletter input[type="radio"]:checked + label {
+	color: #0fc4d3; 
+	font-weight: 700;
+} 
+.newsletter input[type="radio"]:checked + label span {
+	background-color: #0fc4d3; 
+	border: 2px solid #ffffff; 
+	box-shadow: 2px 2px 2px rgba(0,0,0,.1);
+}
+.newsletter input[type="radio"] + label span, input[type="radio"]:checked + label span {
+	-webkit-transition: background-color 0.24s linear; 
+	-o-transition: background-color 0.24s linear; 
+	-moz-transition: background-color 0.24s linear; 
+	transition: background-color 0.24s linear; 
+}
+
+.message{ 
+    position: absolute;
+    width: 500px;
+    left:50%;
+    margin-left: -250px;
+    text-align: center;
+    z-index: 995;
+}
+
+.error-message { 
+    margin-top: 16px;
+    color:#fff;
+    font-size: 16px;
+}
+
+.success-message{
+    margin-top: 16px;
+    color:#fff;
+    font-size: 16px;
+}
+.newsletter .black_button {
+	border: 0 solid transparent;
+	padding: 15px 10%;
+    background: black;
+    color: #0fc4d3;
+}
+/*----------------------------------------------------------------------------*/
+/*	10.	Responsive
+/*----------------------------------------------------------------------------*/
+
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+	.modal_custom {
+	    top: 50px;
+	}
+    .modal_custom .container {
+        width: 95%;
+		margin: auto 2.5%;
+    }
+    .newsletter { 
+    	margin-bottom: 30px;  
+	}
+	.newsletter fieldset{ 
+        width: 380px;
+    }
+    .newsletter input, textarea, select { 
+        width: 280px;
+    }
+
+    .newsletter input.submit { 
+        width: 100px;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+	.modal_custom {
+	    top: 50px;
+	}
+    .modal_custom .container {
+        width: 95%;
+		margin: auto 2.5%;
+    }
+
+    .modal_custom .container .one-half{
+        width: 100%;
+    }
+	
+	.modal_custom .container .one-third{
+        width: 100%;
+		margin:8px auto 10px;
+    }
+    .newsletter { 
+    	margin-bottom: 20px;  
+	}
+    .newsletter fieldset{ 
+        width: 285px;
+    }
+
+    .newsletter input, textarea, select { 
+        width: 190px;
+    }
+
+    .newsletter input.submit { 
+        width: 95px;
+    }
+
+}

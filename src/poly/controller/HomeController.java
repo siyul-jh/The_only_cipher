@@ -2,12 +2,17 @@ package poly.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,11 +22,41 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import poly.dto.NoticeDTO;
+import poly.dto.PagingDTO;
+import poly.service.INoticeService;
+import poly.util.CmmUtil;
 /*
  * Handles requests for the application home page.
  */
 @Controller
 public class HomeController {
+		
+	@RequestMapping(value="index")
+	public String index(HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session) throws Exception{
+		System.out.println("index");
+		return "/index";
+	}
+	
+	@RequestMapping(value="/Soucre/error")
+	public String error(HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session) throws Exception{
+		System.out.println("error");
+		return "Source/error";
+	}
+	
+	@RequestMapping(value="home")
+	public String home(HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session) throws Exception{
+		System.out.println("home");
+		return "/home";
+	}
+	
+	@RequestMapping(value="/Source/alert")
+	public String alert(HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session) throws Exception{
+		
+		System.out.println("alert");
+		return "/alert";
+	}
 	
 	@RequestMapping(value = "fileUpload", method = RequestMethod.GET)
 	public String dragAndDrop(Model model) {
@@ -37,7 +72,7 @@ public class HomeController {
         Iterator<String> itr =  multipartRequest.getFileNames();
         
         String filePath = request.getRealPath("Temp"); //설정파일로 뺀다.
-        
+        System.out.println("filePath : " + filePath);
         File dir = new File(filePath); //파일 저장 경로 확인, 없으면 만든다.
         if (!dir.exists()) {
         	System.out.println("저장 폴더가 없다. 만든다!");

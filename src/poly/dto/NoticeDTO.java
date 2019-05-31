@@ -5,7 +5,6 @@ package poly.dto;
  * @version 1.1 공지사항 DTO
  */
 public class NoticeDTO {
-
 	private String notice_seq; // 기본키, 순번
 	private String title; // 제목
 	private String notice_yn; // 공지글 여부
@@ -16,16 +15,6 @@ public class NoticeDTO {
 	private String reg_dt; // 등록일
 	private String chg_id; // 수정자 아이디
 	private String chg_dt; // 수정일
-
-	private String user_name; // 등록자명
-
-	public String getUser_name() {
-		return user_name;
-	}
-
-	public void setUser_name(String user_name) {
-		this.user_name = user_name;
-	}
 
 	public String getNotice_seq() {
 		return notice_seq;

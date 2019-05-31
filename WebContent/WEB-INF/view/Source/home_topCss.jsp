@@ -17,13 +17,14 @@
 <link href="/css/home_css/simpletextrotator.css" rel="stylesheet">
 <!-- Main stylesheet and color file-->
 <link href="/css/home_css/style.css" rel="stylesheet">
+<link href="/css/home_css/custom.css" rel="stylesheet">
 <link id="color-scheme" href="/css/home_css/default.css" rel="stylesheet">
 <link href="/css/home_css/fileupload_download.css" rel="stylesheet">
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.js"></script>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<<script type="text/javascript">
-<!-- JS 파일로 만들기//-->
+<!-- 파일 암호화/복호화 -->
+<script type="text/javascript">
 
 	$(document).ready(function(){
 		var objDragAndDrop = $(".dragAndDropDiv");

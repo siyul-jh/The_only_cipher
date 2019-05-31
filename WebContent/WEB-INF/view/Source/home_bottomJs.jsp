@@ -10,8 +10,11 @@
 <script src="/js/home_js/jquery.flexslider.js"></script>
 <script src="/js/home_js/owl.carousel.min.js"></script>
 <script src="/js/home_js/smoothscroll.js"></script>
-<script src="/js/home_js/jquery.magnific-popup.js"></script>
-<script src="/js/home_js/jquery.simple-text-rotator.min.js"></script>
 <script src="/js/home_js/plugins.js"></script>
 <script src="/js/home_js/main.js"></script>
+<script src="/js/home_js/custom.js"></script>
+
+
+<script src="/js/home_js/jquery.magnific-popup.js"></script>
+<script src="/js/home_js/jquery.simple-text-rotator.min.js"></script>
 
