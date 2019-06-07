@@ -6,40 +6,37 @@
 		INSERT INTO USER
 		(
 		user_id,
-		user_pw,
-		user_phone,
-		user_date,
+		user_name,
+		user_mail,
+		extension,
 		reg_dt,
 		active
 		)
 		VALUES
 		(
 		#{user_id},
-		#{user_pw},
-		#{user_phone},
-		#{user_date},
+		#{user_name},
+		#{user_mail},
+		#{extension},
 		now(),
 		y
 		)
 	</insert>
-	<!-- 로그인 -->
+	<!-- 사용자 확인 -->
 	<select id="getUserLogin" parameterType="UserDTO"
 		resultType="UserDTO">
 		SELECT
 		user_no,
 		user_id,
-		user_pw,
-		user_phone,
-		user_date,
+		user_name,
+		user_mail,
+		extension,
 		reg_dt,
 		active
 		FROM USER
-		WHERE user_id=#{user_id}
-	</select>
-	<!-- 아이디 중복확인 -->
-	<select id="getIdCheck" parameterType="UserDTO" resultType="string">
-		SELECT COUNT(*)
-		FROM USER
-		WHERE USER_ID = #{user_id}
+		WHERE user_id=#{user_id} and
+		user_name=#{user_name} and
+		user_mail=#{user_mail} and
+		extension=#{extension}
 	</select>
 </mapper>

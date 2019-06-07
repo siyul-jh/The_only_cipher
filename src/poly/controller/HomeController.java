@@ -16,6 +16,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.social.google.connect.GoogleConnectionFactory;
+import org.springframework.social.oauth2.GrantType;
+import org.springframework.social.oauth2.OAuth2Operations;
+import org.springframework.social.oauth2.OAuth2Parameters;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,23 +38,20 @@ import poly.util.CmmUtil;
  */
 @Controller
 public class HomeController {
-		
+
+	//메인화면
 	@RequestMapping(value="index")
 	public String index(HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session) throws Exception{
-		System.out.println("index");
 		return "/index";
 	}
-	
+	//에러화면
 	@RequestMapping(value="/Soucre/error")
 	public String error(HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session) throws Exception{
-		System.out.println("error");
 		return "Source/error";
 	}
-	
-	@RequestMapping(value="home")
+	//홈화면
+	@RequestMapping(value="home", method = { RequestMethod.GET, RequestMethod.POST })
 	public String home(HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session) throws Exception{
-		System.out.println("home");
-        
         String filePath = request.getSession().getServletContext().getRealPath("Temp"); //설정파일로 뺀다.
         File dir = new File(filePath); //파일 저장 경로 확인, 없으면 만든다.
     	//
@@ -67,95 +69,18 @@ public class HomeController {
     	//
 		return "/home";
 	}
-	
+	//Alert 화면
 	@RequestMapping(value="/Source/alert")
 	public String alert(HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session) throws Exception{
-		
-		System.out.println("alert");
 		return "/alert";
 	}
 	
-	@RequestMapping(value = "fileUpload", method = RequestMethod.GET)
-	public String dragAndDrop(Model model) {
-		System.out.println("fileUpload");
-	return "/fileUpload";
-	}
-	
-	/*
-	 * // 파일 암호화 업로드
-	 * 
-	 * @RequestMapping(value = "Encrypt_fileUpload") //ajax에서 호출하는 부분\
-	 * 
-	 * @ResponseBody public String encrypt_upload(HttpServletRequest request,
-	 * MultipartHttpServletRequest multipartRequest, HttpSession session) {
-	 * //Multipart로 받는다. System.out.println("encrypt_upload"); Iterator<String> itr
-	 * = multipartRequest.getFileNames();
-	 * 
-	 * String user_email = (String) session.getAttribute("user_id"); int
-	 * user_email_indx = user_email.indexOf("@"); String user_id =
-	 * user_email.substring(0, user_email_indx); String PyPath_ =
-	 * request.getSession().getServletContext().getRealPath(""); //설정파일로 뺀다. String
-	 * filePath = request.getSession().getServletContext().getRealPath("Temp");
-	 * //설정파일로 뺀다.
-	 * 
-	 * File dir = new File(filePath); //파일 저장 경로 확인, 없으면 만든다. // if( dir.exists() ){
-	 * //파일존재여부확인 if(dir.isDirectory()){ //파일이 디렉토리인지 확인 File[] files =
-	 * dir.listFiles(); for( int i=0; i<files.length; i++){ files[i].delete(); }
-	 * dir.mkdirs(); } }else{ dir.mkdirs(); } // int num = 0; while (itr.hasNext())
-	 * { //받은 파일들을 모두 돌린다. MultipartFile mpf = multipartRequest.getFile(itr.next());
-	 * String originalFilename = mpf.getOriginalFilename(); //파일명 String
-	 * fileFullPath = filePath+"/"+originalFilename; //파일 전체 경로 try { //파일 저장
-	 * Thread.sleep(1000); mpf.transferTo(new File(fileFullPath)); //파일저장 실제로는
-	 * service에서 처리 } catch (Exception e) {
-	 * System.out.println("ERROR======>"+fileFullPath); e.printStackTrace(); }
-	 * num++; } return "success"; }
-	 * 
-	 * // 파일 복호화 업로드
-	 * 
-	 * @RequestMapping(value = "Decrypt_fileUpload") //ajax에서 호출하는 부분\
-	 * 
-	 * @ResponseBody public String decrypt_upload(HttpServletRequest request,
-	 * MultipartHttpServletRequest multipartRequest, HttpSession session) {
-	 * System.out.println("decrypt_upload"); Iterator<String> itr =
-	 * multipartRequest.getFileNames();
-	 * 
-	 * String user_email = (String) session.getAttribute("user_id"); int
-	 * user_email_indx = user_email.indexOf("@"); String user_id =
-	 * user_email.substring(0, user_email_indx); String PyPath_ =
-	 * request.getSession().getServletContext().getRealPath(""); //설정파일로 뺀다. String
-	 * filePath = request.getSession().getServletContext().getRealPath("Temp");
-	 * //설정파일로 뺀다.
-	 * 
-	 * File dir = new File(filePath); //파일 저장 경로 확인, 없으면 만든다.
-	 * 
-	 * // if( dir.exists() ){ //파일존재여부확인 if(dir.isDirectory()){ //파일이 디렉토리인지 확인
-	 * File[] files = dir.listFiles(); for( int i=0; i<files.length; i++){
-	 * files[i].delete(); } dir.mkdirs(); } }else{ dir.mkdirs(); } // while
-	 * (itr.hasNext()) { //받은 파일들을 모두 돌린다.
-	 * 
-	 * MultipartFile mpf = multipartRequest.getFile(itr.next());
-	 * 
-	 * String originalFilename = mpf.getOriginalFilename(); //파일명 String
-	 * fileFullPath = filePath+"/"+originalFilename; //파일 전체 경로
-	 * 
-	 * try { //파일 저장 mpf.transferTo(new File(fileFullPath)); //파일저장 실제로는 service에서
-	 * 처리 } catch (Exception e) { System.out.println("ERROR======>"+fileFullPath);
-	 * e.printStackTrace(); }
-	 * 
-	 * } ProcessBuilder pb = new ProcessBuilder("python",
-	 * PyPath_+"WEB-INF\\view\\Source\\Decrypt.py", "\"" +
-	 * PyPath_+"Temp\\**\" \""+user_id+"\""); //복호화 try { pb.start(); } catch
-	 * (IOException e) { // TODO Auto-generated catch block e.printStackTrace(); }
-	 * return "success"; }
-	 */
 	// 파일 업로드
-	@RequestMapping(value = "fileUpload") //ajax에서 호출하는 부분\
+	@RequestMapping(value = "fileUpload" , method = RequestMethod.GET) //ajax에서 호출하는 부분\
     @ResponseBody
     public String fileUpload(HttpServletRequest request, MultipartHttpServletRequest multipartRequest) { //Multipart로 받는다.
-    	System.out.println("upload");
     	Iterator<String> itr =  multipartRequest.getFileNames();
         String filePath = request.getSession().getServletContext().getRealPath("Temp"); //설정파일로 뺀다.
-        System.out.println("filePath : " + filePath);
         
         File dir = new File(filePath); //파일 저장 경로 확인, 없으면 만든다.
     	//
@@ -180,7 +105,6 @@ public class HomeController {
             	Thread.sleep(500);
                 mpf.transferTo(new File(fileFullPath)); //파일저장 실제로는 service에서 처리
             } catch (Exception e) {
-                System.out.println("ERROR======>"+fileFullPath);
                 e.printStackTrace();
             }
        }
@@ -209,15 +133,12 @@ public class HomeController {
     	}
     	
     	BufferedReader stdOut = new BufferedReader(new InputStreamReader(cipher.getInputStream()));
-    	
     	String line;
         while((line=stdOut.readLine())!=null){
         	System.out.println(line);
         }
-        
         String fullPath = path + fileName;
         File file = new File(fullPath);
-        
         FileInputStream fileInputStream = null;
         ServletOutputStream servletOutputStream = null;
      
@@ -226,33 +147,21 @@ public class HomeController {
             String browser = request.getHeader("User-Agent");
             //파일 인코딩
             if(browser.contains("MSIE") || browser.contains("Trident") || browser.contains("Chrome")){//브라우저 확인 파일명 encode  
-                 
                 downName = URLEncoder.encode(fileName,"UTF-8").replaceAll("\\+", "%20");
-                 
             }else{
-                 
                 downName = new String(fileName.getBytes("UTF-8"), "ISO-8859-1");
-                 
             }
-             
             response.setHeader("Content-Disposition","attachment;filename=\"" + downName+"\"");             
             response.setContentType("application/octer-stream");
             response.setHeader("Content-Transfer-Encoding", "binary;");
-     
             fileInputStream = new FileInputStream(file);
             servletOutputStream = response.getOutputStream();
-     
             byte b [] = new byte[1024];
             int data = 0;
-     
             while((data=(fileInputStream.read(b, 0, b.length))) != -1){
-                 
                 servletOutputStream.write(b, 0, data);
-                 
             }
-     
             servletOutputStream.flush();//출력
-             
         }catch (Exception e) {
             e.printStackTrace();
         }finally{
@@ -296,7 +205,6 @@ public class HomeController {
         while((line=stdOut.readLine())!=null){
         	System.out.println(line);
         }
-    	
         String zipname = "";
         String now = new SimpleDateFormat("yyyyMMddhmsS").format(new Date()); //현재시간 나타내는 변수
 		ArrayList<String> fileList = new ArrayList<String>(); // 파일리스트 선언
@@ -330,25 +238,17 @@ public class HomeController {
 		            }else{
 		                downName = new String(zipname.getBytes("UTF-8"), "ISO-8859-1");
 		            }
-		             
 		            response.setHeader("Content-Disposition","attachment;filename=\"" + downName+"\"");             
 		            response.setContentType("application/octer-stream");
 		            response.setHeader("Content-Transfer-Encoding", "binary;");
-		     
 		            fileInputStream = new FileInputStream(file);
 		            servletOutputStream = response.getOutputStream();
-		     
 		            byte b [] = new byte[1024];
 		            int data = 0;
-		     
 		            while((data=(fileInputStream.read(b, 0, b.length))) != -1){
-		                 
 		                servletOutputStream.write(b, 0, data);
-		                 
 		            }
-		     
 		            servletOutputStream.flush();//출력
-		             
 		        }catch (Exception e) {
 		            e.printStackTrace();
 		        }finally{
@@ -375,21 +275,12 @@ public class HomeController {
 		} catch (Exception e) {
 			System.out.println("Error");
 		}
-
-
-		//
-		
-		//
 	}
 	// 파일 검색 후 리스트 작성
 	public ArrayList<String> findExt(String ext, HttpServletRequest request) {
-		
 		String path = request.getSession().getServletContext().getRealPath("Temp"); //경로
-		System.out.println("path : " + path);
-		System.out.println("ext : " + ext);
     	File file = new File(path);
     	ArrayList<String> fileList = new ArrayList<String>(); // 파일 리스트 선언
-    	
 		if(file.isDirectory()){ //파일이 디렉토리인지 확인 
 			File[] files = file.listFiles();
 			for (int i = 0; i < files.length; i++) { // 개수만큼 for 문 돌려돌려

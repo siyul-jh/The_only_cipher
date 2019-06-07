@@ -8,6 +8,9 @@
 <meta name="description"content="Firely is a one page comming soon template using Parallax, HTML5, CSS3 and PHP">
 <meta name="author" content="Memories Dust">
 <meta name="viewport"content="width=device-width, initial-scale=1, maximum-scale=1">
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<meta name="google-signin-client_id" content="522378797291-sf127aj5gpd554ccue3bvolahhn2akv8.apps.googleusercontent.com">
 <%@ include file = "Source/index_topCss.jsp" %>
 <% 
 	String user_id = CmmUtil.nvl((String) session.getAttribute("user_id"));
@@ -40,16 +43,16 @@
 			</div>
 			<div>
 			<%if(user_id == "") { %>
-				<div><p><a id="modal_sign_in" class="black_button" href="#">Sign in <i class="fa fa-sign-in-alt"></i></a></p></div>
-				<div><p><strong>The Only Cipher</strong> 회원이 아니신가요? <a id="modal_sign_up" href="#">Sign up </a></p></div>
+				<!-- <div><p><a id="modal_sign_in" class="black_button" href="#">Sign in <i class="fa fa-sign-in-alt"></i></a></p></div>
+				<div><p><strong>The Only Cipher</strong> 회원이 아니신가요? <a id="modal_sign_up" href="#">Sign up </a></p></div>-->
+				<div class="g-signin2" data-onsuccess="onSignIn" data-width="300" data-height="49" data-longtitle="true" style="display: inline-block;"></div> <!-- Google Sign in & Sign up -->
+				<div class="kakao-sign"><a id="custom-login-btn" href="javascript:loginWithKakao()"><img src="//mud-kage.kakao.com/14/dn/btqbjxsO6vP/KPiGpdnsubSq3a0PHEGUK1/o.jpg" width="300" height="49"/></a></div>
 				<%} else { %>
 				<div><p><a class="black_button" href="/home.do">홈페이지<i class="fa fa-sign-in-alt"></i></a></p></div>
 				<%}%>
 			</div>
 		</div>
 	</div>
-	<!-- modal 로그인 시 출력-->
-	<%@ include file="modal/Sign.jsp" %>
 	<!-- Start loading... -->
 	<div id="preload">
 		<div id="preload-content">

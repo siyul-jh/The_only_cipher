@@ -7,27 +7,13 @@ package poly.dto;
 public class UserDTO {
 	// user DB
 	private String user_no; // 기본키, 순번
-	private String user_id; // 아이디 (이메일)
-	private String user_pw; // 비밀번호
-	private String user_phone; // 연락처
-	private String user_date;// 생년월일
-	private String reg_dt; // 생성일자
+	private String user_id; // 아이디
+	private String user_name; // 닉네임
+	private String user_mail; // 이메일
+	private String extension; // 소셜
+	private String reg_dt; // 등록일자
 	private String active; // 활성화여부
-	// Email
 	
-	
-	public String getReg_dt() {
-		return reg_dt;
-	}
-	public void setReg_dt(String reg_dt) {
-		this.reg_dt = reg_dt;
-	}
-	public String getActive() {
-		return active;
-	}
-	public void setActive(String active) {
-		this.active = active;
-	}
 	public String getUser_no() {
 		return user_no;
 	}
@@ -40,29 +26,35 @@ public class UserDTO {
 	public void setUser_id(String user_id) {
 		this.user_id = user_id;
 	}
-	public String getUser_pw() {
-		return user_pw;
+	public String getUser_name() {
+		return user_name;
 	}
-	public void setUser_pw(String user_pw) {
-		this.user_pw = user_pw;
+	public void setUser_name(String user_name) {
+		this.user_name = user_name;
 	}
-	public String getUser_phone() {
-		return user_phone;
+	public String getUser_mail() {
+		return user_mail;
 	}
-	public void setUser_phone(String user_phone) {
-		this.user_phone = user_phone;
+	public void setUser_mail(String user_mail) {
+		this.user_mail = user_mail;
 	}
-	public String getUser_date() {
-		return user_date;
+	public String getExtension() {
+		return extension;
 	}
-	public void setUser_date(String user_date) {
-		this.user_date = user_date;
+	public void setExtension(String extension) {
+		this.extension = extension;
 	}
-	public String getUser_dt() {
+	public String getReg_dt() {
 		return reg_dt;
 	}
-	public void setUser_dt(String user_dt) {
-		this.reg_dt = user_dt;
+	public void setReg_dt(String reg_dt) {
+		this.reg_dt = reg_dt;
+	}
+	public String getActive() {
+		return active;
+	}
+	public void setActive(String active) {
+		this.active = active;
 	}
 	
 }

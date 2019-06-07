@@ -17,7 +17,10 @@
 		<%@ include file="Source/home_topCss.jsp" %>
 		<% 
 		String user_id = CmmUtil.nvl((String) session.getAttribute("user_id"));
-		if (user_id.equals("")) {
+		String user_name = CmmUtil.nvl((String) session.getAttribute("user_name"));
+		String user_mail = CmmUtil.nvl((String) session.getAttribute("user_mail"));
+		String extension = CmmUtil.nvl((String) session.getAttribute("extension"));
+		if (user_name.equals("")) {
 			response.sendRedirect("/index.do");
 		}
 		List<NoticeDTO> rList = (List<NoticeDTO>)request.getAttribute("rList");
@@ -25,7 +28,7 @@
 		%>
 		<script type="text/javascript">
 		if (window.sessionStorage) {
-            sessionStorage.setItem('user_id', '<%=user_id.split("@")[0]%>');
+            sessionStorage.setItem('user_mail', '<%=user_mail.split("@")[0]%>');
 		}
 		</script>
 	</head>
@@ -67,7 +70,7 @@
 					<div class="caption-content">
 						<div class="font-alt mb-30 titan-title-size-1">Encryption &amp; Decryption</div>
 						<div class="font-alt mb-40 titan-title-size-4">The Only Cipher</div>
-						<div class="mb-30 titan-title-size-1" id="user_name"><%=user_id.split("@")[0] + "님 환영합니다."%></div>
+						<div class="mb-30 titan-title-size-1" id="user_name"><%=user_name + "님 환영합니다."%></div>
 						<a class="section-scroll btn btn-border-w btn-round" href="/action/logout.do">Logout</a>
 					</div>
 				</div>
@@ -197,7 +200,7 @@
 							<div class="col-sm-3 col-md-12 col-lg-12">
 								<div class="count-item mb-sm-40">
 									<div class="row">
-										<div title="<%=user_id.split("@")[0]%>"id="Encrypt_fileUpload" class="dragAndDropDiv">Drag & Drop Files Here</div>
+										<div title="<%=user_id%>"id="Encrypt_fileUpload" class="dragAndDropDiv">Drag & Drop Files Here</div>
 										<!-- <div class='filedown'>Download</div> -->
 										<button class="multifiledownload" id="Encryption_multi">Zip Download</button>
 									
@@ -230,7 +233,7 @@
 							<div class="col-sm-3 col-md-12 col-lg-12">
 								<div class="count-item mb-sm-40">
 									<div class="row">
-										<div title="<%=user_id.split("@")[0]%>" id="Decrypt_fileUpload" class="dragAndDropDiv">Drag & Drop Files Here</div>
+										<div title="<%=user_id%>" id="Decrypt_fileUpload" class="dragAndDropDiv">Drag & Drop Files Here</div>
 										<!-- <div class='filedown' onclick="">Download</div> -->
 										<button class="multifiledownload" id="Decryption_multi">Zip Download</button>
 									</div>

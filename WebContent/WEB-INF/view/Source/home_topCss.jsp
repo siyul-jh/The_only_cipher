@@ -147,11 +147,6 @@
 		// 서버로 파일 보내기
 		function sendFileToServer(formData,status)
 		{	
-			//if(status.division == "Encrypt_fileUpload") {
-			//	var uploadURL = "/Encrypt_fileUpload.do"; //Upload URL
-			//} else if(status.division == "Decrypt_fileUpload") {
-			//	var uploadURL = "/Decrypt_fileUpload.do"; //Upload URL
-			//}
 			var uploadURL = "/fileUpload.do"; //Upload URL
 		    var extraData ={}; //Extra Data.
 		    var jqXHR=$.ajax({
