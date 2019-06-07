@@ -2239,7 +2239,8 @@ Google map
 }
 
 .pagination a.active {
-  border-color: #CACACA;
+  border-color: #049dd9;
+  color: #049dd9;
 }
 
 /*--------------------------------------------------------------

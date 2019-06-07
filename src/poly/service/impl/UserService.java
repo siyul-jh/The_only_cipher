@@ -36,5 +36,9 @@ public class UserService implements IUserService{
 	public String getId(UserDTO uDTO) throws Exception {
 		return userMapper.getId(uDTO);
 	}
+	@Override //사용자 ID 중복확인
+	public String getIdCheck(UserDTO uDTO) throws Exception {
+		return userMapper.getIdCheck(uDTO);
+	}
 
 }

@@ -1,14 +1,16 @@
 package poly.controller;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Date;
 import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
-import javax.annotation.Resource;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,14 +20,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import poly.dto.NoticeDTO;
-import poly.dto.PagingDTO;
-import poly.service.INoticeService;
+import net.lingala.zip4j.core.ZipFile;
+import net.lingala.zip4j.model.ZipParameters;
+import net.lingala.zip4j.util.Zip4jConstants;
 import poly.util.CmmUtil;
 /*
  * Handles requests for the application home page.
@@ -48,6 +49,22 @@ public class HomeController {
 	@RequestMapping(value="home")
 	public String home(HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session) throws Exception{
 		System.out.println("home");
+        
+        String filePath = request.getSession().getServletContext().getRealPath("Temp"); //설정파일로 뺀다.
+        File dir = new File(filePath); //파일 저장 경로 확인, 없으면 만든다.
+    	//
+    	if( dir.exists() ){ //파일존재여부확인
+            if(dir.isDirectory()){ //파일이 디렉토리인지 확인
+                File[] files = dir.listFiles();
+                for( int i=0; i<files.length; i++){
+                    files[i].delete();
+                }
+                dir.mkdirs();
+            }
+        }else{
+            dir.mkdirs();
+        }
+    	//
 		return "/home";
 	}
 	
@@ -64,78 +81,323 @@ public class HomeController {
 	return "/fileUpload";
 	}
 	
-    @RequestMapping(value = "fileUpload") //ajax에서 호출하는 부분\
-    //  파일 업로드
+	/*
+	 * // 파일 암호화 업로드
+	 * 
+	 * @RequestMapping(value = "Encrypt_fileUpload") //ajax에서 호출하는 부분\
+	 * 
+	 * @ResponseBody public String encrypt_upload(HttpServletRequest request,
+	 * MultipartHttpServletRequest multipartRequest, HttpSession session) {
+	 * //Multipart로 받는다. System.out.println("encrypt_upload"); Iterator<String> itr
+	 * = multipartRequest.getFileNames();
+	 * 
+	 * String user_email = (String) session.getAttribute("user_id"); int
+	 * user_email_indx = user_email.indexOf("@"); String user_id =
+	 * user_email.substring(0, user_email_indx); String PyPath_ =
+	 * request.getSession().getServletContext().getRealPath(""); //설정파일로 뺀다. String
+	 * filePath = request.getSession().getServletContext().getRealPath("Temp");
+	 * //설정파일로 뺀다.
+	 * 
+	 * File dir = new File(filePath); //파일 저장 경로 확인, 없으면 만든다. // if( dir.exists() ){
+	 * //파일존재여부확인 if(dir.isDirectory()){ //파일이 디렉토리인지 확인 File[] files =
+	 * dir.listFiles(); for( int i=0; i<files.length; i++){ files[i].delete(); }
+	 * dir.mkdirs(); } }else{ dir.mkdirs(); } // int num = 0; while (itr.hasNext())
+	 * { //받은 파일들을 모두 돌린다. MultipartFile mpf = multipartRequest.getFile(itr.next());
+	 * String originalFilename = mpf.getOriginalFilename(); //파일명 String
+	 * fileFullPath = filePath+"/"+originalFilename; //파일 전체 경로 try { //파일 저장
+	 * Thread.sleep(1000); mpf.transferTo(new File(fileFullPath)); //파일저장 실제로는
+	 * service에서 처리 } catch (Exception e) {
+	 * System.out.println("ERROR======>"+fileFullPath); e.printStackTrace(); }
+	 * num++; } return "success"; }
+	 * 
+	 * // 파일 복호화 업로드
+	 * 
+	 * @RequestMapping(value = "Decrypt_fileUpload") //ajax에서 호출하는 부분\
+	 * 
+	 * @ResponseBody public String decrypt_upload(HttpServletRequest request,
+	 * MultipartHttpServletRequest multipartRequest, HttpSession session) {
+	 * System.out.println("decrypt_upload"); Iterator<String> itr =
+	 * multipartRequest.getFileNames();
+	 * 
+	 * String user_email = (String) session.getAttribute("user_id"); int
+	 * user_email_indx = user_email.indexOf("@"); String user_id =
+	 * user_email.substring(0, user_email_indx); String PyPath_ =
+	 * request.getSession().getServletContext().getRealPath(""); //설정파일로 뺀다. String
+	 * filePath = request.getSession().getServletContext().getRealPath("Temp");
+	 * //설정파일로 뺀다.
+	 * 
+	 * File dir = new File(filePath); //파일 저장 경로 확인, 없으면 만든다.
+	 * 
+	 * // if( dir.exists() ){ //파일존재여부확인 if(dir.isDirectory()){ //파일이 디렉토리인지 확인
+	 * File[] files = dir.listFiles(); for( int i=0; i<files.length; i++){
+	 * files[i].delete(); } dir.mkdirs(); } }else{ dir.mkdirs(); } // while
+	 * (itr.hasNext()) { //받은 파일들을 모두 돌린다.
+	 * 
+	 * MultipartFile mpf = multipartRequest.getFile(itr.next());
+	 * 
+	 * String originalFilename = mpf.getOriginalFilename(); //파일명 String
+	 * fileFullPath = filePath+"/"+originalFilename; //파일 전체 경로
+	 * 
+	 * try { //파일 저장 mpf.transferTo(new File(fileFullPath)); //파일저장 실제로는 service에서
+	 * 처리 } catch (Exception e) { System.out.println("ERROR======>"+fileFullPath);
+	 * e.printStackTrace(); }
+	 * 
+	 * } ProcessBuilder pb = new ProcessBuilder("python",
+	 * PyPath_+"WEB-INF\\view\\Source\\Decrypt.py", "\"" +
+	 * PyPath_+"Temp\\**\" \""+user_id+"\""); //복호화 try { pb.start(); } catch
+	 * (IOException e) { // TODO Auto-generated catch block e.printStackTrace(); }
+	 * return "success"; }
+	 */
+	// 파일 업로드
+	@RequestMapping(value = "fileUpload") //ajax에서 호출하는 부분\
     @ResponseBody
-    public String upload(HttpServletRequest request, MultipartHttpServletRequest multipartRequest) { //Multipart로 받는다.
+    public String fileUpload(HttpServletRequest request, MultipartHttpServletRequest multipartRequest) { //Multipart로 받는다.
     	System.out.println("upload");
-        Iterator<String> itr =  multipartRequest.getFileNames();
-        
-        String filePath = request.getRealPath("Temp"); //설정파일로 뺀다.
+    	Iterator<String> itr =  multipartRequest.getFileNames();
+        String filePath = request.getSession().getServletContext().getRealPath("Temp"); //설정파일로 뺀다.
         System.out.println("filePath : " + filePath);
+        
         File dir = new File(filePath); //파일 저장 경로 확인, 없으면 만든다.
-        if (!dir.exists()) {
-        	System.out.println("저장 폴더가 없다. 만든다!");
+    	//
+    	if( dir.exists() ){ //파일존재여부확인
+            if(dir.isDirectory()){ //파일이 디렉토리인지 확인
+                File[] files = dir.listFiles();
+                for( int i=0; i<files.length; i++){
+                    files[i].delete();
+                }
+                dir.mkdirs();
+            }
+        }else{
             dir.mkdirs();
         }
-        
+    	//
         while (itr.hasNext()) { //받은 파일들을 모두 돌린다.
-                        
             MultipartFile mpf = multipartRequest.getFile(itr.next());
-     
             String originalFilename = mpf.getOriginalFilename(); //파일명
             String fileFullPath = filePath+"/"+originalFilename; //파일 전체 경로
-     
             try {
                 //파일 저장
+            	Thread.sleep(500);
                 mpf.transferTo(new File(fileFullPath)); //파일저장 실제로는 service에서 처리
-                
-                System.out.println("파일명 => "+originalFilename);
-                System.out.println("파일저장 경로 => "+fileFullPath);
-     
             } catch (Exception e) {
                 System.out.println("ERROR======>"+fileFullPath);
                 e.printStackTrace();
             }
-                         
        }
         return "success";
     }
     // 파일 다운로드
-    
     @RequestMapping(value = "filedownload") //ajax에서 호출하는 부분\
-	public String downloadFile(@RequestParam("FileName") String FileName, Map<String, Object> map, HttpServletResponse response) throws Exception{
-		System.out.println("downloadFile");
-		String path = "D:\\The only cipher\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\The only cipher\\Temp"; //경로 지정해주기
-		System.out.println("path : " + path);
-		String FileFullPath = path + "\\" + FileName;         
-		System.out.println("FileFullPath : " + FileFullPath);
-		
-    	try {
-    		java.io.File file = new java.io.File(FileFullPath);
-            
-    		response.setContentType("DEFAULT_CONTENT_TYPE");
-    		response.setContentLength((int) file.length());
-    		response.setHeader("Content-Disposition", "attachment; filename=\"" + java.net.URLEncoder.encode(file.getName(), "utf-8") + "\";");
-    		response.setHeader("Content-Transfer-Encoding", "binary");
+   	public void fileDownload(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    	String path = request.getSession().getServletContext().getRealPath("Temp/"); //경로
+        String oriFileName = CmmUtil.nvl(request.getParameter("filename")); //파일명
+        String user_id = CmmUtil.nvl(request.getParameter("user_id")); //확장자명
+        String user_key = CmmUtil.nvl(request.getParameter("user_key")); //암호화 키
+        String type = CmmUtil.nvl(request.getParameter("type")); // 암호화/복호화
+        String fileName = null;
+        
+        // 암호화
+        Process cipher = null;
+        String PyPath = request.getSession().getServletContext().getRealPath(""); //파이썬파일 경로
+    	if (type.equals("Encrypt_fileUpload")) {
+    		cipher = new ProcessBuilder("python", PyPath+"WEB-INF\\view\\Source\\Encrypt.py", "\"" + PyPath+"Temp\\**"+oriFileName+"\" \""+user_key+"\" \""+user_id+"\"").start(); //암호화
+    		fileName = oriFileName +"." + user_id;
     		
-    		FileInputStream fis = new FileInputStream(file); //파일 읽어오기
-    		ServletOutputStream sout = response.getOutputStream();
-    		
-    		byte[] buf = new byte[1024];
-            int size = -1;
-
-            while ((size = fis.read(buf, 0, buf.length)) != -1) {
-                sout.write(buf, 0, size);
-            }
-
-			fis.close();
-			sout.close();
-        } 
-        catch (Exception e) {
-            e.printStackTrace();
+    	} else if (type.equals("Decrypt_fileUpload")) {
+    		cipher = new ProcessBuilder("python", PyPath+"WEB-INF\\view\\Source\\Decrypt.py", "\"" + PyPath+"Temp\\**"+oriFileName+"\" \""+user_key+"\" \""+user_id+"\"").start(); //복호화
+    		fileName = oriFileName.replace("."+user_id, "");
+    	}
+    	
+    	BufferedReader stdOut = new BufferedReader(new InputStreamReader(cipher.getInputStream()));
+    	
+    	String line;
+        while((line=stdOut.readLine())!=null){
+        	System.out.println(line);
         }
+        
+        String fullPath = path + fileName;
+        File file = new File(fullPath);
+        
+        FileInputStream fileInputStream = null;
+        ServletOutputStream servletOutputStream = null;
+     
+        try{
+            String downName = null;
+            String browser = request.getHeader("User-Agent");
+            //파일 인코딩
+            if(browser.contains("MSIE") || browser.contains("Trident") || browser.contains("Chrome")){//브라우저 확인 파일명 encode  
+                 
+                downName = URLEncoder.encode(fileName,"UTF-8").replaceAll("\\+", "%20");
+                 
+            }else{
+                 
+                downName = new String(fileName.getBytes("UTF-8"), "ISO-8859-1");
+                 
+            }
+             
+            response.setHeader("Content-Disposition","attachment;filename=\"" + downName+"\"");             
+            response.setContentType("application/octer-stream");
+            response.setHeader("Content-Transfer-Encoding", "binary;");
+     
+            fileInputStream = new FileInputStream(file);
+            servletOutputStream = response.getOutputStream();
+     
+            byte b [] = new byte[1024];
+            int data = 0;
+     
+            while((data=(fileInputStream.read(b, 0, b.length))) != -1){
+                 
+                servletOutputStream.write(b, 0, data);
+                 
+            }
+     
+            servletOutputStream.flush();//출력
+             
+        }catch (Exception e) {
+            e.printStackTrace();
+        }finally{
+            if(servletOutputStream!=null){
+                try{
+                    servletOutputStream.close();
+                }catch (IOException e){
+                    e.printStackTrace();
+                }
+            }
+            if(fileInputStream!=null){
+                try{
+                    fileInputStream.close();
+                }catch (IOException e){
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+    // 파일 압축 다운로드
+    @RequestMapping(value = "multifiledownload") //ajax에서 호출하는 부분\
+    public void multifiledownload(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException{
+    	String path = request.getSession().getServletContext().getRealPath("Temp/"); //경로
+        String user_id = CmmUtil.nvl(request.getParameter("user_id")); //확장자명
+        String user_key = CmmUtil.nvl(request.getParameter("user_key")); //암호화 키
+        String type = CmmUtil.nvl(request.getParameter("type")); // 암호화/복호화
+
+        // 암호화
+        Process cipher = null;
+        String PyPath = request.getSession().getServletContext().getRealPath(""); //파이썬파일 경로
+    	if (type.equals("Encryption_multi")) {
+    		cipher = new ProcessBuilder("python", PyPath+"WEB-INF\\view\\Source\\Encrypt.py", "\"" + PyPath+"Temp\\**\" \""+user_key+"\" \""+user_id+"\"").start(); //암호화
+    		System.out.println("cipher : " + cipher.toString());
+    	} else if (type.equals("Decryption_multi")) {
+    		cipher = new ProcessBuilder("python", PyPath+"WEB-INF\\view\\Source\\Decrypt.py", "\"" + PyPath+"Temp\\**\" \""+user_key+"\" \""+user_id+"\"").start(); //복호화
+    		System.out.println("cipher : "  + cipher.toString());
+    	}
+    	BufferedReader stdOut = new BufferedReader(new InputStreamReader(cipher.getInputStream()));
+    	
+    	String line;
+        while((line=stdOut.readLine())!=null){
+        	System.out.println(line);
+        }
+    	
+        String zipname = "";
+        String now = new SimpleDateFormat("yyyyMMddhmsS").format(new Date()); //현재시간 나타내는 변수
+		ArrayList<String> fileList = new ArrayList<String>(); // 파일리스트 선언
+		fileList = findExt(user_id, request); // 확장자로 파일리스트 검색
+		boolean zipYN = true; // 파일압축 유무 값 선언
+		if (zipYN == true) { // 압축파일이 있다면
+			zipname = now + ".zip"; // 압축파일명
+		}
+		String zipFileName = path + "\\" + zipname; // 압축될 파일명 선언 (경로\확장자.zip)
+
+		// 파일들 압축하기
+		try {
+			ZipFile zipfile = new ZipFile(zipFileName);
+			ZipParameters parameters = new ZipParameters();
+			parameters.setCompressionMethod(Zip4jConstants.COMP_DEFLATE);
+			parameters.setCompressionLevel(Zip4jConstants.DEFLATE_LEVEL_NORMAL);
+			if (fileList.size() > 0) { // 파일 리스트가 존재한다면
+				for (int i = 0; i < fileList.size(); i++) {
+					zipfile.addFile(new File(fileList.get(i)), parameters);
+				}
+				System.out.println("zipfile : " + zipfile);
+				File file = new File(zipFileName);
+		        FileInputStream fileInputStream = null;
+		        ServletOutputStream servletOutputStream = null;
+		        try{
+		            String downName = null;
+		            String browser = request.getHeader("User-Agent");
+		            //파일 인코딩
+		            if(browser.contains("MSIE") || browser.contains("Trident") || browser.contains("Chrome")){//브라우저 확인 파일명 encode  
+		                downName = URLEncoder.encode(zipname,"UTF-8").replaceAll("\\+", "%20");
+		            }else{
+		                downName = new String(zipname.getBytes("UTF-8"), "ISO-8859-1");
+		            }
+		             
+		            response.setHeader("Content-Disposition","attachment;filename=\"" + downName+"\"");             
+		            response.setContentType("application/octer-stream");
+		            response.setHeader("Content-Transfer-Encoding", "binary;");
+		     
+		            fileInputStream = new FileInputStream(file);
+		            servletOutputStream = response.getOutputStream();
+		     
+		            byte b [] = new byte[1024];
+		            int data = 0;
+		     
+		            while((data=(fileInputStream.read(b, 0, b.length))) != -1){
+		                 
+		                servletOutputStream.write(b, 0, data);
+		                 
+		            }
+		     
+		            servletOutputStream.flush();//출력
+		             
+		        }catch (Exception e) {
+		            e.printStackTrace();
+		        }finally{
+		            if(servletOutputStream!=null){
+		                try{
+		                    servletOutputStream.close();
+		                }catch (IOException e){
+		                    e.printStackTrace();
+		                }
+		            }
+		            if(fileInputStream!=null){
+		                try{
+		                    fileInputStream.close();
+		                }catch (IOException e){
+		                    e.printStackTrace();
+		                }
+		            }
+		        }
+				
+			} else { // 리스트가 없다면
+				System.out.println("파일이 존재하지 않음");
+				zipYN = false; // 파일압축 유무 > false
+			}
+		} catch (Exception e) {
+			System.out.println("Error");
+		}
+
+
+		//
 		
-    	return "/fileUpload";
+		//
+	}
+	// 파일 검색 후 리스트 작성
+	public ArrayList<String> findExt(String ext, HttpServletRequest request) {
+		
+		String path = request.getSession().getServletContext().getRealPath("Temp"); //경로
+		System.out.println("path : " + path);
+		System.out.println("ext : " + ext);
+    	File file = new File(path);
+    	ArrayList<String> fileList = new ArrayList<String>(); // 파일 리스트 선언
+    	
+		if(file.isDirectory()){ //파일이 디렉토리인지 확인 
+			File[] files = file.listFiles();
+			for (int i = 0; i < files.length; i++) { // 개수만큼 for 문 돌려돌려
+				if (files[i].getName().endsWith("." + ext)) { // 해당 파일에서 마지막 글자가 .확장자 라면
+					fileList.add(files[i].getPath()); // fileList(파일 리스트) 에 추가
+				}
+			}
+		}
+		return fileList; // fileList 리턴
 	}
 }

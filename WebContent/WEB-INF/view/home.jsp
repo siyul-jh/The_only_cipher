@@ -7,46 +7,31 @@
 <!DOCTYPE html>
 <html dir="ltr">
 	<head>
-	   <meta charset="utf-8">
-	   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-	   <meta name="viewport" content="width=device-width, initial-scale=1">
-	   <!-- Document Title -->
-	   <title>The Only Cipher</title>
-	   <meta name="msapplication-TileColor" content="#ffffff">
-	   <meta name="theme-color" content="#ffffff">
-	   <%@ include file="Source/home_topCss.jsp" %>
-	<script type="text/javascript">
-		$(document).on( "click", ".filename", function(){
-			var FileName = $(this).text();
-			location.href="filedownload.do?FileName=" + FileName;
-		})
-	</script>
-	<% 
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- Document Title -->
+		<title>The Only Cipher</title>
+		<meta name="msapplication-TileColor" content="#ffffff">
+		<meta name="theme-color" content="#ffffff">
+		<%@ include file="Source/home_topCss.jsp" %>
+		<% 
 		String user_id = CmmUtil.nvl((String) session.getAttribute("user_id"));
 		if (user_id.equals("")) {
 			response.sendRedirect("/index.do");
 		}
 		List<NoticeDTO> rList = (List<NoticeDTO>)request.getAttribute("rList");
 		PagingDTO pDTO = (PagingDTO)request.getAttribute("paging");
-		System.out.println("home.jsp");
-		System.out.println("rList : " + rList);
-		System.out.println("pDTO : " + pDTO);
-		//System.out.println("rList.size() : " + rList.size());
-		System.out.println("---------------------------------------------------");
-/* 		System.out.println("한 페이지에 몇개 표시 getContentnum : " + pDTO.getContentnum());
-		System.out.println("현재페이지블록 getCurrentblock : " + pDTO.getCurrentblock());
-		System.out.println("현재페이지블록의 시작 페이지 getStartPage : " + pDTO.getStartPage());
-		System.out.println("현재페이지블록의 마지막 페이지 getEndPage : " + pDTO.getEndPage());
-		System.out.println("마지막페이지블록 getLastblock : " + pDTO.getLastblock());
-		System.out.println("현재 페이지 번호 getPagenum : " + pDTO.getPagenum());
-		System.out.println("전체 게시물 개수 getTotalcount : " + pDTO.getTotalcount());
-		System.out.println("이전 isPrev : " + pDTO.isPrev());
-		System.out.println("다음 isNext : " + pDTO.isNext()); */
-		System.out.println("---------------------------------------------------");
-	%>
+		%>
+		<script type="text/javascript">
+		if (window.sessionStorage) {
+            sessionStorage.setItem('user_id', '<%=user_id.split("@")[0]%>');
+		}
+		</script>
 	</head>
 	<body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
-	<%if(user_id.equals("gihum@naver.com")) { %>
+	<div id="modal_custom_notice_detail" class="modal_custom"></div>
+	<%if(user_id.equals("admin")) { %>
 		<%@ include file = "modal/Notice.jsp" %>
 	<%}%>
     	<main>
@@ -82,7 +67,7 @@
 					<div class="caption-content">
 						<div class="font-alt mb-30 titan-title-size-1">Encryption &amp; Decryption</div>
 						<div class="font-alt mb-40 titan-title-size-4">The Only Cipher</div>
-						<div class="mb-30 titan-title-size-1"><%=user_id.split("@")[0] + "님 환영합니다."%></div>
+						<div class="mb-30 titan-title-size-1" id="user_name"><%=user_id.split("@")[0] + "님 환영합니다."%></div>
 						<a class="section-scroll btn btn-border-w btn-round" href="/action/logout.do">Logout</a>
 					</div>
 				</div>
@@ -94,12 +79,10 @@
 						<div class="row">
 							<div class="col-sm-6 col-sm-offset-3">
 								<h2 class="module-title font-alt">Notice</h2>
-							<%if(user_id.equals("gihum@naver.com")) { %>
+							<%if(user_id.equals("admin")) { %>
 								<%@ include file = "modal/Notice.jsp" %>
 								<div id="new_add"><p><a id="modal_notice_add" class="a-button" href="#">New Add<i class="fa fa-sign-in-alt"></i></a></p></div>
-							<%} else { %>
-								<div class="module-subtitle">admin 아님</div>
-							<%} %>
+							<%}%>
 							</div>
 						</div>
 						<div class="row multi-columns-row">
@@ -214,7 +197,10 @@
 							<div class="col-sm-3 col-md-12 col-lg-12">
 								<div class="count-item mb-sm-40">
 									<div class="row">
-										<div id="fileUpload" class="dragAndDropDiv">Drag & Drop Files Here</div>
+										<div title="<%=user_id.split("@")[0]%>"id="Encrypt_fileUpload" class="dragAndDropDiv">Drag & Drop Files Here</div>
+										<!-- <div class='filedown'>Download</div> -->
+										<button class="multifiledownload" id="Encryption_multi">Zip Download</button>
+									
 									</div>
 								</div>
 							</div>
@@ -238,13 +224,15 @@
 				    </div>
 				  </div>
 				</section>
-				<section class="module">
+				<section class="module"> 
 					<div class="container">
 						<div class="row multi-columns-row">
 							<div class="col-sm-3 col-md-12 col-lg-12">
 								<div class="count-item mb-sm-40">
 									<div class="row">
-										<div id="fileUpload" class="dragAndDropDiv">Drag & Drop Files Here</div>
+										<div title="<%=user_id.split("@")[0]%>" id="Decrypt_fileUpload" class="dragAndDropDiv">Drag & Drop Files Here</div>
+										<!-- <div class='filedown' onclick="">Download</div> -->
+										<button class="multifiledownload" id="Decryption_multi">Zip Download</button>
 									</div>
 								</div>
 							</div>

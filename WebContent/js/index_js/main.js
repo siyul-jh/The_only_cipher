@@ -134,3 +134,23 @@ $(window).load(function() {
             e.preventDefault();
         });
     });
+/*----------------------------------------------------------------------------*/
+/*	11.Reset PW Modal Window
+/*----------------------------------------------------------------------------*/
+    $('#modal_reset-pw').on('click', function(e) {
+        var mainInner3 = $('#modal-window .container'),
+                modal3 = $('#modal_custom_reset-pw');
+
+        mainInner3.animate({opacity: 0}, 300, function() {
+            $('html,body').scrollTop(0);
+            modal3.addClass('modal-active').fadeIn(600);
+        });
+        e.preventDefault();
+
+        $('.modal_custom_custom-close').on('click', function(e) {
+            modal3.removeClass('modal-active').fadeOut(300, function() {
+                mainInner3.animate({opacity: 1}, 200);
+            });
+            e.preventDefault();
+        });
+    });

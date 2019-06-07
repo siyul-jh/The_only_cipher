@@ -14,7 +14,6 @@
 <script src="/js/home_js/main.js"></script>
 <script src="/js/home_js/custom.js"></script>
 
-
 <script src="/js/home_js/jquery.magnific-popup.js"></script>
 <script src="/js/home_js/jquery.simple-text-rotator.min.js"></script>
 

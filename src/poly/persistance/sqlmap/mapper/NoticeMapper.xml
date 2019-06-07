@@ -14,7 +14,8 @@
 		reg_id,
 		reg_dt,
 		chg_id,
-		chg_dt
+		chg_dt,
+		actice
 		)
 		VALUES (
 		#{title},
@@ -25,9 +26,27 @@
 		#{user_id},
 		now(),
 		#{user_id},
-		now()
+		now(),
+		y
 		)
 	</insert>
+	<!-- 공지사항 수정 -->
+ 	<update id="noticeoModify" parameterType="NoticeDTO">
+		UPDATE notice
+		SET
+		title = #{title},
+		notice_yn = #{notice_yn},
+		contents = #{contents},
+		chg_dt = now()
+		WHERE notice_seq = #{notice_seq}
+	</update>
+	<!-- 공지사항 삭제 -->
+ 	<update id="noticeDelete" parameterType="string">
+		UPDATE notice
+		SET
+		active = 'n'
+		WHERE notice_seq = #{notice_seq}
+	</update>
 	<!-- 공지사항 리스트 -->
 	<select id="getNoticeList" resultType="NoticeDTO">
 		(SELECT notice_seq,
@@ -40,6 +59,7 @@
 			FROM
 			notice
 			WHERE notice_yn = 'y'
+			and active ='y'
 			ORDER BY
 			notice_seq DESC
 			limit 2
@@ -55,6 +75,7 @@
 			FROM
 			notice
 			WHERE notice_yn = 'n'
+			and active ='y'
 			ORDER BY
 			notice_seq DESC
 			limit #{pagenum},#{contentnum}
@@ -62,6 +83,26 @@
 	</select>
 	<!-- 공지사항 페이징 카운트 -->
 	<select id="getNoticeListTotalCount" resultType="java.lang.Integer">
-		SELECT COUNT(*) FROM notice
+		SELECT COUNT(*) FROM notice where active = 'y'
 	</select>
+	<!-- 게시글 상세정보 -->
+	<select id="getNoticeDetail" resultType="NoticeDTO" parameterType="NoticeDTO">
+		SELECT notice_seq,
+			title,
+			notice_yn,
+			contents,
+			user_id,
+			read_cnt,
+			reg_id,
+			chg_dt
+			FROM
+			notice
+			WHERE notice_seq = #{notice_seq}
+	</select>
+	<!-- 공지사항 조회수 -->
+	<update id="NoticeCount" parameterType="string" >
+		UPDATE notice
+		SET read_cnt = read_cnt+1
+		WHERE notice_seq = #{notice_seq}
+	</update>
 </mapper>

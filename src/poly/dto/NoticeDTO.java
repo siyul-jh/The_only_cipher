@@ -15,6 +15,15 @@ public class NoticeDTO {
 	private String reg_dt; // 등록일
 	private String chg_id; // 수정자 아이디
 	private String chg_dt; // 수정일
+	private String active; // 활성화 여부
+
+	public String getActive() {
+		return active;
+	}
+
+	public void setActive(String active) {
+		this.active = active;
+	}
 
 	public String getNotice_seq() {
 		return notice_seq;

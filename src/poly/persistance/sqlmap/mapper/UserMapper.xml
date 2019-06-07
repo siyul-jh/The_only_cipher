@@ -1,41 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<!-- JAVA와 연결할 Mapper 파일 설정 -->
 <mapper namespace="poly.persistance.mapper.UserMapper">
-
 	<!-- 회원가입 -->
 	<insert id="insertUserDTO" parameterType="UserDTO">
 		INSERT INTO USER
 		(
-		user_no,
 		user_id,
 		user_pw,
 		user_phone,
 		user_date,
-		reg_dt
+		reg_dt,
+		active
 		)
 		VALUES
 		(
-		1,
 		#{user_id},
 		#{user_pw},
 		#{user_phone},
 		#{user_date},
-		now()
+		now(),
+		y
 		)
 	</insert>
-
-	<!-- 사용자 리스트 -->
-	<select id="getUserList" resultType="UserDTO">
-		SELECT USER_NO,
-		USER_ID,
-		USER_PHONE,
-		USER_DATE,
-		SYSDATE
-		FROM USER
-		WHERE USER_ID != 'admin'
-	</select>
-
 	<!-- 로그인 -->
 	<select id="getUserLogin" parameterType="UserDTO"
 		resultType="UserDTO">
@@ -45,19 +31,15 @@
 		user_pw,
 		user_phone,
 		user_date,
-		reg_dt
+		reg_dt,
+		active
 		FROM USER
 		WHERE user_id=#{user_id}
-		AND user_pw=#{user_pw} <!-- 2222 -->
 	</select>
-
-	<!-- 아이디 찾기 -->
-	<select id="getId" parameterType="UserDTO" resultType="string">
-		SELECT
-		USER_ID
+	<!-- 아이디 중복확인 -->
+	<select id="getIdCheck" parameterType="UserDTO" resultType="string">
+		SELECT COUNT(*)
 		FROM USER
-		WHERE USER_ID = #{USER_ID}
-		AND USER_PHONE = #{USER_PHONE}
+		WHERE USER_ID = #{user_id}
 	</select>
-
 </mapper>

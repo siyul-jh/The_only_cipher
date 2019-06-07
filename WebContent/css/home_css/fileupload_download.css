@@ -2,7 +2,7 @@
 	File Upload & Download
 --------------------------------------------------------------*/
 .dragAndDropDiv {
-	border: 2px dashed #999999;
+ 	border: 2px dashed #999999;
 	width: 1170px;;
 	height: 200px;
 	color: #111111;
@@ -35,7 +35,7 @@
     border-top:1px solid #A9CCD1;
     min-height:25px;
     width:100%;
-    padding:10px 10px 0px 10px;
+    padding:5px 10px 5px 10px;
     vertical-align:top;
 }
 .statusbar:nth-child(odd){
@@ -56,6 +56,19 @@
 }
 .abort{
     background-color:#A8352F;
+    -moz-border-radius:4px;
+    -webkit-border-radius:4px;
+    border-radius:4px;display:inline-block;
+    color:#fff;
+    font-family:arial;font-size:13px;font-weight:normal;
+    padding:4px 15px;
+    cursor:pointer;
+    vertical-align:top
+   }
+.filedown{
+	position: relative;
+    top: 30px;
+    background-color:#0ba1b5;
     -moz-border-radius:4px;
     -webkit-border-radius:4px;
     border-radius:4px;display:inline-block;

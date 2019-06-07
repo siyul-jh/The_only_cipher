@@ -23,19 +23,19 @@ public class NoticeService implements INoticeService{
 	}
 
 	@Override
-	public NoticeDTO getNoticeDetail(String Notice_seq) throws Exception {
-		return noticeMapper.getNoticeDetail(Notice_seq);
+	public List<NoticeDTO> getNoticeDetail(NoticeDTO nDTO) throws Exception {
+		return noticeMapper.getNoticeDetail(nDTO);
 	}
 
 	@Override
-	public int deleteNoticeDTO(String Notice_seq) throws Exception {
-		return noticeMapper.deleteNoticeDTO(Notice_seq);
+	public int noticeDelete(String notice_seq) throws Exception {
+		return noticeMapper.noticeDelete(notice_seq);
 	}
 
 	@Override
-	public int updateNotice(NoticeDTO nDTO) throws Exception {
+	public int noticeoModify(NoticeDTO nDTO) throws Exception {
 		System.out.println(nDTO.getNotice_seq());
-		return noticeMapper.updateNotice(nDTO);
+		return noticeMapper.noticeoModify(nDTO);
 	}
 
 	@Override
@@ -46,5 +46,9 @@ public class NoticeService implements INoticeService{
 	@Override
 	public int getNoticeListTotalCount() throws Exception {
 		return noticeMapper.getNoticeListTotalCount();
+	}
+	@Override
+	public int NoticeCount(String noticeNo) throws Exception {
+		return noticeMapper.NoticeCount(noticeNo);
 	}
 }

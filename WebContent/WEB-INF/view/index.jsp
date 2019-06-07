@@ -37,12 +37,6 @@
 			<div id="clock"></div>
 			<div class="newsletter">
 				<p><strong>마감일정 : 2019년 6월 12일(월)</strong></p>
-<!--  				<form method="post" action="javascript:void(0)"name="newsletterform" id="newsletterform">
-					<fieldset>
-						<input name="email" type="text" id="email"placeholder="Please enter your email" />
-						<input type="submit"class="submit" id="submit" value="Notify Me" />
-					</fieldset>
-				</form>  -->
 			</div>
 			<div>
 			<%if(user_id == "") { %>
@@ -55,7 +49,6 @@
 		</div>
 	</div>
 	<!-- modal 로그인 시 출력-->
-	<%@ include file="modal/nav.jsp" %>
 	<%@ include file="modal/Sign.jsp" %>
 	<!-- Start loading... -->
 	<div id="preload">

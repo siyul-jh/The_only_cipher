@@ -63,10 +63,9 @@ public class PagingDTO {
 		//125/10 = > 12.5
 		//13페이지
 		int totalpage = totalcount/ contentnum;
-		if(totalcount%contentnum>0) {
-			totalpage++;
-			System.out.println("totalpage : " + totalpage);
-		}
+		//if(totalcount%contentnum>0) {
+		//	totalpage++;
+		//}
 		return totalpage;
 	}
 	
@@ -95,15 +94,11 @@ public class PagingDTO {
 	//시작페이지 수정 블록을 가지고  한페이지 블록마다 페이지 4개 씩 보이게
 	public void setStartPage(int currentblock ) {
 			this.startPage = (currentblock*5)-4;
-			// 1//1 2 3 4 5 6 7 8 9 10
-			// 2//11 12 13 14 15 16 17 18 19 20
 	}
 	public int getEndPage() {
 		return endPage;
 	}
 	public void setEndPage(int getlastblock,int getcurrentblock) {
-		System.out.println("getlastblock : " + getlastblock);
-		System.out.println("getcurrentblock : " + getcurrentblock);
 		if(getlastblock == getcurrentblock) {
 			this.endPage = calcpage(getTotalcount(),getContentnum());
 		}else {
@@ -128,9 +123,6 @@ public class PagingDTO {
 	}
 	//현재페이지블록 수정
 	public void setCurrentblock(int pagenum) {
-		//페이지 번호를 통해서 구한다
-		//페이지 번호 / 페이지 그룹안의 페이지 개수
-		//1p 1/5 => 0.2  0 +1  1=>페이지 블로1
 		this.currentblock = pagenum/5;
 		if(pagenum%5>0) {
 			this.currentblock++;
@@ -140,13 +132,9 @@ public class PagingDTO {
 		return lastblock;
 	}
 	public void setLastblock(int totalcount) {
-		//10개씩 게시물 가져오고 한페이지블록당 10개 씩=> 10 *10  100개의 게시물
-		//125 / 50
-		System.out.println("10*this.contentnum : " + 4*this.contentnum );
-		this.lastblock = totalcount / this.contentnum;
+		this.lastblock = totalcount / (5*this.contentnum);
 		if(totalcount%this.contentnum>0) {
 			this.lastblock++;
-			System.out.println("lastblock : " + lastblock );
 		}
 	}
 
