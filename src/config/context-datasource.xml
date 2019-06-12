@@ -24,9 +24,11 @@
 	<!-- mysql Connection Poll -->
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" lazy-init="false">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/cipher?useSSL=false&amp;allowMultiQueries=true&amp;serverTimezone=Asia/Seoul" />
+		<!-- local -->
+		<!-- <property name="url" value="jdbc:mysql://localhost:3306/cipher?useSSL=false&amp;allowMultiQueries=true&amp;serverTimezone=Asia/Seoul" />  -->
+		<property name="url" value="jdbc:mysql://52.78.60.77:3306/cipher?useSSL=false&amp;allowMultiQueries=true&amp;serverTimezone=Asia/Seoul" />
 		<!-- <property name="url" value="jdbc:mysql://localhost:3306/cipher?useSSL=false&amp;allowMultiQueries=true&amp;serverTimezone=Asia/Seoul" /> -->
 		<property name="username" value="cipher" />
-		<property name="password" value="1234" />
+		<property name="password" value="Dl1wl2gma^" />
     </bean>
 </beans>

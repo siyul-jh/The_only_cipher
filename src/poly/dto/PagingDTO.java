@@ -16,41 +16,8 @@ public class PagingDTO {
 	private int currentblock;//현재페이지블록
 	private int lastblock;//마지막페이지블록
 	
-	 //검색하기 위한 변수
-	 private String searchWord;
-	 private String selBox;
-	 
-	 //1대1문의 검색 변수
-	 private String classfication;
-	 
-	 
-	 
-	public String getClassfication() {
-		return classfication;
-	}
-	public void setClassfication(String classfication) {
-		this.classfication = classfication;
-	}
-	public String getSelBox() {
-		return selBox;
-	}
-	public void setSelBox(String selBox) {
-		this.selBox = selBox;
-	}
-	public String getSearchWord() {
-		return searchWord;
-	}
-	public void setSearchWord(String searchWord) {
-		this.searchWord = searchWord;
-	}
-	
 	public void prevnext(int pagenum) {
-//		if(pagenum>0 && pagenum<6) {
-//			setPrev(true);
-//			setNext(true);
-//			
-//		}else 
-			if(getLastblock() == getCurrentblock()) {
+		if(getLastblock() == getCurrentblock()) {
 			setPrev(true);
 			setNext(false);
 		}else {
@@ -60,8 +27,6 @@ public class PagingDTO {
 	}
 	
 	public int calcpage(int totalcount,int contentnum) {// 전체 페이지 수를 계산하는 함수
-		//125/10 = > 12.5
-		//13페이지
 		int totalpage = totalcount/ contentnum;
 		//if(totalcount%contentnum>0) {
 		//	totalpage++;

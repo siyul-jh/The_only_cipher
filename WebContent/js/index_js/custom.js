@@ -5,17 +5,10 @@ function onSignIn(googleUser) {
     var profile = googleUser.getBasicProfile();
     var user_id = profile.getId();
     var user_name = profile.getName();
-    var user_email = profile.getEmail();
+    var user_mail = profile.getEmail();
     var extension = "google";
-    location.href='SocialSign.do?user_id='+user_id+'&user_name='+user_name+'&user_email='+user_email;
-}
-function signOut() { 
-        var auth2 = gapi.auth2.getAuthInstance();
-        auth2.signOut().then(function () {
-                console.log('User signed out.');
-            });
-        auth2.disconnect(); 
-    }
+    location.href='SocialSign.do?user_id='+user_id+'&user_name='+user_name+'&user_mail='+user_mail+'&extension='+extension;
+};
 /*----------------------------------------------------------------------------*/
 /*	2. KaKao Sign in
 /*----------------------------------------------------------------------------*/
@@ -29,11 +22,11 @@ function loginWithKakao(){
 			Kakao.API.request({
 				url: '/v2/user/me',
 				success: function(res){
-					var user_id = JSON.stringify(res.id);
-					var user_name = JSON.stringify(res.properties.nickname);
-					var user_email = JSON.stringify(res.kakao_account.email);
+					var user_id = encodeURIComponent(JSON.stringify(res.id));
+					var user_name = encodeURIComponent(JSON.stringify(res.properties.nickname));
+					var user_mail = encodeURIComponent(JSON.stringify(res.kakao_account.email));
 					var extension = "kakao";
-					location.href='SocialSign.do?user_id='+user_id+'&user_name='+user_name+'&user_email='+user_email+'&extension='+extension;
+					location.href='SocialSign.do?user_id='+user_id+'&user_name='+user_name+'&user_mail='+user_mail+'&extension='+extension;
 				},
 				fail: function(error){
 					alert(JSON.stringify(error));

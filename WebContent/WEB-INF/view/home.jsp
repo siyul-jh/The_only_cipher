@@ -14,6 +14,7 @@
 		<title>The Only Cipher</title>
 		<meta name="msapplication-TileColor" content="#ffffff">
 		<meta name="theme-color" content="#ffffff">
+		<meta name="google-signin-client_id" content="522378797291-sf127aj5gpd554ccue3bvolahhn2akv8.apps.googleusercontent.com">
 		<%@ include file="Source/home_topCss.jsp" %>
 		<% 
 		String user_id = CmmUtil.nvl((String) session.getAttribute("user_id"));
@@ -31,6 +32,22 @@
             sessionStorage.setItem('user_mail', '<%=user_mail.split("@")[0]%>');
 		}
 		</script>
+		<script>
+		function signOut() {
+		    var auth2 = gapi.auth2.getAuthInstance();
+		    auth2.signOut().then(function () {
+		            console.log('User signed out.');
+		        });
+			auth2.disconnect();
+			location.href='/logout.do';
+		}
+		function onLoad() {
+		      gapi.load('auth2', function() {
+		        gapi.auth2.init();
+		      });
+		};
+		</script>
+		<script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
 	</head>
 	<body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
 	<div id="modal_custom_notice_detail" class="modal_custom"></div>
@@ -71,7 +88,13 @@
 						<div class="font-alt mb-30 titan-title-size-1">Encryption &amp; Decryption</div>
 						<div class="font-alt mb-40 titan-title-size-4">The Only Cipher</div>
 						<div class="mb-30 titan-title-size-1" id="user_name"><%=user_name + "님 환영합니다."%></div>
-						<a class="section-scroll btn btn-border-w btn-round" href="/action/logout.do">Logout</a>
+						<%if (extension.equals("kakao")) { %>
+							<a class="section-scroll btn btn-border-w btn-round" href="logout.do">Kakao Logout</a>
+						<%} else if (extension.equals("google")) {%>
+							<a class="section-scroll btn btn-border-w btn-round" href="logout.do" onclick="signOut();">Google Logout</a>
+						<%} else if (extension.equals("admin")) { %>
+							<a class="section-scroll btn btn-border-w btn-round" href="logout.do">Logout</a>
+						<%} %>
 					</div>
 				</div>
 			 </section>
@@ -201,7 +224,6 @@
 								<div class="count-item mb-sm-40">
 									<div class="row">
 										<div title="<%=user_id%>"id="Encrypt_fileUpload" class="dragAndDropDiv">Drag & Drop Files Here</div>
-										<!-- <div class='filedown'>Download</div> -->
 										<button class="multifiledownload" id="Encryption_multi">Zip Download</button>
 									
 									</div>
@@ -234,7 +256,6 @@
 								<div class="count-item mb-sm-40">
 									<div class="row">
 										<div title="<%=user_id%>" id="Decrypt_fileUpload" class="dragAndDropDiv">Drag & Drop Files Here</div>
-										<!-- <div class='filedown' onclick="">Download</div> -->
 										<button class="multifiledownload" id="Decryption_multi">Zip Download</button>
 									</div>
 								</div>
@@ -262,11 +283,12 @@
 				<section class="module">
 				  <div class="container">
 				    <div class="row multi-columns-row">
-				      <div class="col-sm-6 col-md-3 col-lg-3">
+				      <div class="col-sm-12 col-md-12 col-lg-12">
 				        <div class="count-item mb-sm-40">
 				          <div class="count-icon"><span class="icon-cloud"></span></div>
-				          <h3 class="count-to font-alt" data-countto="6543">6543</h3>
-				          <h5 class="count-title font-serif">Dollars raised for charity</h5>
+				          	<!-- <h3 class="count-to font-alt" data-countto="14">14</h3> -->
+				          	<h5 class="count-title font-serif">Google Drive</h5>
+							<button type="button" class="Googledrive">Connect to Google Drive</button>
 				        </div>
 				      </div>
 				    </div>
@@ -277,10 +299,10 @@
 				<div class="module-small bg-dark">
 				  <div class="container">
 				    <div class="row">
-				      <div class="col-sm-3">
+				      <div class="col-sm-6">
 				        <div class="widget">
 				          <h5 class="widget-title font-alt">About</h5>
-				          <p>2019년 개인프로젝트 실습, 나만의 암호화/복호화 서비</p>
+				          <p>2019년 개인프로젝트 실습, 나만의 암호화/복호화 서비스</p>
 				          <p>Phone: 010-7225-3398</p>
 				          <p>Email:<a href="#">gihum@naver.com</a></p>
 				        </div>

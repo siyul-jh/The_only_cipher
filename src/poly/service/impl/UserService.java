@@ -28,4 +28,8 @@ public class UserService implements IUserService{
 	public UserDTO getUserLogin(UserDTO uDTO) throws Exception {
 		return userMapper.getUserLogin(uDTO);
 	}
+	@Override //관리자 로그인
+	public UserDTO getAdmin(UserDTO uDTO) throws Exception {
+		return userMapper.getAdmin(uDTO);
+	}
 }

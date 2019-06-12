@@ -16,15 +16,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.social.google.connect.GoogleConnectionFactory;
-import org.springframework.social.oauth2.GrantType;
-import org.springframework.social.oauth2.OAuth2Operations;
-import org.springframework.social.oauth2.OAuth2Parameters;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -38,10 +33,13 @@ import poly.util.CmmUtil;
  */
 @Controller
 public class HomeController {
-
+	private Logger log = Logger.getLogger(this.getClass());
+	
 	//메인화면
 	@RequestMapping(value="index")
 	public String index(HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session) throws Exception{
+		log.info(this.getClass() + "----- start -----");
+		session.invalidate();
 		return "/index";
 	}
 	//에러화면
@@ -50,7 +48,7 @@ public class HomeController {
 		return "Source/error";
 	}
 	//홈화면
-	@RequestMapping(value="home", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value="home")
 	public String home(HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session) throws Exception{
         String filePath = request.getSession().getServletContext().getRealPath("Temp"); //설정파일로 뺀다.
         File dir = new File(filePath); //파일 저장 경로 확인, 없으면 만든다.
@@ -76,11 +74,14 @@ public class HomeController {
 	}
 	
 	// 파일 업로드
-	@RequestMapping(value = "fileUpload" , method = RequestMethod.GET) //ajax에서 호출하는 부분\
+	@RequestMapping(value = "fileUpload") //ajax에서 호출하는 부분\
     @ResponseBody
     public String fileUpload(HttpServletRequest request, MultipartHttpServletRequest multipartRequest) { //Multipart로 받는다.
+		System.out.println("fileUpload");
     	Iterator<String> itr =  multipartRequest.getFileNames();
         String filePath = request.getSession().getServletContext().getRealPath("Temp"); //설정파일로 뺀다.
+        
+        System.out.println("filePath : " + filePath);
         
         File dir = new File(filePath); //파일 저장 경로 확인, 없으면 만든다.
     	//
@@ -115,8 +116,8 @@ public class HomeController {
    	public void fileDownload(HttpServletRequest request, HttpServletResponse response) throws Exception {
     	String path = request.getSession().getServletContext().getRealPath("Temp/"); //경로
         String oriFileName = CmmUtil.nvl(request.getParameter("filename")); //파일명
-        String user_id = CmmUtil.nvl(request.getParameter("user_id")); //확장자명
-        String user_key = CmmUtil.nvl(request.getParameter("user_key")); //암호화 키
+        String user_id = CmmUtil.nvl(request.getParameter("user_mail")); //확장자명
+        String user_key = CmmUtil.nvl(request.getParameter("user_id")); //암호화 키
         String type = CmmUtil.nvl(request.getParameter("type")); // 암호화/복호화
         String fileName = null;
         
@@ -185,18 +186,18 @@ public class HomeController {
     @RequestMapping(value = "multifiledownload") //ajax에서 호출하는 부분\
     public void multifiledownload(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException{
     	String path = request.getSession().getServletContext().getRealPath("Temp/"); //경로
-        String user_id = CmmUtil.nvl(request.getParameter("user_id")); //확장자명
-        String user_key = CmmUtil.nvl(request.getParameter("user_key")); //암호화 키
+        String user_mail = CmmUtil.nvl(request.getParameter("user_mail")); //확장자명
+        String user_id = CmmUtil.nvl(request.getParameter("user_id")); //암호화 키
         String type = CmmUtil.nvl(request.getParameter("type")); // 암호화/복호화
 
         // 암호화
         Process cipher = null;
         String PyPath = request.getSession().getServletContext().getRealPath(""); //파이썬파일 경로
     	if (type.equals("Encryption_multi")) {
-    		cipher = new ProcessBuilder("python", PyPath+"WEB-INF\\view\\Source\\Encrypt.py", "\"" + PyPath+"Temp\\**\" \""+user_key+"\" \""+user_id+"\"").start(); //암호화
+    		cipher = new ProcessBuilder("python", PyPath+"WEB-INF\\view\\Source\\Encrypt.py", "\"" + PyPath+"Temp\\**\" \""+user_id+"\" \""+user_mail+"\"").start(); //암호화
     		System.out.println("cipher : " + cipher.toString());
     	} else if (type.equals("Decryption_multi")) {
-    		cipher = new ProcessBuilder("python", PyPath+"WEB-INF\\view\\Source\\Decrypt.py", "\"" + PyPath+"Temp\\**\" \""+user_key+"\" \""+user_id+"\"").start(); //복호화
+    		cipher = new ProcessBuilder("python", PyPath+"WEB-INF\\view\\Source\\Decrypt.py", "\"" + PyPath+"Temp\\**\" \""+user_id+"\" \""+user_mail+"\"").start(); //복호화
     		System.out.println("cipher : "  + cipher.toString());
     	}
     	BufferedReader stdOut = new BufferedReader(new InputStreamReader(cipher.getInputStream()));
@@ -208,7 +209,7 @@ public class HomeController {
         String zipname = "";
         String now = new SimpleDateFormat("yyyyMMddhmsS").format(new Date()); //현재시간 나타내는 변수
 		ArrayList<String> fileList = new ArrayList<String>(); // 파일리스트 선언
-		fileList = findExt(user_id, request); // 확장자로 파일리스트 검색
+		fileList = findExt(user_mail, request); // 확장자로 파일리스트 검색
 		boolean zipYN = true; // 파일압축 유무 값 선언
 		if (zipYN == true) { // 압축파일이 있다면
 			zipname = now + ".zip"; // 압축파일명
@@ -225,7 +226,6 @@ public class HomeController {
 				for (int i = 0; i < fileList.size(); i++) {
 					zipfile.addFile(new File(fileList.get(i)), parameters);
 				}
-				System.out.println("zipfile : " + zipfile);
 				File file = new File(zipFileName);
 		        FileInputStream fileInputStream = null;
 		        ServletOutputStream servletOutputStream = null;
@@ -290,5 +290,15 @@ public class HomeController {
 			}
 		}
 		return fileList; // fileList 리턴
+	}
+	// Google Drive login
+	@RequestMapping(value="GoogleDrive_login")
+	public String GoogleDrive_login(HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session) throws Exception{
+		return "/GoogleDrive_login";
+	}
+	// Google Drive Upload
+	@RequestMapping(value="GoogleDrive_Upload")
+	public String GoogleDrive_Upload(HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session) throws Exception{
+		return "/GoogleDrive_Upload";
 	}
 }

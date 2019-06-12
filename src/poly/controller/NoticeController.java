@@ -78,7 +78,6 @@ public class NoticeController {
 		System.out.println("NoticeDetail");
 		String notice_seq = CmmUtil.nvl(request.getParameter("notice_seq"));
 		Object user_id = session.getAttribute("user_id");
-		System.out.println("notice_seq : " + notice_seq);
 		HashMap<String, Object> sMap = new HashMap<>();
 		NoticeDTO nDTO = new NoticeDTO();
 		nDTO.setNotice_seq(notice_seq);

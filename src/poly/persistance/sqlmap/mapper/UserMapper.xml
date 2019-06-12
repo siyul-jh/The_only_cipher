@@ -3,7 +3,7 @@
 <mapper namespace="poly.persistance.mapper.UserMapper">
 	<!-- 회원가입 -->
 	<insert id="insertUserDTO" parameterType="UserDTO">
-		INSERT INTO USER
+		INSERT INTO user
 		(
 		user_id,
 		user_name,
@@ -19,12 +19,11 @@
 		#{user_mail},
 		#{extension},
 		now(),
-		y
+		'y'
 		)
 	</insert>
 	<!-- 사용자 확인 -->
-	<select id="getUserLogin" parameterType="UserDTO"
-		resultType="UserDTO">
+	<select id="getUserLogin" parameterType="UserDTO" resultType="UserDTO">
 		SELECT
 		user_no,
 		user_id,
@@ -33,10 +32,24 @@
 		extension,
 		reg_dt,
 		active
-		FROM USER
+		FROM user
 		WHERE user_id=#{user_id} and
 		user_name=#{user_name} and
 		user_mail=#{user_mail} and
 		extension=#{extension}
+	</select>
+	<!-- 관리자 로그인 -->
+	<select id="getAdmin" parameterType="UserDTO" resultType="UserDTO">
+		SELECT
+		user_no,
+		user_id,
+		user_name,
+		user_mail,
+		extension,
+		reg_dt,
+		active
+		FROM user
+		WHERE user_id=#{user_id} and
+		user_mail=#{user_mail}
 	</select>
 </mapper>

@@ -153,6 +153,168 @@ jQuery(document).ready(function($) {
 			$("#paging").html(paging);
 		}
 	});
+/*----------------------------------------------------------------------------*/
+/*	4.	Encrypt & Decrypt fileUpload
+/*----------------------------------------------------------------------------*/
+	// 시간지연 sleep
+	function sleep (delay) {
+	   var start = new Date().getTime();
+	   while (new Date().getTime() < start + delay);
+	}
+	var Encrypt_DragAndDrop = $("#Encrypt_fileUpload");
+	var Decrypt_DragAndDrop = $("#Decrypt_fileUpload");
+	// 암호화
+	$(document).on("dragenter","#Encrypt_fileUpload",function(e){
+	    e.stopPropagation();
+	    e.preventDefault();
+	    $(this).css('border', '2px solid #0B85A1');
+	});
+	$(document).on("dragover","#Encrypt_fileUpload",function(e){
+	    e.stopPropagation();
+	    e.preventDefault();
+	});
+	$(document).on("drop","#Encrypt_fileUpload",function(e){
+		$(this).css('border', '2px dotted #18484e');
+	    e.preventDefault();
+	    sleep(1000);
+	    var files = e.originalEvent.dataTransfer.files;
+	    handleFileUpload(files,Encrypt_DragAndDrop);
+	});
+	// 복호화
+	$(document).on("dragenter","#Decrypt_fileUpload",function(e){
+	    e.stopPropagation();
+	    e.preventDefault();
+	    $(this).css('border', '2px solid #0B85A1');
+	});
+	$(document).on("dragover","#Decrypt_fileUpload",function(e){
+	    e.stopPropagation();
+	    e.preventDefault();
+	});
+	$(document).on("drop","#Decrypt_fileUpload",function(e){
+		$(this).css('border', '2px dotted #18484e');
+	    e.preventDefault();
+	    sleep(1000);
+	    var files = e.originalEvent.dataTransfer.files;
+	    handleFileUpload(files,Decrypt_DragAndDrop);
+	});
+	//
+	$(document).on('dragenter', function (e){
+		e.stopPropagation();
+		e.preventDefault();
+	});
+	$(document).on('dragover', function (e){
+	  e.stopPropagation();
+	  e.preventDefault();
+	  Encrypt_DragAndDrop.css('border', '2px dotted #0B85A1');
+	  Decrypt_DragAndDrop.css('border', '2px dotted #0B85A1');
+	});
+	$(document).on('drop', function (e){
+		e.stopPropagation();
+		e.preventDefault();
+	});
+	//
+	function handleFileUpload(files,obj)
+	{
+	   for (var i = 0; i < files.length; i++) 
+	   {
+	        var fd = new FormData();
+	        fd.append('file', files[i]);
+	 
+	        var status = new createStatusbar(obj); //Using this we can set progress.
+	        status.setFileNameSize(files[i].name,files[i].size);
+	        sendFileToServer(fd,status);
+	   }
+	}
+	// 상태바 만들기
+	var rowCount=0;
+	function createStatusbar(obj){
+		if (obj[0].id == "Encrypt_fileUpload"){
+	    	this.division = "Encrypt_fileUpload";
+		} else if (obj[0].id == "Decrypt_fileUpload") {
+	    	this.division = "Decrypt_fileUpload";
+		}
+		console.log("id : " + obj[0].title )
+	    this.statusbar = $("<div class='statusbar'></div>");
+	    this.filename = $("<div class='filename'></div>").appendTo(this.statusbar);
+	    this.size = $("<div class='filesize'>파일크기 : </div>").appendTo(this.statusbar);
+	    this.progressBar = $("<div class='progressBar'><div></div></div>").appendTo(this.statusbar);
+	    this.download = $("<button class='filedownload'>Download</button>").appendTo(this.statusbar);
+	    this.abort = $("<div class='abort'>삭제</div>").appendTo(this.statusbar);
+	    
+	    obj.after(this.statusbar);
+	 
+	    this.setFileNameSize = function(name,size){
+	        var sizeStr="";
+	        var sizeKB = size/1024;
+	        if(parseInt(sizeKB) > 1024){
+	            var sizeMB = sizeKB/1024;
+	            sizeStr = sizeMB.toFixed(2)+" MB";
+	        }else{
+	            sizeStr = sizeKB.toFixed(2)+" KB";
+	        }
+	 
+	        this.filename.html(name);
+	        this.size.html(sizeStr);
+	    }
+	    
+	    this.setProgress = function(progress){       
+	        var progressBarWidth =progress*this.progressBar.width()/ 100;  
+	        this.progressBar.find('div').animate({ width: progressBarWidth }, 10).html(progress + "% ");
+	        if(parseInt(progress) >= 100)
+	        {
+	            this.abort.hide();
+	        }
+	    }
+	    
+	    this.setAbort = function(jqxhr){
+	        var sb = this.statusbar;
+	        this.abort.click(function()
+	        {
+	            jqxhr.abort();
+	            sb.hide();
+	        });
+	    }
+	}
+	// 서버로 파일 보내기
+	function sendFileToServer(formData,status)
+	{	
+		console.log("formData : " + formData);
+		for (var key in formData) {			
+			console.log("Attributes: " + key + ", value : " + formData[key]);
+		} 
+		var uploadURL = "/fileUpload.do"; //Upload URL
+	    var extraData ={}; //Extra Data.
+	    var jqXHR=$.ajax({
+	            xhr: function() {
+	            var xhrobj = $.ajaxSettings.xhr();
+	            if (xhrobj.upload) {
+	                    xhrobj.upload.addEventListener('progress', function(event) {
+	                        var percent = 0;
+	                        var position = event.loaded || event.position;
+	                        var total = event.total;
+	                        if (event.lengthComputable) {
+	                            percent = Math.ceil(position / total * 100);
+	                        }
+	                        //Set progress
+	                        status.setProgress(percent);
+	                    }, false);
+	                }
+	            return xhrobj;
+	        },
+	        url: uploadURL,
+	        type: "POST",
+	        contentType:false,
+	        processData: false,
+	        cache: false,
+	        data: formData,
+	        success: function(data){
+	            status.setProgress(100);
+	        }
+	    }); 
+	    status.setAbort(jqXHR);
+	}
+    
+    
 });
 /*----------------------------------------------------------------------------*/
 /*	4.	Notice List page
@@ -260,7 +422,7 @@ function page(i){
 			var endPage = Number(data.paging.endPage);
 			var pagenum = Number(data.paging.pagenum);
 			var i = 0;
-			if(startPage<5) {
+			if(startPage<5) { //총 게시글 수가 5페이지 분량이 안될경우
 				for(i = startPage; i< endPage+1; i++) {
 					if(i==(pagenum+1)) {
 						paging+='<a class="active" href="javascript:page('+i+');">'+i+'</a>'
@@ -271,8 +433,8 @@ function page(i){
 				if(data.paging.next==true) {
 					paging+='<a href="javascript:page('+(endPage+1)+')"><i class="fa fa-angle-right"></i></a>'
 				}
-			} else {
-				if(data.paging.prev==true) {
+			} else { //총 게시글 수가 5페이지 분량 이상일 경우
+				if(data.paging.prev==true) { // PagingDTO 에서 prev가 True 일때 작성
 					paging+='<a href="javascript:page('+(startPage-1)+')"><i class="fa fa-angle-left"></i></a>'
 					for(i = startPage; i < endPage+1; i++) {
 						if(i==(pagenum+1)) {
@@ -281,7 +443,7 @@ function page(i){
 							paging+='<a href="javascript:page('+i+');">'+i+'</a>'
 						}
 					}
-					if(data.paging.next==true) {
+					if(data.paging.next==true) { // PagingDTO 에서 next가 True 일때 작성
 						paging+='<a href="javascript:page('+(endPage+1)+')"><i class="fa fa-angle-right"></i></a>'
 					}
 				}
@@ -411,21 +573,36 @@ $('#insertBoard').click(function () {
 /*----------------------------------------------------------------------------*/
 /*	7.	파일 단일 다온로드
 /*----------------------------------------------------------------------------*/
-$(document).on( "click", ".filename", function(){
-	var filename = $(this).text();
+$(document).on( "click", ".filedownload", function(){
+	var filename = $(this.parentNode.childNodes[0]).text();
 	var user_id = this.parentNode.parentNode.childNodes[1].title;
-	var user_key = "mykey";
+	var user_mail = sessionStorage.getItem("user_mail");
 	var type = this.parentNode.parentNode.childNodes[1].id;
-
-	location.href = "filedownload.do?filename="+filename+"&user_id="+user_id+"&user_key="+user_key+"&type="+type;
+	location.href = "filedownload.do?filename="+filename+"&user_id="+user_id+"&user_mail="+user_mail+"&type="+type;
+	
 })
 /*----------------------------------------------------------------------------*/
 /*	8.	파일 다중 다온로드
 /*----------------------------------------------------------------------------*/
 $('.multifiledownload').click(function(){
 	var user_id = this.parentNode.childNodes[1].title;
-	var user_key = "mykey";
+	var user_mail = sessionStorage.getItem("user_mail");
 	var type = this.id;
-	location.href = "multifiledownload.do?user_id="+user_id+"&user_key="+user_key+"&type="+type;
+	if (this.parentNode.childNodes[2].nodeName=="#text") {
+		alert("다운로드할 파일이 없습니다.");
+		return false;
+	} else {
+		location.href = "multifiledownload.do?user_id="+user_id+"&user_mail="+user_mail+"&type="+type;
+	}
 });
-
+/*----------------------------------------------------------------------------*/
+/*	9.	Google Logout
+/*----------------------------------------------------------------------------*/
+function singOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+            console.log('로그아웃');
+        });
+	auth2.disconnect();
+	location.href='logout.do';
+}

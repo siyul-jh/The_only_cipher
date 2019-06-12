@@ -15,7 +15,7 @@
 		reg_dt,
 		chg_id,
 		chg_dt,
-		actice
+		active
 		)
 		VALUES (
 		#{title},
@@ -27,7 +27,7 @@
 		now(),
 		#{user_id},
 		now(),
-		y
+		'y'
 		)
 	</insert>
 	<!-- 공지사항 수정 -->

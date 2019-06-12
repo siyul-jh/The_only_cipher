@@ -24,8 +24,6 @@
 					<a href="#">The Only Cipher</a>
 				</div>
 			</header>
-			<!-- modal 로그인 시 출력-->
- 			<!-- <a id="modal-open"><i class="fa fa-bars"></i></a> -->
 			<div id="rotate">
 				<div class="rotate">
 					<h1>세상에 하나밖에 없는</h1>
@@ -39,14 +37,12 @@
 			</div>
 			<div id="clock"></div>
 			<div class="newsletter">
-				<p><strong>마감일정 : 2019년 6월 12일(월)</strong></p>
+				<p><strong>수행일정 : 2019년 6월 13일(목)</strong></p>
 			</div>
 			<div>
 			<%if(user_id == "") { %>
-				<!-- <div><p><a id="modal_sign_in" class="black_button" href="#">Sign in <i class="fa fa-sign-in-alt"></i></a></p></div>
-				<div><p><strong>The Only Cipher</strong> 회원이 아니신가요? <a id="modal_sign_up" href="#">Sign up </a></p></div>-->
 				<div class="g-signin2" data-onsuccess="onSignIn" data-width="300" data-height="49" data-longtitle="true" style="display: inline-block;"></div> <!-- Google Sign in & Sign up -->
-				<div class="kakao-sign"><a id="custom-login-btn" href="javascript:loginWithKakao()"><img src="//mud-kage.kakao.com/14/dn/btqbjxsO6vP/KPiGpdnsubSq3a0PHEGUK1/o.jpg" width="300" height="49"/></a></div>
+				<div class="kakao-sign"><a id="custom-login-btn" href="javascript:loginWithKakao()"><img src="/images/kakao.png" width="300" height="49"/></a></div> <!-- Kakao Sign in & Sign up -->
 				<%} else { %>
 				<div><p><a class="black_button" href="/home.do">홈페이지<i class="fa fa-sign-in-alt"></i></a></p></div>
 				<%}%>

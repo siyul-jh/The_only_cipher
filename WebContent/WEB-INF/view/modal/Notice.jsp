@@ -32,7 +32,7 @@
 				<div class="newsletter">
 					<h3>내용</h3>
 					<fieldset class="contents">
-							<textarea name="contents" id="contents" readonly="readonly"></textarea>
+							<textarea name="contents" id="contents"></textarea>
 					</fieldset>
 				</div>
 			</div>
