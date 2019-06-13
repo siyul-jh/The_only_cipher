@@ -5,17 +5,21 @@ jQuery(document).ready(function($) {
 /*----------------------------------------------------------------------------*/
     $('#modal_notice_add').on('click', function(e) {
         var mainInner1 = $('#home'),
-                modal1 = $('#modal_custom_notice_add');
+                modal1 = $('#modal_custom_notice_add'),
+        		modal_detail = $('#modal_custom_notice_detail');
 
         mainInner1.animate({opacity: 0}, 300, function() {
             $('html,body').scrollTop(0);
             modal1.addClass('modal-active').fadeIn(600);
+            modal1.css({"z-index":"1000"});
+            modal_detail.css({"z-index":"999"});
         });
         e.preventDefault();
 
         $('.modal_custom_custom-close').on('click', function(e) {
             modal1.removeClass('modal-active').fadeOut(300, function() {
                 mainInner1.animate({opacity: 1}, 200);
+                modal1.css({"z-index":"999"});
             });
             e.preventDefault();
         });
@@ -314,10 +318,40 @@ jQuery(document).ready(function($) {
 	    status.setAbort(jqXHR);
 	}
     
-    
+/*----------------------------------------------------------------------------*/
+/*	7. Notice Add
+/*----------------------------------------------------------------------------*/
+$('#insertBoard').click(function () {
+	var title = $('#title').val();
+	var contents = $('#contents').val();
+	if(title=="") {
+		alert("제목을 입력해주세요.")
+		return false;
+	}
+	if(contents=="") {
+		alert("내용을 입력해주세요.")
+		return false;
+	}
 });
 /*----------------------------------------------------------------------------*/
-/*	4.	Notice List page
+/*	8. Notice Modify
+/*----------------------------------------------------------------------------*/
+$(document).on( "click", "#Modify", function(){	
+	var title = $('#title').val();
+	var contents = $('#contents').val();
+	if(title=="") {
+		alert("제목을 입력해주세요.")
+		return false;
+	}
+	if(contents=="") {
+		alert("내용을 입력해주세요.")
+		return false;
+	}
+});
+	
+});
+/*----------------------------------------------------------------------------*/
+/*	5.	Notice List page
 /*----------------------------------------------------------------------------*/
 function page(i){
 	if (i==null) {
@@ -455,7 +489,7 @@ function page(i){
 	});
 }
 /*----------------------------------------------------------------------------*/
-/*	5.	Notice Detail
+/*	6.	Notice Detail
 /*----------------------------------------------------------------------------*/
 function notice_seq(i) {
 	$.ajax({
@@ -469,7 +503,7 @@ function notice_seq(i) {
 			// 게시글 상세보기
 			detail+='<div class="container">'
 			detail+='<div class="one">'
-			detail+='<h2>Notice</h2>'
+			detail+='<h2>Notice Detail</h2>'
 			detail+='<a id="modal_custom_custom-close" class="modal_custom_custom-close" href="#"><i class="fa fa-home"></i></a>'
 			detail+='</div>'
 			detail+='<form method="post" action="/NoticeAdd.do"name="newsletterform" id="newsletterform">'
@@ -501,9 +535,9 @@ function notice_seq(i) {
 				}
 			} else {
 				if (data.user_id=="admin") {
-					detail+='<input id="option-one" name="yn" value="y" checked="checked" type="radio">'
+					detail+='<input id="option-one" name="yn" value="y" type="radio">'
 					detail+='<label for="option-one"> <span></span>공지사항</label>'
-					detail+='<input id="option-two" name="yn" value="n" type="radio">'
+					detail+='<input id="option-two" name="yn" value="n" checked="checked" type="radio">'
 					detail+='<label for="option-two"> <span></span>게시글</label>'
 				} else {
 					detail+='<h2>게시글</h2>'
@@ -529,9 +563,9 @@ function notice_seq(i) {
 			detail+='<div class="newsletter">'
 			detail+='<fieldset>'
 			if (data.user_id=="admin") {
-				detail+='<button type="submit" formaction="/NoticeoModify.do" class="black_button">Modify</button>'
+				detail+='<button type="submit" id="Modify" formaction="/NoticeoModify.do" class="black_button">Modify</button>'
 				detail+='<span>&nbsp;</span>'
-				detail+='<button type="submit" formaction="/NoticeoDelete.do" class="black_button">Delete</button>'
+				detail+='<button type="submit" id="Delete" formaction="/NoticeoDelete.do" class="black_button">Delete</button>'
 			}
 			detail+='</fieldset>'
 			detail+='</div>'
@@ -546,6 +580,8 @@ function notice_seq(i) {
     $('#home').animate({opacity: 0}, 300, function() {
 		$('html,body').scrollTop(0);
 		$('#modal_custom_notice_detail').addClass('modal-active').fadeIn(600);
+		$('#modal_custom_notice_detail').css({"z-index":"1000"});
+		$('#modal_custom_notice_add').css({"z-index":"999"});
 	});
 
 }
@@ -553,25 +589,12 @@ $(document).on( "click", ".modal_custom_custom-close", function(i){
 	$('#modal_custom_notice_detail').removeClass('modal-active').fadeOut(300, function() {
 		$('#home').animate({opacity: 1}, 200);
 	});
+	$('#modal_custom_notice_detail').css({"z-index":"999"});
 	i.preventDefault();
 });
+
 /*----------------------------------------------------------------------------*/
-/*	6. Notice Add
-/*----------------------------------------------------------------------------*/
-$('#insertBoard').click(function () {
-	var title = $('#title').val();
-	var contents = $('#contents').val();
-	if(title=="") {
-		alert("제목을 입력해주세요.")
-		return false;
-	}
-	if(contents=="") {
-		alert("내용을 입력해주세요.")
-		return false;
-	}
-});
-/*----------------------------------------------------------------------------*/
-/*	7.	파일 단일 다온로드
+/*	9.	파일 단일 다온로드
 /*----------------------------------------------------------------------------*/
 $(document).on( "click", ".filedownload", function(){
 	var filename = $(this.parentNode.childNodes[0]).text();
@@ -582,7 +605,7 @@ $(document).on( "click", ".filedownload", function(){
 	
 })
 /*----------------------------------------------------------------------------*/
-/*	8.	파일 다중 다온로드
+/*	10.	파일 다중 다온로드
 /*----------------------------------------------------------------------------*/
 $('.multifiledownload').click(function(){
 	var user_id = this.parentNode.childNodes[1].title;
@@ -596,7 +619,7 @@ $('.multifiledownload').click(function(){
 	}
 });
 /*----------------------------------------------------------------------------*/
-/*	9.	Google Logout
+/*	11.	Google Logout
 /*----------------------------------------------------------------------------*/
 function singOut() {
     var auth2 = gapi.auth2.getAuthInstance();
@@ -606,3 +629,9 @@ function singOut() {
 	auth2.disconnect();
 	location.href='logout.do';
 }
+/*----------------------------------------------------------------------------*/
+/*	12.	Google Drive 
+/*----------------------------------------------------------------------------*/
+$('.Googledrive').click(function(){
+	alert('현재 준비중인 서비스 입니다.');
+});

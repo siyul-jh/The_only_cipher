@@ -32,4 +32,8 @@ public class UserService implements IUserService{
 	public UserDTO getAdmin(UserDTO uDTO) throws Exception {
 		return userMapper.getAdmin(uDTO);
 	}
+	@Override //관리자 사용자 비활성화
+	public int userDisable(UserDTO uDTO) throws Exception {
+		return userMapper.userDisable(uDTO);
+	}
 }

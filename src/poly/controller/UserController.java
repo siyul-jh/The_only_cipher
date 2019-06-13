@@ -1,5 +1,7 @@
 package poly.controller;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -46,6 +48,49 @@ public class UserController {
 		} else {
 			msg = "환영합니다. 관리자 님";
 			url = "/home.do";
+		}
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		return "/Source/alert";
+	}
+	// 관리자 사용자 리스트
+	@RequestMapping(value="admin/admin_userlist")
+	public String admin_userlist(HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session) throws Exception{
+		System.out.println(this.getClass() + "----- admin_userlist -----");
+		List<UserDTO> uList = userService.getUserList(); model.addAttribute("uList", uList);
+		String url = "/admin_userlist.do"; model.addAttribute("url", url);
+		return "/admin/admin_userlist";
+	}
+	// 관리자 사용자 비활성화
+	@RequestMapping(value="admin/admin_userDisable")
+	public String admin_userDisable(HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session) throws Exception{
+		System.out.println(this.getClass() + "----- admin_userlist -----");
+		
+		String user_id = request.getParameter("user_id"); //비밀번호
+		String user_mail = request.getParameter("user_mail"); //이메일
+		String extension = request.getParameter("extension"); //전화번호
+		String active = request.getParameter("active"); //전화번호
+		
+		if(active.equals("y")) {
+			active="n";
+		} else if (active.equals("n")) {
+			active="y";
+		}
+		
+		UserDTO uDTO = new UserDTO();
+		uDTO.setActive(active);
+		uDTO.setUser_id(user_id);
+		uDTO.setUser_mail(user_mail);
+		uDTO.setExtension(extension);
+		int result = userService.userDisable(uDTO);
+		String msg = "";
+		String url = "";
+		if (result==0) {
+			msg = "비활성화 하지 못하였습니다.";
+			url = "/admin/admin_userlist.do";
+		} else {
+			msg = "변경되었습니다.";
+			url = "/admin/admin_userlist.do";
 		}
 		model.addAttribute("msg", msg);
 		model.addAttribute("url", url);

@@ -52,4 +52,25 @@
 		WHERE user_id=#{user_id} and
 		user_mail=#{user_mail}
 	</select>
+	<!-- 관리자 사용자 리스트 -->
+	<select id="getUserList" parameterType="UserDTO" resultType="UserDTO">
+		SELECT
+		user_no,
+		user_id,
+		user_name,
+		user_mail,
+		extension,
+		reg_dt,
+		active
+		FROM user
+	</select>
+	<!-- 관리자 사용자 비활성화 -->
+	<update id="userDisable" parameterType="UserDTO">
+		UPDATE user
+		SET
+		active= #{active}
+		WHERE user_id = #{user_id} and
+			user_mail = #{user_mail} and
+			extension = #{extension}
+	</update>
 </mapper>

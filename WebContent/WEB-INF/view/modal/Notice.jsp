@@ -12,7 +12,7 @@
 				<div class="newsletter">
 					<h3>제목</h3>
 					<fieldset>
-						<input name="title" type="text" id="title"placeholder="Title" />
+						<input name="title" type="text" id="title"placeholder="Title" maxlength="400" />
 					</fieldset>
 				</div>
 			</div>
@@ -32,7 +32,7 @@
 				<div class="newsletter">
 					<h3>내용</h3>
 					<fieldset class="contents">
-							<textarea name="contents" id="contents"></textarea>
+							<textarea name="contents" id="contents" maxlength="4000"></textarea>
 					</fieldset>
 				</div>
 			</div>

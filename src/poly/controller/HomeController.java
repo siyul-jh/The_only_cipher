@@ -14,6 +14,7 @@ import java.util.Iterator;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
@@ -28,6 +29,7 @@ import net.lingala.zip4j.core.ZipFile;
 import net.lingala.zip4j.model.ZipParameters;
 import net.lingala.zip4j.util.Zip4jConstants;
 import poly.util.CmmUtil;
+
 /*
  * Handles requests for the application home page.
  */
@@ -39,7 +41,7 @@ public class HomeController {
 	@RequestMapping(value="index")
 	public String index(HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session) throws Exception{
 		log.info(this.getClass() + "----- start -----");
-		session.invalidate();
+		session.invalidate();		
 		return "/index";
 	}
 	//에러화면
@@ -68,9 +70,9 @@ public class HomeController {
 		return "/home";
 	}
 	//Alert 화면
-	@RequestMapping(value="/Source/alert")
+	@RequestMapping(value="Source/alert")
 	public String alert(HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session) throws Exception{
-		return "/alert";
+		return "Source/alert";
 	}
 	
 	// 파일 업로드

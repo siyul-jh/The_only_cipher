@@ -9,4 +9,5 @@ public interface IUserService {
 	public List<UserDTO> getUserList() throws Exception;
 	public UserDTO getUserLogin(UserDTO uDTO) throws Exception;
 	public UserDTO getAdmin(UserDTO uDTO) throws Exception;
+	public int userDisable(UserDTO uDTO) throws Exception;
 }

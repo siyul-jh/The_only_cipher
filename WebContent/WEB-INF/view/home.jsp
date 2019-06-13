@@ -77,6 +77,9 @@
 							<li><a class="section-scroll" href="#Encryption">Encryption</a></li>
 							<li><a class="section-scroll" href="#Decryption">Decryption</a></li>
 							<li><a class="section-scroll" href="#Drive">Drive</a></li>
+							<%if(user_id.equals("admin")) { %>
+							<li><a class="section-scroll" href="/admin/admin_userlist.do">Admin</a></li>
+							<%} %>
 						</ul>
 					</div>
 				</div>

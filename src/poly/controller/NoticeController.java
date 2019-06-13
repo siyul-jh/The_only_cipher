@@ -58,11 +58,14 @@ public class NoticeController {
 			HashMap<String, Object> sMap = new HashMap<>();
 			hMap.put("pagenum",i);
 			hMap.put("contentnum", j);
-			//List<NoticeDTO> cList = new ArrayList<>();
 			rList = noticeService.getNoticeList(hMap);
 			// 페이징 정보 전달.
 			if (rList == null) {
 				rList = new ArrayList<NoticeDTO>();
+			}
+			for(int r = 0; r < rList.size(); r++) {
+				String ReXSS_Title = getReXSS(rList.get(r).getTitle());
+				rList.get(r).setTitle(ReXSS_Title);
 			}
 			sMap.put("rList", rList);
 			sMap.put("paging", paging);
@@ -82,7 +85,12 @@ public class NoticeController {
 		NoticeDTO nDTO = new NoticeDTO();
 		nDTO.setNotice_seq(notice_seq);
 		List<NoticeDTO> cList = noticeService.getNoticeDetail(nDTO);
-		//int updateCount=noticeService.NoticeCount(notice_seq);
+		for(int i = 0; i < cList.size(); i++) {
+			String ReXSS_Title = getReXSS(cList.get(i).getTitle());
+			String ReXSS_Contents = getReXSS(cList.get(i).getContents());
+			cList.get(i).setTitle(ReXSS_Title);
+			cList.get(i).setContents(ReXSS_Contents);
+		}
 		sMap.put("cList",cList);
 		sMap.put("user_id", user_id);
 		return sMap;
@@ -90,14 +98,10 @@ public class NoticeController {
 	// 게시글 작성
 	@RequestMapping(value = "/NoticeAdd", method = RequestMethod.POST)
 	public String insertBoard(String editor,HttpServletRequest request, Model model) throws Exception {
-		
 		String title = request.getParameter("title");
 		String yn = request.getParameter("yn");
 		String contents = request.getParameter("contents");
 		String user_id = "admin";
-		System.out.println("title : " + title);
-		System.out.println("yn : " + yn);
-		System.out.println("contents : " + contents);
 
 		NoticeDTO nDTO = new NoticeDTO();
 		nDTO.setTitle(title);
@@ -151,7 +155,7 @@ public class NoticeController {
 		return "/Source/alert";
 	}
 	// 게시글 삭제
-	@RequestMapping(value = "/NoticeoDelete", method = RequestMethod.GET)
+	@RequestMapping(value = "/NoticeoDelete", method = RequestMethod.POST)
 	public String NoticeoDelete(HttpServletRequest request, Model model) throws Exception {
 		String notice_seq = request.getParameter("notice_seq");
 		int result = noticeService.noticeDelete(notice_seq);
@@ -165,5 +169,18 @@ public class NoticeController {
 		model.addAttribute("msg", msg);
 		model.addAttribute("url", url);
 		return "/Source/alert";
+	}
+	
+	//XSS 처리된 텍스트들을 돌림
+    public String getReXSS(String value) {
+		value = value.replaceAll("& lt;" , "<");
+		value = value.replaceAll("& gt;" , ">");
+		value = value.replaceAll("& #40;", "(");
+		value = value.replaceAll("& #41;", ")");
+		value = value.replaceAll("& #39;", "'");
+		value = value.replaceAll("& #star;", "'");
+		value = value.replaceAll("\\\"\\\"", "[\\\"\\\'][\\s]*javascript:(.*)[\\\"\\\']");
+		value = value.replaceAll("& #scp;", "script");
+		return value;
 	}
 }

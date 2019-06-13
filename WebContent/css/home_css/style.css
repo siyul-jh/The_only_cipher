@@ -889,7 +889,6 @@ blockquote {
 
 .font-alt {
   font-family: "Roboto Condensed", sans-serif;
-  text-transform: uppercase;
   letter-spacing: 2px;
 }
 
@@ -1700,6 +1699,9 @@ Google map
   margin: 0 0 10px;
   font-size: 14px;
   color: #111;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .menu-price-detail {

@@ -64,7 +64,7 @@
     position: absolute;
     right: 0;
     top: 0;
-    z-index: 1000;
+    z-index: 999;
     background: #1a6d77;
     display: none;
 }
@@ -286,7 +286,7 @@
 .newsletter textarea:focus,
 .newsletter select:focus { 
     background: #f7f6f6;
-	color: #939898;
+	color: #000000;
 }
 
 .newsletter input.submit { 
